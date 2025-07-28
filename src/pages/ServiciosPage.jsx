@@ -90,7 +90,7 @@ const ServiciosPage = () => {
         {/* Encabezado de la página */}
         <div className="bg-gray-50 pt-16 pb-12">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl font-playfair font-bold text-gray-800 mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 uppercase tracking-wider mb-4">
               NUESTROS SERVICIOS
             </h1>
             <div className="w-20 h-1 bg-red-500 mx-auto"></div>
@@ -131,7 +131,7 @@ const ServiciosPage = () => {
                   <div className="flex items-center gap-4 mb-6">
                     <img src={servicio.icon} alt={`Ícono ${servicio.title}`} className="w-16 h-16" />
                     <div>
-                      <h3 className="text-2xl md:text-3xl font-playfair font-bold text-gray-800">
+                      <h3 className="text-2xl md:text-3xl font-bold text-gray-800 uppercase tracking-wider">
                         {servicio.title}
                       </h3>
                       <div className="w-24 h-0.5 bg-red-500 mt-2"></div>

@@ -23,7 +23,7 @@ const Footer = () => {
                   </div>
                   <div className="flex flex-col">
                     <span className="text-white font-bold text-lg leading-tight">ABM ESTUDIO CONTABLE</span>
-                    <span className="text-gray-400 text-xs uppercase">Lic. Isabella Soler</span>
+                    <span className="text-gray-400 text-xs uppercase">Lic. Alejandra Mayta</span>
                   </div>
                 </div>
               </Link>
@@ -31,7 +31,7 @@ const Footer = () => {
                 <h4 className="text-white font-bold text-lg mb-2">Oficina</h4>
                 <p className="flex items-start">
                   <FaMapMarkerAlt className="mr-2 mt-1 text-red-500" />
-                  <span>Miranda 4765, Piso 9, Oficina "B" - C.A.B.A.</span>
+                  <span>Parque Patricios</span>
                 </p>
               </div>
             </div>

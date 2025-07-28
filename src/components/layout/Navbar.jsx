@@ -75,7 +75,7 @@ const Navbar = () => {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-gray-800 font-bold text-lg leading-tight">ABM ESTUDIO CONTABLE</span>
-                  <span className="text-gray-600 text-xs uppercase">Lic. Isabella Soler</span>
+                  <span className="text-gray-600 text-xs uppercase">Lic. Alejandra Mayta</span>
                 </div>
               </div>
             </Link>
