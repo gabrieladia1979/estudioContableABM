@@ -1,0 +1,109 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+:root {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  padding-top: 120px; /* Space for fixed navbar */
+  box-sizing: border-box;
+  background-color: #ffffff;
+  color: #333333;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom animations for Hero */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1s ease-out;
+}
+
+.animate-fade-in-up-delay {
+  animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+.animate-fade-in-up-delay-2 {
+  animation: fadeInUp 1s ease-out 0.6s both;
+}
+
+/* Custom styles for carousel that can't be handled by Tailwind */
+.hero-carousel .slick-dots {
+  bottom: 40px;
+  z-index: 20;
+}
+
+.hero-carousel .slick-dots li button:before {
+  font-size: 14px;
+  color: white;
+  opacity: 0.6;
+}
+
+.hero-carousel .slick-dots li.slick-active button:before {
+  opacity: 1;
+  color: #ef4444;
+}
+
+.hero-carousel .slick-prev,
+.hero-carousel .slick-next {
+  z-index: 20;
+  width: 60px;
+  height: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hero-carousel .slick-prev {
+  left: 30px;
+}
+
+.hero-carousel .slick-next {
+  right: 30px;
+}
+
+.hero-carousel .slick-prev:before,
+.hero-carousel .slick-next:before {
+  font-size: 30px;
+  color: white;
+  opacity: 0.8;
+}
+
+.hero-carousel .slick-prev:hover:before,
+.hero-carousel .slick-next:hover:before {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .hero-carousel .slick-prev,
+  .hero-carousel .slick-next {
+    display: none !important;
+  }
+  
+  .hero-carousel .slick-dots {
+    bottom: 20px;
+  }
+}
