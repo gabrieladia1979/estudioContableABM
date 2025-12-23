@@ -41,19 +41,19 @@ const Navbar = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
       {/* Top bar con información de contacto */}
-      <div className="bg-black text-white py-2 text-sm">
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          <div className="flex items-center space-x-6">
-            <a href="tel:+541168172147" className="flex items-center hover:text-red-500 transition-colors">
+      <div className="bg-black text-white py-2">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row md:justify-between md:items-center gap-2 md:gap-0">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-6 text-xs md:text-sm">
+            <a href="tel:+541168172147" className="flex items-center hover:text-red-500 transition-colors whitespace-nowrap">
               <i className="fa fa-phone mr-2"></i>
-              +54 11 6817 2147
+              <span>+54 11 6817 2147</span>
             </a>
-            <a href="mailto:abm.estudio.contable.00@gmail.com" className="flex items-center hover:text-red-500 transition-colors">
+            <a href="mailto:abm.estudio.contable.00@gmail.com" className="flex items-center hover:text-red-500 transition-colors truncate">
               <i className="fa fa-envelope mr-2"></i>
-              abm.estudio.contable.00@gmail.com
+              <span className="truncate">abm.estudio.contable.00@gmail.com</span>
             </a>
           </div>
-          <div className="hidden md:block">
+          <div className="hidden md:block text-xs md:text-sm">
             <span>Lunes a viernes de 9:30 a 18:00 hs</span>
           </div>
         </div>
@@ -86,9 +86,9 @@ const Navbar = () => {
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`font-semibold text-sm tracking-wide transition-colors duration-300 relative after:content-[''] after:absolute after:left-0 after:bottom-[-5px] after:w-full after:h-[2px] after:bg-red-500 after:transform after:scale-x-0 after:transition-transform after:duration-300 hover:text-red-500 hover:after:scale-x-100 ${
+                  className={`font-semibold text-sm tracking-wide transition-colors duration-300 relative after:content-[''] after:absolute after:left-0 after:bottom-[-5px] after:w-full after:h-[2px] after:bg-primary-700 after:transform after:scale-x-0 after:transition-transform after:duration-300 hover:text-primary-700 hover:after:scale-x-100 ${
                     isActiveLink(link.to)
-                      ? 'text-red-500 after:scale-x-100'
+                      ? 'text-primary-700 after:scale-x-100'
                       : 'text-gray-700'
                   }`}
                 >
@@ -99,7 +99,7 @@ const Navbar = () => {
                 href="https://wa.me/541168172147"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-full text-sm transition-all duration-300 transform hover:scale-105"
+                className="bg-primary-700 hover:bg-primary-800 text-white font-semibold py-2 px-6 rounded-full text-sm transition-all duration-300 transform hover:scale-105"
               >
                 Whatsapp
               </a>
@@ -129,7 +129,7 @@ const Navbar = () => {
                     key={link.to}
                     to={link.to}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`font-semibold text-base py-2 ${isActiveLink(link.to) ? 'text-red-500' : 'text-gray-700 hover:text-red-500'}`}
+                    className={`font-semibold text-base py-2 ${isActiveLink(link.to) ? 'text-primary-700' : 'text-gray-700 hover:text-primary-700'}`}
                   >
                     {link.label}
                   </Link>
