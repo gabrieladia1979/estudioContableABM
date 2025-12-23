@@ -6,7 +6,7 @@ import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaFacebookF, FaTwitter, FaInsta
 const Footer = () => {
   return (
     <>
-      <footer className="bg-gray-900 text-gray-400 pt-16 pb-8">
+      <footer className="bg-primary-900 text-gray-300 pt-16 pb-8">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             
@@ -30,7 +30,7 @@ const Footer = () => {
               <div>
                 <h4 className="text-white font-bold text-lg mb-2">Oficina</h4>
                 <p className="flex items-start">
-                  <FaMapMarkerAlt className="mr-2 mt-1 text-red-500" />
+                  <FaMapMarkerAlt className="mr-2 mt-1 text-accent-500" />
                   <span>Parque Patricios</span>
                 </p>
               </div>
@@ -40,11 +40,11 @@ const Footer = () => {
             <div className="space-y-4">
               <h4 className="text-white font-bold text-lg mb-2">Contacto</h4>
               <a href="tel:+541168172147" className="flex items-center hover:text-white transition-colors">
-                <FaPhoneAlt className="mr-2 text-red-500" />
+                <FaPhoneAlt className="mr-2 text-accent-500" />
                 <span>+54 11 6817 2147</span>
               </a>
               <a href="mailto:abm.estudio.contable.00@gmail.com" className="flex items-center hover:text-white transition-colors">
-                <FaEnvelope className="mr-2 text-red-500" />
+                <FaEnvelope className="mr-2 text-accent-500" />
                 <span>abm.estudio.contable.00@gmail.com</span>
               </a>
             </div>
@@ -57,7 +57,7 @@ const Footer = () => {
                   href="https://beacons.ai/abm_mayta?fbclid=PAZXh0bgNhZW0CMTEAAafbrnFvlsV9KYwBnfTszOCwUp0e-tDdSe9UJfXN1A2Z3C_NZzUECu2CTIQvtw_aem_Y1SwIHQWqhgxnUUErb3sDQ" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-white hover:bg-red-500 transition-colors"
+                  className="w-10 h-10 bg-primary-700 rounded-full flex items-center justify-center text-white hover:bg-accent-500 transition-colors"
                 >
                   <FaFacebookF />
                 </a>
@@ -65,7 +65,7 @@ const Footer = () => {
                   href="https://beacons.ai/abm_mayta?fbclid=PAZXh0bgNhZW0CMTEAAafbrnFvlsV9KYwBnfTszOCwUp0e-tDdSe9UJfXN1A2Z3C_NZzUECu2CTIQvtw_aem_Y1SwIHQWqhgxnUUErb3sDQ" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-white hover:bg-red-500 transition-colors"
+                  className="w-10 h-10 bg-primary-700 rounded-full flex items-center justify-center text-white hover:bg-accent-500 transition-colors"
                 >
                   <FaTwitter />
                 </a>
@@ -73,7 +73,7 @@ const Footer = () => {
                   href="https://www.instagram.com/abm.estudiocontable/" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-white hover:bg-red-500 transition-colors"
+                  className="w-10 h-10 bg-primary-700 rounded-full flex items-center justify-center text-white hover:bg-accent-500 transition-colors"
                 >
                   <FaInstagram />
                 </a>
@@ -89,7 +89,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      <div className="bg-gray-800 text-gray-500 py-4">
+      <div className="bg-primary-800 text-gray-400 py-4">
         <div className="container mx-auto px-6 text-center md:flex md:justify-between">
           <p className="text-sm">&copy; {new Date().getFullYear()} ABM Estudio Contable. Todos los derechos reservados.</p>
           <p className="text-sm">Desarrollado por Empresa de Marketing Digital</p>

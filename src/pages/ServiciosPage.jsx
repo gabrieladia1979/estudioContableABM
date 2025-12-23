@@ -88,12 +88,12 @@ const ServiciosPage = () => {
       <Navbar />
       <main>
         {/* Encabezado de la página */}
-        <div className="bg-gray-50 pt-16 pb-12">
+        <div className="bg-primary-50 pt-16 pb-12">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 uppercase tracking-wider mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 uppercase tracking-wider mb-4">
               NUESTROS SERVICIOS
             </h1>
-            <div className="w-20 h-1 bg-red-500 mx-auto"></div>
+            <div className="w-20 h-1 bg-accent-500 mx-auto"></div>
           </div>
         </div>
 
@@ -104,7 +104,7 @@ const ServiciosPage = () => {
             {/* Menú de Navegación Lateral */}
             <aside className="lg:w-1/4 lg:sticky lg:top-36 self-start">
               <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                <h3 className="font-bold text-lg text-gray-800 mb-4">Áreas de Servicio</h3>
+                <h3 className="font-bold text-lg text-gray-900 mb-4">Áreas de Servicio</h3>
                 <ul className="space-y-2">
                   {servicios.map((servicio) => (
                     <li key={servicio.id}>
@@ -112,8 +112,8 @@ const ServiciosPage = () => {
                         to={servicio.id} spy={true} smooth={true} offset={-120} duration={500} onSetActive={handleSetActive}
                         className={`cursor-pointer block font-inter font-medium transition-all duration-300 py-1 ${
                           activeService === servicio.id
-                            ? 'text-red-600 font-semibold border-l-4 border-red-600 pl-4'
-                            : 'text-gray-600 hover:text-red-500 hover:pl-2 border-l-4 border-transparent pl-4'
+                            ? 'text-primary-700 font-semibold border-l-4 border-primary-700 pl-4'
+                            : 'text-gray-700 hover:text-primary-700 hover:pl-2 border-l-4 border-transparent pl-4'
                         }`}
                       >
                         {servicio.title}
@@ -131,27 +131,27 @@ const ServiciosPage = () => {
                   <div className="flex items-center gap-4 mb-6">
                     <img src={servicio.icon} alt={`Ícono ${servicio.title}`} className="w-16 h-16" />
                     <div>
-                      <h3 className="text-2xl md:text-3xl font-bold text-gray-800 uppercase tracking-wider">
+                      <h3 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wider">
                         {servicio.title}
                       </h3>
-                      <div className="w-24 h-0.5 bg-red-500 mt-2"></div>
+                      <div className="w-24 h-0.5 bg-accent-500 mt-2"></div>
                     </div>
                   </div>
                   {servicio.subtitle && (
-                    <p className="text-gray-600 font-inter mb-6 italic">
+                    <p className="text-gray-700 font-inter mb-6 italic">
                       {servicio.subtitle}
                     </p>
                   )}
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3">
                     {servicio.items.map((item, itemIndex) => (
                       <li key={itemIndex} className="flex items-start">
-                        <span className="text-red-500 mr-3 mt-1 font-bold">•</span>
-                        <span className="text-gray-700 font-inter">{item}</span>
+                        <span className="text-accent-500 mr-3 mt-1 font-bold">•</span>
+                        <span className="text-gray-800 font-inter">{item}</span>
                       </li>
                     ))}
                   </ul>
                   {/* Divisor visual entre secciones */}
-                  <hr className="mt-12 border-gray-200" />
+                  <hr className="mt-12 border-gray-300" />
                 </Element>
               ))}
             </div>
