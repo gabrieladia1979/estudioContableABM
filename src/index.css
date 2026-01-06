@@ -22,6 +22,12 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
+/* Evita desbordes horizontales que impidan el escalado al hacer zoom */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
