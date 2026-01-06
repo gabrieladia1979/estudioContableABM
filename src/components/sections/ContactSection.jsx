@@ -45,35 +45,36 @@ const ContactSection = () => {
 
     setIsSubmitting(true);
     
-    // Netlify Forms maneja el envío automáticamente
-    // Solo necesitamos hacer submit del formulario nativo
-    const form = e.target;
-    
-    // Crear FormData para envío nativo a Netlify
-    const formDataToSend = new FormData(form);
-    
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formDataToSend).toString(),
-    })
-      .then(() => {
-        setSubmitStatus('success');
-        setFormData({ name: '', email: '', phone: '', message: '' });
-        setErrors({});
-        form.reset();
-        
-        // Limpiar el mensaje de éxito después de 5 segundos
-        setTimeout(() => {
-          setSubmitStatus('');
-        }, 5000);
+      // Enviar al backend local (configurar URL si es distinto)
+      fetch('http://localhost:4000/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message
+        }),
       })
-      .catch(() => {
-        setSubmitStatus('error');
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
+        .then(async (res) => {
+          if (!res.ok) throw new Error('Error en el servidor');
+          await res.json();
+          setSubmitStatus('success');
+          setFormData({ name: '', email: '', phone: '', message: '' });
+          setErrors({});
+          e.target.reset();
+
+          // Limpiar el mensaje de éxito después de 5 segundos
+          setTimeout(() => {
+            setSubmitStatus('');
+          }, 5000);
+        })
+        .catch(() => {
+          setSubmitStatus('error');
+        })
+        .finally(() => {
+          setIsSubmitting(false);
+        });
   };
 
   return (
@@ -82,13 +83,9 @@ const ContactSection = () => {
         <div className="max-w-4xl mx-auto bg-gray-50 p-8 md:p-12 rounded-lg shadow-xl">
           <form 
             name="contact" 
-            method="POST" 
-            netlify 
             onSubmit={handleSubmit} 
             noValidate
           >
-            {/* Campo oculto requerido por Netlify Forms */}
-            <input type="hidden" name="form-name" value="contact" />
             
             {submitStatus === 'success' && (
               <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-800 rounded-md flex items-start">
