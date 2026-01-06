@@ -39,11 +39,6 @@ const ContactSection = () => {
   return (
     <section id="contacto" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Contáctanos</h2>
-          <p className="text-xl text-gray-600">Estamos aquí para ayudarte a crecer</p>
-        </div>
-
         <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Información de Contacto (Izquierda) */}
           <div className="space-y-8">
