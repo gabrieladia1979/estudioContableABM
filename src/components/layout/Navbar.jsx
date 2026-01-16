@@ -1,6 +1,8 @@
 // src/components/layout/Navbar.jsx
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa';
+import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,6 +33,7 @@ const Navbar = () => {
     { to: '/', label: 'INICIO' },
     { to: '/estudio', label: 'ESTUDIO' },
     { to: '/servicios', label: 'SERVICIOS' },
+    { to: '/novedades', label: 'NOVEDADES' },
     { to: '/contacto', label: 'CONTACTO' },
   ];
 
@@ -40,108 +43,99 @@ const Navbar = () => {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
-      {/* Top bar con información de contacto */}
-      <div className="bg-black text-white py-2">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row md:justify-between md:items-center gap-2 md:gap-0">
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-6 text-xs md:text-sm">
-            <a href="tel:+541168172147" className="flex items-center hover:text-red-500 transition-colors whitespace-nowrap">
-              <i className="fa fa-phone mr-2"></i>
-              <span>+54 11 6817 2147</span>
-            </a>
-            <a href="mailto:abm.estudio.contable.00@gmail.com" className="flex items-center hover:text-red-500 transition-colors truncate">
-              <i className="fa fa-envelope mr-2"></i>
-              <span className="truncate">abm.estudio.contable.00@gmail.com</span>
-            </a>
+      
+      {/* Top bar con información de contacto - Estilo Corporate Blue */}
+      <div className="bg-primary-900 text-white py-2.5 text-xs md:text-sm font-medium tracking-wide">
+        <div className="container mx-auto px-6 flex flex-col lg:flex-row justify-between items-center gap-2">
+          
+          {/* Lado Izquierdo: Datos de contacto */}
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+            <div className="flex items-center gap-2">
+              <FaMapMarkerAlt className="text-accent-500" />
+              <span className="opacity-90 hover:opacity-100 cursor-default">Buenos Aires, Argentina (CABA)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <FaPhoneAlt className="text-accent-500" />
+              <a href="tel:+541168172147" className="opacity-90 hover:opacity-100 hover:text-accent-400 transition-colors">+54 11 6817 2147</a>
+            </div>
+            <div className="flex items-center gap-2">
+              <FaWhatsapp className="text-accent-500 text-base" />
+              <a href="https://wa.me/541168172147" target="_blank" rel="noopener noreferrer" className="opacity-90 hover:opacity-100 hover:text-accent-400 transition-colors">+54 11 6817 2147</a>
+            </div>
           </div>
-          <div className="hidden md:block text-xs md:text-sm">
-            <span>Lunes a viernes de 9:30 a 18:00 hs</span>
+
+          {/* Lado Derecho: Redes Sociales */}
+          <div className="flex items-center gap-4">
+             <a href="https://www.instagram.com/abm.estudiocontable/" target="_blank" rel="noopener noreferrer" className="hover:text-accent-500 transition-colors"><FaInstagram size={16} /></a>
+             <a href="#" className="hover:text-accent-500 transition-colors"><FaFacebookF size={16} /></a>
+             <a href="#" className="hover:text-accent-500 transition-colors"><FaLinkedinIn size={16} /></a>
           </div>
         </div>
       </div>
 
       {/* Navegación principal */}
-      <nav className="bg-white shadow-md">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center py-4">
+      <nav className="bg-white shadow-lg border-b border-gray-100">
+        <div className="container mx-auto px-6">
+          <div className="flex justify-between items-center h-24">
+            
             {/* Logo */}
-            <Link to="/" className="flex items-center">
-              <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 flex items-center justify-center">
-                  <img 
+            <Link to="/" className="flex items-center group">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 flex items-center justify-center bg-primary-50 rounded-lg p-1 group-hover:bg-primary-100 transition-colors duration-300">
+                   <img 
                     src="/icons/isabella soler.jpg" 
                     alt="ABM Estudio Contable" 
-                    className="w-full h-full object-contain rounded"
+                    className="w-full h-full object-cover rounded shadow-sm"
                   />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-gray-800 font-bold text-lg leading-tight">ABM ESTUDIO CONTABLE</span>
-                  <span className="text-gray-600 text-xs uppercase">Lic. Alejandra Mayta</span>
+                  <span className="text-primary-900 font-bold text-xl leading-none tracking-tight">ABM ESTUDIO</span>
+                  <span className="text-accent-500 text-xs font-bold uppercase tracking-[0.2em] mt-1">Contable & Impositivo</span>
                 </div>
               </div>
             </Link>
 
             {/* Navegación de escritorio */}
-            <div className="hidden lg:flex items-center space-x-8">
+            <div className="hidden lg:flex items-center gap-8">
               {navLinks.map((link) => (
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`font-semibold text-sm tracking-wide transition-colors duration-300 relative after:content-[''] after:absolute after:left-0 after:bottom-[-5px] after:w-full after:h-[2px] after:bg-primary-700 after:transform after:scale-x-0 after:transition-transform after:duration-300 hover:text-primary-700 hover:after:scale-x-100 ${
+                  className={`font-bold text-sm uppercase tracking-wider transition-all duration-300 relative group py-2 ${
                     isActiveLink(link.to)
-                      ? 'text-primary-700 after:scale-x-100'
-                      : 'text-gray-700'
+                      ? 'text-accent-500'
+                      : 'text-gray-800 hover:text-accent-500'
                   }`}
                 >
                   {link.label}
+                  <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-accent-500 transform origin-left transition-transform duration-300 ${isActiveLink(link.to) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
                 </Link>
               ))}
-              <a
-                href="https://wa.me/541168172147"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-primary-700 hover:bg-primary-800 text-white font-semibold py-2 px-6 rounded-full text-sm transition-all duration-300 transform hover:scale-105"
-              >
-                Whatsapp
-              </a>
             </div>
 
             {/* Botón de menú móvil */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 rounded-md text-gray-700 hover:text-red-500 focus:outline-none"
+              className="lg:hidden p-2 rounded-md text-primary-900 hover:bg-primary-50 focus:outline-none transition-colors"
             >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                {isMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
+              {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           </div>
 
           {/* Navegación móvil */}
           {isMenuOpen && (
-            <div className="lg:hidden border-t border-gray-200 py-4">
-              <div className="flex flex-col space-y-4 items-start">
+            <div className="lg:hidden border-t border-gray-100 py-6 bg-white absolute left-0 right-0 shadow-xl px-6 animate-fade-in-down top-full">
+              <div className="flex flex-col space-y-4">
                 {navLinks.map((link) => (
                   <Link
                     key={link.to}
                     to={link.to}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`font-semibold text-base py-2 ${isActiveLink(link.to) ? 'text-primary-700' : 'text-gray-700 hover:text-primary-700'}`}
+                    className={`font-bold text-sm uppercase tracking-wider py-3 border-b border-gray-50 ${isActiveLink(link.to) ? 'text-accent-500' : 'text-gray-800'}`}
                   >
                     {link.label}
                   </Link>
                 ))}
-                <a
-                  href="https://wa.me/541168172147"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-full text-sm text-center mt-2"
-                >
-                  Whatsapp
-                </a>
               </div>
             </div>
           )}
