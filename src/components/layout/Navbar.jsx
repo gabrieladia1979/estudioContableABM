@@ -32,6 +32,7 @@ const Navbar = () => {
   const navLinks = [
     { to: '/', label: 'INICIO' },
     { to: '/estudio', label: 'ESTUDIO' },
+    { to: '/crear-sociedad', label: 'CREAR SOCIEDAD' },
     { to: '/servicios', label: 'SERVICIOS' },
     { to: '/novedades', label: 'NOVEDADES' },
     { to: '/contacto', label: 'CONTACTO' },
