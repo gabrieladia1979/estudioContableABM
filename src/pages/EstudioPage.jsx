@@ -17,7 +17,7 @@ const EstudioPage = () => {
               </h1>
               <div className="w-20 h-1 bg-accent-500 mx-auto mb-6"></div>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-                Conoce más sobre nuestra trayectoria, experiencia y compromiso profesional
+                Conocé cómo trabajamos y de qué manera podemos acompañarte.
               </p>
             </div>
           </div>

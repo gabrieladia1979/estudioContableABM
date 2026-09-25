@@ -1,180 +1,74 @@
-// src/pages/ServiciosPage.jsx
-import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { ArrowDown, ArrowRight, ArrowUpRight, Check, MessageCircle } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
-import { Link as ScrollLink, Element } from 'react-scroll';
-import { Link as RouterLink } from 'react-router-dom';
+import { whatsappLink } from '../data/contact';
+import { serviceDetails } from '../data/serviceDetails';
 
 const ServiciosPage = () => {
-  // Array de servicios ahora incluye la ruta del ícono
-  const servicios = [
-    {
-      id: "asesoramiento-tributario",
-      title: "Asesoramiento Tributario",
-      icon: "/icons/asesoramiento-tributario.png", // Ícono añadido
-      items: [
-        "Asesoramiento impositivo para empresas y sociedades",
-        "Liquidación de impuestos: ganancias, bienes personales, IVA, ingresos brutos, convenio multilateral",
-        "Presentación de regímenes de información",
-        "Planeamiento Fiscal",
-        "Atención de inspecciones impositivas AFIP, AGIP, ARBA",
-        "Contestación de intimaciones, requerimientos, verificaciones",
-        "Planes de facilidades de pago y moratorias",
-        "Relevamiento de situación tributaria y confección de plan de regularización",
-        "Comunicación permanente de novedades tributarias pertinentes a cada cliente"
-      ]
-    },
-    {
-      id: "contabilidad-balances",
-      title: "Contabilidad y Balances",
-      icon: "/icons/contabilidad-balances.png", // Ícono añadido
-      items: [
-        "Asesoramiento contable para empresas y sociedades",
-        "Elaboración de estados contables (balances)",
-        "Auditoría de estados contables de acuerdo con normas profesionales",
-        "Outsourcing contable",
-        "Evaluación de procedimientos contables y administrativos",
-        "Asesoramiento para la implementación de nuevos sistemas contables",
-        "Emisión de informes y certificaciones"
-      ]
-    },
-    {
-      id: "empresas-sociedades",
-      title: "Empresas y Sociedades",
-      icon: "/icons/empresas-sociedades.png", // Ícono añadido
-      subtitle: "Contamos con los equipos y profesionales para asesorar a tu empresa. Armamos un plan de trabajo a medida según las necesidades del cliente, proveyendo personal en el cliente de ser necesario.",
-      items: [
-        "Constitución de sociedades", "Reformas estatutarias", "Designación y renuncia de administradores",
-        "Cambio de jurisdicción", "Cambio de sede social", "Reorganización de sociedades: transformación, fusión escisión"
-      ]
-    },
-    {
-      id: "pymes",
-      title: "Pymes",
-      icon: "/icons/pymes.png", // Ícono añadido
-      subtitle: "Si tenés una empresa pequeña o familiar podemos ayudarte a ordenar procesos y lograr una mejor gestión administrativo-contable, tributaria y laboral.",
-      items: [
-        "Tercerización contable", "Consultoría pymes", "Consultoría administrativo contable", "Confección de reportes de gestión a medida"
-      ]
-    },
-    {
-      id: "sueldos",
-      title: "Sueldos",
-      icon: "/icons/sueldos.png", // Ícono añadido
-      items: [
-        "Liquidación de sueldos y cargas sociales", "Liquidación de cargas sindicales",
-        "Certificaciones de servicios y remuneraciones", "Libros de sueldos y jornales", "Selección de personal"
-      ]
-    },
-    {
-      id: "personas",
-      title: "Personas",
-      icon: "/icons/personas.png", // Ícono añadido
-      items: [
-        "Responsables Inscriptos", "Autónomos", "Ganancias y Bienes Personales", "Monotributistas",
-        "Certificaciones de Ingresos y origen de fondos"
-      ]
-    }
-  ];
+  const { hash } = useLocation();
 
-  const [activeService, setActiveService] = useState(servicios[0].id);
-
-  const handleSetActive = (to) => {
-    setActiveService(to);
-  };
+  useEffect(() => {
+    if (!hash) return;
+    const id = decodeURIComponent(hash.slice(1));
+    requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView());
+  }, [hash]);
 
   return (
-    <div className="bg-white">
+    <div className="bg-[#f7f9fb]">
       <Navbar />
       <main>
-        {/* Encabezado de la página */}
-        <div className="bg-primary-50 pt-16 pb-12">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 uppercase tracking-wider mb-4">
-              NUESTROS SERVICIOS
-            </h1>
-            <div className="w-20 h-1 bg-accent-500 mx-auto"></div>
-          </div>
-        </div>
-
-        {/* Sección de detalles de servicios */}
-        <div className="container mx-auto px-4 py-16">
-          <div className="flex flex-col lg:flex-row gap-12">
-            
-            {/* Menú de Navegación Lateral */}
-            <aside className="lg:w-1/4 lg:sticky lg:top-36 self-start">
-              <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                <h3 className="font-bold text-lg text-gray-900 mb-4">Áreas de Servicio</h3>
-                <ul className="space-y-2">
-                  {servicios.map((servicio) => (
-                    <li key={servicio.id}>
-                      <ScrollLink
-                        to={servicio.id} spy={true} smooth={true} offset={-120} duration={500} onSetActive={handleSetActive}
-                        className={`cursor-pointer block font-inter font-medium transition-all duration-300 py-1 ${
-                          activeService === servicio.id
-                            ? 'text-primary-700 font-semibold border-l-4 border-primary-700 pl-4'
-                            : 'text-gray-700 hover:text-primary-700 hover:pl-2 border-l-4 border-transparent pl-4'
-                        }`}
-                      >
-                        {servicio.title}
-                      </ScrollLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </aside>
-
-            {/* Contenido de los Servicios */}
-            <div className="lg:w-3/4">
-              {servicios.map((servicio) => (
-                <Element name={servicio.id} key={servicio.id} className="mb-12">
-                  <div className="flex items-center gap-4 mb-6">
-                    <img src={servicio.icon} alt={`Ícono ${servicio.title}`} className="w-16 h-16" />
-                    <div>
-                      <h3 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wider">
-                        {servicio.title}
-                      </h3>
-                      <div className="w-24 h-0.5 bg-accent-500 mt-2"></div>
-                    </div>
-                  </div>
-                  {servicio.subtitle && (
-                    <p className="text-gray-700 font-inter mb-6 italic">
-                      {servicio.subtitle}
-                    </p>
-                  )}
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3">
-                    {servicio.items.map((item, itemIndex) => (
-                      <li key={itemIndex} className="flex items-start">
-                        <span className="text-accent-500 mr-3 mt-1 font-bold">•</span>
-                        <span className="text-gray-800 font-inter">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  {/* Divisor visual entre secciones */}
-                  <hr className="mt-12 border-gray-300" />
-                </Element>
-              ))}
+        <section className="relative isolate overflow-hidden bg-primary-900 text-white">
+          <img src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&w=1800&q=85" alt="" className="absolute inset-0 h-full w-full object-cover object-center" />
+          <div className="absolute inset-0 bg-primary-950/75" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary-950/80 to-transparent" aria-hidden="true" />
+          <div className="container relative z-10 mx-auto grid min-h-[460px] items-center gap-10 px-6 py-20 lg:grid-cols-[1.25fr_0.75fr]">
+            <div className="max-w-3xl">
+              <p className="mb-5 text-sm font-bold uppercase tracking-[0.18em] text-accent-200">Servicios profesionales · ABM</p>
+              <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">Soluciones para cada etapa de tu actividad.</h1>
+              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/85">Impuestos, contabilidad, sueldos y asesoramiento para empresas, pymes y personas. Encontrá el servicio que necesitás y contanos tu situación.</p>
+              <a href="#explorar-servicios" className="mt-9 inline-flex items-center gap-2 rounded-lg bg-accent-500 px-7 py-4 font-bold text-white transition hover:bg-accent-600">Explorar servicios <ArrowDown size={18} /></a>
+            </div>
+            <div className="hidden justify-self-end rounded-2xl border border-white/20 bg-primary-950/35 p-7 backdrop-blur-sm lg:block">
+              <p className="mb-5 text-xs font-bold uppercase tracking-[0.16em] text-accent-200">Trabajamos con</p>
+              <div className="space-y-4 text-xl font-semibold"><p>Empresas y pymes</p><div className="h-px bg-white/20" /><p>Emprendedores</p><div className="h-px bg-white/20" /><p>Profesionales y personas</p></div>
             </div>
           </div>
-        </div>
-
-        {/* Sección de Llamada a la Acción (CTA) */}
-        <section className="bg-gray-50 py-20">
-            <div className="container mx-auto px-4 text-center">
-                <h2 className="text-3xl font-bold font-playfair text-gray-800 mb-4">¿Listo para ordenar tus finanzas?</h2>
-                <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-                    Solicita una entrevista y descubre cómo podemos ayudarte a alcanzar tus objetivos.
-                </p>
-                <a
-                    href="https://beacons.ai/abm_mayta?fbclid=PAZXh0bgNhZW0CMTEAAafbrnFvlsV9KYwBnfTszOCwUp0e-tDdSe9UJfXN1A2Z3C_NZzUECu2CTIQvtw_aem_Y1SwIHQWqhgxnUUErb3sDQ"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block bg-red-500 text-white font-bold py-4 px-10 rounded-md hover:bg-red-600 transition-colors text-lg"
-                >
-                    Solicitar una entrevista
-                </a>
-            </div>
         </section>
+
+        <section id="explorar-servicios" className="container mx-auto px-6 pb-12 pt-20 md:pt-24">
+          <div className="mb-10 max-w-2xl"><p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent-700">Encontrá tu punto de partida</p><h2 className="text-3xl font-bold text-primary-900 md:text-4xl">¿En qué podemos ayudarte?</h2><p className="mt-4 text-lg text-gray-600">Elegí un área para ver el alcance del servicio. Si tu consulta abarca varios temas, podemos orientarte desde el primer contacto.</p></div>
+          <nav aria-label="Ir a un servicio" className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
+            {serviceDetails.map(service => <a key={service.id} href={`#${service.id}`} className="group flex min-h-36 flex-col justify-between rounded-xl border border-primary-100 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:border-accent-300 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500"><img src={service.icon} alt="" className="h-11 w-11 object-contain" /><span className="mt-5 flex items-end justify-between gap-2 text-sm font-bold leading-snug text-primary-900 group-hover:text-accent-700">{service.title}<ArrowUpRight size={16} className="shrink-0" /></span></a>)}
+          </nav>
+        </section>
+
+        <div className="container mx-auto space-y-6 px-6 pb-20 md:pb-24">
+          {serviceDetails.map((service, index) => (
+            <section id={service.id} key={service.id} className="scroll-mt-28 overflow-hidden rounded-2xl border border-primary-100 bg-white shadow-sm">
+              <div className="grid lg:grid-cols-[0.39fr_0.61fr]">
+                <div className={`relative p-7 md:p-10 ${index % 2 === 0 ? 'bg-primary-900 text-white' : 'bg-[#eaf0f5] text-primary-900'}`}>
+                  <span className={`absolute right-7 top-6 text-5xl font-bold ${index % 2 === 0 ? 'text-white/10' : 'text-primary-200'}`} aria-hidden="true">0{index + 1}</span>
+                  <div className="mb-7 flex h-16 w-16 items-center justify-center rounded-xl bg-white p-3 shadow-sm"><img src={service.icon} alt="" className="h-full w-full object-contain" /></div>
+                  <p className={`mb-3 text-xs font-bold uppercase tracking-[0.17em] ${index % 2 === 0 ? 'text-accent-200' : 'text-accent-700'}`}>{service.category}</p>
+                  <h2 className="mb-5 max-w-sm text-3xl font-bold leading-tight">{service.title}</h2>
+                  <p className={`max-w-md text-lg leading-relaxed ${index % 2 === 0 ? 'text-primary-100' : 'text-primary-800'}`}>{service.summary}</p>
+                  <div className={`mt-8 border-t pt-6 ${index % 2 === 0 ? 'border-white/20' : 'border-primary-200'}`}><p className="mb-2 text-xs font-bold uppercase tracking-[0.15em]">¿Para quién?</p><p className={`leading-relaxed ${index % 2 === 0 ? 'text-primary-100' : 'text-primary-800'}`}>{service.fit}</p></div>
+                </div>
+                <div className="flex flex-col p-7 md:p-10">
+                  <p className="mb-6 text-sm font-bold uppercase tracking-[0.15em] text-accent-700">Qué podemos hacer</p>
+                  <ul className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
+                    {service.items.map(item => <li key={item} className="flex items-start gap-3 leading-relaxed text-gray-700"><span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent-50 text-accent-700"><Check size={13} strokeWidth={3} /></span><span>{item}</span></li>)}
+                  </ul>
+                  <a href={whatsappLink(`Hola, quisiera consultar por ${service.title.toLowerCase()}.`)} target="_blank" rel="noopener noreferrer" className="mt-9 inline-flex self-start items-center gap-2 rounded-lg bg-accent-500 px-6 py-3.5 font-bold text-white transition hover:bg-accent-600"><MessageCircle size={19} /> Consultar por este servicio <ArrowRight size={18} /></a>
+                </div>
+              </div>
+            </section>
+          ))}
+        </div>
+
+        <section className="bg-primary-900 py-20 text-white"><div className="container mx-auto flex flex-col gap-8 px-6 md:flex-row md:items-center md:justify-between"><div className="max-w-2xl"><p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent-200">Hablemos de tu caso</p><h2 className="text-3xl font-bold md:text-4xl">¿No sabés por dónde empezar?</h2><p className="mt-4 text-lg leading-relaxed text-primary-100">Contanos qué actividad realizás y qué necesitás resolver. Te ayudamos a identificar el servicio adecuado.</p></div><Link to="/contacto" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-accent-500 px-7 py-4 font-bold transition hover:bg-accent-600">Contactar al estudio <ArrowRight size={19} /></Link></div></section>
       </main>
       <Footer />
     </div>

@@ -1,149 +1,26 @@
-// src/components/layout/Navbar.jsx
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa';
-import { Menu, X } from 'lucide-react';
+import React, { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { Menu, X, MessageCircle } from 'lucide-react';
+import { whatsappLink } from '../../data/contact';
+
+const links = [
+  ['/', 'Inicio'], ['/estudio', 'El estudio'], ['/servicios', 'Servicios'],
+  ['/crear-sociedad', 'Crear sociedad'], ['/novedades', 'Recursos'], ['/contacto', 'Contacto'],
+];
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const location = useLocation();
-
-  useEffect(() => {
-    const controlNavbar = () => {
-      if (typeof window !== 'undefined') {
-        // Ocultar al hacer scroll hacia abajo, mostrar al hacer scroll hacia arriba
-        if (window.scrollY > lastScrollY && window.scrollY > 150) {
-          setIsVisible(false);
-        } else {
-          setIsVisible(true);
-        }
-        setLastScrollY(window.scrollY);
-      }
-    };
-
-    window.addEventListener('scroll', controlNavbar);
-    return () => {
-      window.removeEventListener('scroll', controlNavbar);
-    };
-  }, [lastScrollY]);
-
-  const navLinks = [
-    { to: '/', label: 'INICIO' },
-    { to: '/estudio', label: 'ESTUDIO' },
-    { to: '/crear-sociedad', label: 'CREAR SOCIEDAD' },
-    { to: '/servicios', label: 'SERVICIOS' },
-    { to: '/novedades', label: 'NOVEDADES' },
-    { to: '/contacto', label: 'CONTACTO' },
-  ];
-
-  const isActiveLink = (path) => {
-    return location.pathname === path;
-  };
-
-  return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
-      
-      {/* Top bar con información de contacto - Estilo Corporate Blue */}
-      <div className="bg-primary-900 text-white py-2.5 text-xs md:text-sm font-medium tracking-wide">
-        <div className="container mx-auto px-6 flex flex-col lg:flex-row justify-between items-center gap-2">
-          
-          {/* Lado Izquierdo: Datos de contacto */}
-          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-            <div className="flex items-center gap-2">
-              <FaMapMarkerAlt className="text-accent-500" />
-              <span className="opacity-90 hover:opacity-100 cursor-default">Buenos Aires, Argentina (CABA)</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <FaPhoneAlt className="text-accent-500" />
-              <a href="tel:+541168172147" className="opacity-90 hover:opacity-100 hover:text-accent-400 transition-colors">+54 11 6817 2147</a>
-            </div>
-            <div className="flex items-center gap-2">
-              <FaWhatsapp className="text-accent-500 text-base" />
-              <a href="https://wa.me/541168172147" target="_blank" rel="noopener noreferrer" className="opacity-90 hover:opacity-100 hover:text-accent-400 transition-colors">+54 11 6817 2147</a>
-            </div>
-          </div>
-
-          {/* Lado Derecho: Redes Sociales */}
-          <div className="flex items-center gap-4">
-             <a href="https://www.instagram.com/abm.estudiocontable/" target="_blank" rel="noopener noreferrer" className="hover:text-accent-500 transition-colors"><FaInstagram size={16} /></a>
-             <a href="#" className="hover:text-accent-500 transition-colors"><FaFacebookF size={16} /></a>
-             <a href="#" className="hover:text-accent-500 transition-colors"><FaLinkedinIn size={16} /></a>
-          </div>
-        </div>
-      </div>
-
-      {/* Navegación principal */}
-      <nav className="bg-white shadow-lg border-b border-gray-100">
-        <div className="container mx-auto px-6">
-          <div className="flex justify-between items-center h-24">
-            
-            {/* Logo */}
-            <Link to="/" className="flex items-center group">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 flex items-center justify-center bg-primary-50 rounded-lg p-1 group-hover:bg-primary-100 transition-colors duration-300">
-                   <img 
-                    src="/icons/isabella soler.jpg" 
-                    alt="ABM Estudio Contable" 
-                    className="w-full h-full object-cover rounded shadow-sm"
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-primary-900 font-bold text-xl leading-none tracking-tight">ABM ESTUDIO</span>
-                  <span className="text-accent-500 text-xs font-bold uppercase tracking-[0.2em] mt-1">Contable & Impositivo</span>
-                </div>
-              </div>
-            </Link>
-
-            {/* Navegación de escritorio */}
-            <div className="hidden lg:flex items-center gap-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className={`font-bold text-sm uppercase tracking-wider transition-all duration-300 relative group py-2 ${
-                    isActiveLink(link.to)
-                      ? 'text-accent-500'
-                      : 'text-gray-800 hover:text-accent-500'
-                  }`}
-                >
-                  {link.label}
-                  <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-accent-500 transform origin-left transition-transform duration-300 ${isActiveLink(link.to) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
-                </Link>
-              ))}
-            </div>
-
-            {/* Botón de menú móvil */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 rounded-md text-primary-900 hover:bg-primary-50 focus:outline-none transition-colors"
-            >
-              {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          </div>
-
-          {/* Navegación móvil */}
-          {isMenuOpen && (
-            <div className="lg:hidden border-t border-gray-100 py-6 bg-white absolute left-0 right-0 shadow-xl px-6 animate-fade-in-down top-full">
-              <div className="flex flex-col space-y-4">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.to}
-                    to={link.to}
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`font-bold text-sm uppercase tracking-wider py-3 border-b border-gray-50 ${isActiveLink(link.to) ? 'text-accent-500' : 'text-gray-800'}`}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </nav>
-    </header>
-  );
+  const [open, setOpen] = useState(false);
+  return <header className="sticky top-0 z-50 border-b border-primary-100 bg-white/95 shadow-sm backdrop-blur">
+    <div className="container mx-auto flex h-20 items-center justify-between gap-4 px-6">
+      <Link to="/" className="flex shrink-0 items-center gap-3" aria-label="ABM Estudio Contable, inicio">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white p-1 ring-1 ring-primary-100"><img src="/icons/isabella%20soler.jpg" alt="Logo de ABM Estudio Contable" className="h-full w-full object-contain" /></span>
+        <span className="hidden leading-tight sm:block"><strong className="block text-base text-primary-900">Estudio Contable</strong><span className="text-xs font-semibold uppercase tracking-[0.12em] text-accent-600">Contable e impositivo</span></span>
+      </Link>
+      <nav className="hidden items-center gap-3 lg:flex xl:gap-5" aria-label="Navegación principal">{links.map(([to, label]) => <NavLink key={to} to={to} end={to === '/'} className={({ isActive }) => `text-xs font-semibold transition hover:text-accent-700 xl:text-sm ${isActive ? 'text-accent-700' : 'text-primary-900'}`}>{label}</NavLink>)}</nav>
+      <div className="hidden items-center gap-3 lg:flex"><a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-lg bg-accent-500 px-4 py-3 text-sm font-bold text-white transition hover:bg-accent-600 xl:px-5"><MessageCircle size={18} /> Consultar</a></div>
+      <button type="button" onClick={() => setOpen(!open)} className="rounded-lg p-2 text-primary-900 lg:hidden" aria-label={open ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={open} aria-controls="mobile-navigation">{open ? <X /> : <Menu />}</button>
+    </div>
+    {open && <nav id="mobile-navigation" className="border-t border-primary-100 bg-white px-6 pb-6 pt-2 lg:hidden" aria-label="Navegación móvil"><div className="container mx-auto flex flex-col">{links.map(([to, label]) => <NavLink key={to} to={to} onClick={() => setOpen(false)} className={({ isActive }) => `border-b border-primary-50 py-3 font-semibold ${isActive ? 'text-accent-700' : 'text-primary-900'}`}>{label}</NavLink>)}<a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg bg-accent-500 px-5 py-3 font-bold text-white"><MessageCircle size={18} /> Consultar por WhatsApp</a></div></nav>}
+  </header>;
 };
-
 export default Navbar;

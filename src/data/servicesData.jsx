@@ -7,39 +7,39 @@
 // Asumimos que has guardado los nuevos íconos en la carpeta `public/icons`
 export const servicesData = [
   {
-    id: 'tributario',
+    id: 'asesoramiento-tributario',
     icon: '/icons/asesoramiento-tributario.png', // Ruta a la imagen del ícono
     title: 'Asesoramiento Tributario',
-    description: 'Ganancias, bienes, IVA, ingresos brutos.'
+    description: 'Orientación y gestión de impuestos según tu actividad y situación.'
   },
   {
-    id: 'contabilidad',
+    id: 'contabilidad-balances',
     icon: '/icons/contabilidad-balances.png', // Ruta a la imagen del ícono
     title: 'Contabilidad y Balances',
-    description: 'Auditoría y servicios contables para empresas.'
+    description: 'Información contable ordenada para cumplir obligaciones y tomar decisiones.'
   },
   {
     id: 'sueldos',
     icon: '/icons/sueldos.png', // Ruta a la imagen del ícono
     title: 'Sueldos',
-    description: 'Liquidación de sueldos y cargas sociales.'
+    description: 'Liquidación de haberes y seguimiento de las obligaciones laborales.'
   },
   {
-    id: 'sociedades',
+    id: 'empresas-sociedades',
     icon: '/icons/empresas-sociedades.png', // Ruta a la imagen del ícono
     title: 'Empresas y Sociedades',
-    description: 'Asesoramiento integral a empresas grandes y medianas.'
+    description: 'Acompañamiento contable e impositivo para la operación de tu empresa.'
   },
   {
     id: 'pymes',
     icon: '/icons/pymes.png', // Ruta a la imagen del ícono
     title: 'Pymes',
-    description: 'Asesoramiento integral a empresas pequeñas y familiares.'
+    description: 'Soporte para ordenar procesos y tener más claridad sobre el negocio.'
   },
   {
     id: 'personas',
     icon: '/icons/personas.png', // Ruta a la imagen del ícono
     title: 'Personas',
-    description: 'Físicas, Autónomos, Ganancias y Bienes Personales.'
+    description: 'Asesoramiento para profesionales, autónomos y otras personas físicas.'
   }
 ];

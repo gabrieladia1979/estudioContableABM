@@ -1,140 +1,55 @@
-# Configuración de EmailJS - Guía Paso a Paso
+# Activar el formulario de contacto por correo
 
-Este proyecto usa **EmailJS** para enviar correos desde el formulario de contacto sin necesidad de servidor backend.
+El formulario de Contacto usa EmailJS para mandar la consulta a la casilla del estudio desde el navegador, sin un servidor propio. La integración ya está en el código; falta vincularla con la cuenta de EmailJS.
 
-## ✅ Instalación Completada
+## 1. Conectar la casilla del estudio
 
-El paquete `@emailjs/browser` ya está instalado (`npm install @emailjs/browser`).
+1. Creá o abrí una cuenta en [EmailJS](https://www.emailjs.com/).
+2. En **Email Services**, conectá la casilla que va a recibir las consultas. El sitio muestra actualmente `abm.estudio.contable.00@gmail.com` como contacto.
+3. Copiá el **Service ID** del servicio conectado.
 
----
+## 2. Crear la plantilla de correo
 
-## 🚀 Paso 1: Crear Cuenta en EmailJS (5 minutos)
+En **Email Templates**, creá una plantilla con estos campos:
 
-1. Ve a [emailjs.com](https://www.emailjs.com/)
-2. Haz clic en **"Sign Up Free"**
-3. Crea tu cuenta con Google o tu email
-4. Verifica tu correo
+- **To Email:** la casilla que recibirá las consultas (por ejemplo, la dirección del estudio).
+- **Reply To:** `{{from_email}}`, para poder responder directamente a quien escribió.
+- **Subject:** `Consulta web: {{topic}} — {{from_name}}`.
+- **Contenido:**
 
----
+```text
+Nueva consulta desde el sitio de ABM
 
-## 🔧 Paso 2: Conectar tu Proveedor de Email
+Nombre: {{from_name}}
+Correo: {{from_email}}
+Tema: {{topic}}
 
-1. En el dashboard, ve a **"Email Services"**
-2. Haz clic en **"Add New Service"**
-3. Selecciona tu proveedor:
-   - **Gmail** (recomendado para empezar)
-   - Outlook
-   - Yahoo
-   - O cualquier otro SMTP
-
-### Para Gmail:
-- Se abrirá una ventana de Google para autorizar
-- Haz clic en "Autorizar"
-- **Copiar el Service ID** que aparece (se ve como `service_xxxxxxx`)
-
----
-
-## 📧 Paso 3: Crear una Plantilla de Email
-
-1. Ve a **"Email Templates"** en el menú izquierdo
-2. Haz clic en **"Create New Template"**
-3. Usa este ejemplo:
-
-### Template Details:
-- **Template Name:** Contact Form (o lo que prefieras)
-- **From Name:** {{from_name}} o dejar vacío
-- **From Email:** {{user_email}}
-- **To Email:** tu-email@tudominio.com (donde recibes los mensajes)
-- **Subject:** Nuevo contacto desde web: {{user_name}}
-
-### Email Content (puedes copiar esto):
-```
-Nombre: {{user_name}}
-Email: {{user_email}}
 Mensaje:
 {{message}}
 ```
 
-4. Haz clic en **"Save Template"**
-5. **Copiar el Template ID** (se ve como `template_xxxxxxx`)
+Copiá el **Template ID**.
 
----
+## 3. Configurar el proyecto
 
-## 🔑 Paso 4: Obtener tu Public API Key
+Copiá `.env.example` como `.env.local` en la carpeta principal del proyecto y completá los tres valores:
 
-1. Ve a **"Account"** → **"API Keys"**
-2. Busca la sección **"Public Key"**
-3. **Copiar tu Public Key** (es una cadena larga)
-
----
-
-## 💻 Paso 5: Actualizar el Código
-
-Abre el archivo `src/components/sections/ContactSection.jsx` y reemplaza estos valores:
-
-```javascript
-const SERVICE_ID = 'service_xxxxxxx';      // Tu Service ID
-const TEMPLATE_ID = 'template_xxxxxxx';    // Tu Template ID
-const PUBLIC_KEY = 'xxxxxxxxxxxxxxx';      // Tu Public Key
+```env
+VITE_EMAILJS_SERVICE_ID=service_...
+VITE_EMAILJS_TEMPLATE_ID=template_...
+VITE_EMAILJS_PUBLIC_KEY=...
 ```
 
-Con los valores que copiaste en los pasos anteriores.
+El **Public Key** está en la sección **Account** de EmailJS. Reiniciá `npm run dev` después de editar `.env.local`. En el sitio publicado, agregá estas mismas tres variables en la configuración de variables de entorno del proveedor de hosting y volvé a desplegar.
 
----
+El Public Key está pensado para usarse desde el navegador. No agregues una Private Key a variables `VITE_` ni al código del sitio.
 
-## ✨ Paso 6: Probar el Formulario
+## 4. Probar el envío
 
-1. En la terminal, ejecuta:
-   ```bash
-   npm run dev
-   ```
+Completá el formulario en `/contacto`. Si el correo no aparece, revisá Spam y los registros de envío en EmailJS. El formulario muestra un mensaje de éxito o un aviso si falla. Mientras falte la configuración, la página ofrece WhatsApp y correo como alternativas.
 
-2. Abre tu sitio en el navegador
-3. Ve a la sección "Contacto"
-4. Completa el formulario y haz clic en "Enviar Mensaje"
-5. Deberías recibir un email en tu bandeja de entrada
+## Documentación oficial
 
----
-
-## 📊 Plan Gratuito de EmailJS
-
-- **Límite:** 200 emails/mes (≈ 7 consultas/día)
-- **Perfecto para:** Una página que recién arranca
-- **Si necesitas más:** Plan Pro a partir de $9/mes
-
----
-
-## 🐛 Solucionar Problemas
-
-### No recibo los emails
-- Verifica que el **Service ID**, **Template ID** y **Public Key** sean correctos
-- Revisa la carpeta de **Spam**
-- En EmailJS dashboard, ve a **"Logs"** para ver si hay errores
-
-### Mensaje de error en la consola del navegador
-- Abre el navegador (F12) → Console
-- Copia el error y búscalo en la documentación de [EmailJS](https://www.emailjs.com/docs/)
-
-### El formulario no responde
-- Asegúrate de recargar la página después de cambiar los IDs
-- Si usas Vite en desarrollo, a veces es necesario hace Ctrl+Shift+R para limpiar caché
-
----
-
-## 🗑️ Eliminar el Backend (Opcional)
-
-Una vez que EmailJS funcione, ya no necesitas la carpeta `backend/`:
-
-```bash
-rm -r backend
-```
-
-Esto reduce el tamaño de tu proyecto y facilita el despliegue (puedes usar Vercel o Netlify gratis).
-
----
-
-## ¿Preguntas?
-
-Consulta la documentación oficial: https://www.emailjs.com/docs/
-
-¡Felicidades! Tu formulario está listo para usar 🎉
+- [Ejemplo oficial de EmailJS para React](https://www.emailjs.com/docs/examples/reactjs/)
+- [Método `sendForm`](https://www.emailjs.com/docs/sdk/send-form/)
+- [¿Es seguro exponer el Public Key?](https://www.emailjs.com/docs/faq/is-it-okay-to-expose-my-public-key/)

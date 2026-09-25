@@ -1,29 +1,6 @@
-// src/components/sections/AboutSection.jsx
 import React from 'react';
+import { ArrowRight, MessagesSquare, ClipboardList, Building2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-const AboutSection = () => {
-  return (
-    <section id="estudio" className="py-20 bg-white">
-      <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
-        <div className="md:w-1/2">
-          <img 
-            src="/icons/image.png" 
-            alt="ABM Estudio Contable"
-            className="rounded-lg shadow-xl w-full"
-          />
-        </div>
-        <div className="md:w-1/2">
-          <h2 className="text-3xl md:text-4xl font-bold font-playfair text-gray-800 mb-4">El Estudio</h2>
-          <p className="text-gray-600 mb-4 leading-relaxed">
-            Somos un equipo de profesionales con una sólida formación y una vasta experiencia en el campo de las ciencias económicas. Nuestro principal objetivo es brindar un servicio de alta calidad, personalizado y adaptado a las necesidades de cada uno de nuestros clientes.
-          </p>
-          <p className="text-gray-600 leading-relaxed">
-            Nos mantenemos en constante actualización para ofrecer soluciones innovadoras y eficientes que contribuyan al crecimiento y la solidez de su negocio. La confianza y el compromiso son los pilares de nuestra relación profesional.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-};
-
+const AboutSection = () => <section id="estudio" className="bg-white py-20 md:py-24"><div className="container mx-auto grid gap-12 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center"><div className="overflow-hidden rounded-3xl bg-primary-50 p-3"><img src="/icons/image.png" alt="Herramientas de trabajo contable" className="h-80 w-full rounded-2xl object-cover lg:h-[440px]" /></div><div><p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent-600">Sobre ABM</p><h2 className="mb-6 text-3xl font-bold text-primary-900 md:text-4xl">Un estudio cercano a las decisiones de tu actividad</h2><p className="mb-5 text-lg leading-relaxed text-gray-700">ABM Estudio Contable brinda asesoramiento contable e impositivo a empresas, emprendedores, profesionales y personas. El trabajo comienza por entender la actividad y las necesidades de cada cliente para definir el alcance del servicio.</p><p className="mb-8 leading-relaxed text-gray-600">Podemos acompañarte en obligaciones periódicas, consultas específicas y nuevas etapas de tu proyecto. Buscamos que sepas qué información hace falta, qué tareas se realizan y cuáles son los próximos pasos.</p><Link to="/contacto" className="inline-flex items-center gap-2 font-bold text-accent-700 hover:text-accent-800">Hablemos de tu situación <ArrowRight size={19} /></Link></div></div><div className="container mx-auto mt-16 grid gap-6 px-6 md:grid-cols-3">{[[MessagesSquare, 'Comunicación clara', 'Te explicamos el alcance del trabajo y la información que necesitamos.'], [ClipboardList, 'Trabajo organizado', 'Ordenamos tareas y documentación según la necesidad de tu actividad.'], [Building2, 'Visión integral', 'Contabilidad, impuestos, sueldos y sociedades en un mismo estudio.']].map(([Icon, title, text]) => <div className="rounded-2xl border border-primary-100 p-7" key={title}>{React.createElement(Icon, { className: 'mb-5 text-accent-600', size: 30 })}<h3 className="mb-2 text-xl font-bold text-primary-900">{title}</h3><p className="leading-relaxed text-gray-600">{text}</p></div>)}</div></section>;
 export default AboutSection;

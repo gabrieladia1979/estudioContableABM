@@ -1,12 +1,30 @@
-# React + Vite
+# ABM Estudio Contable
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sitio de presentación y contacto para ABM Estudio Contable, desarrollado con React, Vite y Tailwind CSS.
 
-Currently, two official plugins are available:
+## Desarrollo local
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+npm ci
+npm run dev
+```
 
-## Expanding the ESLint configuration
+Para generar la versión de producción: `npm run build`. Para revisar el código: `npm run lint`.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Páginas
+
+- Inicio: propuesta de valor, perfiles de clientes, servicios y forma de trabajo.
+- El estudio: presentación del servicio y su enfoque de trabajo.
+- Servicios: detalle de las áreas de atención y consultas por servicio.
+- Crear sociedad: orientación inicial y alcance del acompañamiento.
+- Recursos: información práctica para preparar una consulta.
+- Contacto: formulario por correo con alternativas de WhatsApp y correo directo.
+
+## Contenido que conviene revisar antes de publicar
+
+- Teléfono, correo y textos de WhatsApp: `src/data/contact.js`.
+- Horario, ubicación y enlaces sociales: `src/components/layout/Footer.jsx` y `src/components/sections/ContactSection.jsx`.
+- Descripciones de servicios: `src/data/servicesData.jsx` para la portada y `src/data/serviceDetails.js` para la página de servicios.
+- Títulos y descripciones de las páginas: `src/App.jsx`.
+
+El formulario de contacto envía consultas por correo con EmailJS cuando están configuradas sus variables. Para activarlo, seguí la guía `EMAILJS_SETUP.md` y completá `.env.local` desde `.env.example`. Hasta entonces, la página ofrece WhatsApp y correo como alternativas.

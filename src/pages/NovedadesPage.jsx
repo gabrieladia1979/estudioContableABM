@@ -8,13 +8,13 @@ const NovedadesPage = () => {
   return (
     <div>
       <Navbar />
-      <div className="pt-20"> {/* Padding top para compensar el navbar fijo */}
+      <main>
           <div className="bg-primary-900 py-16 text-center text-white">
-            <h1 className="text-4xl md:text-5xl font-bold font-sans tracking-tight mb-4">NOVEDADES</h1>
+            <h1 className="text-4xl md:text-5xl font-bold font-sans tracking-tight mb-4">RECURSOS Y NOVEDADES</h1>
             <div className="w-20 h-1 bg-accent-500 mx-auto"></div>
           </div>
           <NewsSection />
-      </div>
+      </main>
       <Footer />
     </div>
   );
