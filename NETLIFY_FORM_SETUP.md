@@ -12,7 +12,7 @@ El formulario de `/contacto` usa Netlify Forms. Cada envío se guarda en **Netli
 
 El envío no funciona en `localhost`; el formulario informa esa limitación y ofrece WhatsApp o correo. No ingresar claves fiscales ni documentación sensible en las pruebas.
 
-**Estado del 7/10/2026:** las ocho páginas se publicaron y respondieron 200. Un POST técnico al formulario con datos ficticios recibió 404 de Netlify; por lo tanto, la recepción todavía no está activa. Alejandra debe iniciar sesión en Netlify para activar Form detection y volver a desplegar. Hasta completar ese paso, usar WhatsApp o correo directo para las consultas.
+**Estado del 7/10/2026:** las ocho páginas se publicaron y respondieron 200. Un POST técnico al formulario con datos ficticios recibió 404 de Netlify; por lo tanto, la recepción todavía no está activa. Alejandra debe iniciar sesión en Netlify para activar Form detection y volver a desplegar. Hasta completar ese paso, el formulario ofrece enviar la consulta ya redactada por WhatsApp o correo después del intento fallido.
 
 ## Rutas internas
 

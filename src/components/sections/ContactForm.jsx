@@ -11,6 +11,7 @@ const ContactForm = () => {
   const formRef = useRef(null);
   const [sending, setSending] = useState(false);
   const [feedback, setFeedback] = useState({ type: '', text: '' });
+  const [fallback, setFallback] = useState(null);
 
   useEffect(() => {
     const requestedTopic = new URLSearchParams(search).get('tema');
@@ -22,9 +23,23 @@ const ContactForm = () => {
 
   const handleSubmit = async event => {
     event.preventDefault();
+    const data = new FormData(formRef.current);
+    const fields = [
+      ['Nombre', 'from_name'], ['Correo', 'from_email'], ['Teléfono', 'phone'],
+      ['Tema', 'topic'], ['Situación', 'situation'], ['Vencimiento cercano', 'deadline'], ['Fecha del aviso', 'deadline_date'],
+      ['Consulta', 'message'],
+    ];
+    const message = fields.map(([label, key]) => {
+      const value = String(data.get(key) || '').trim();
+      return value ? `${label}: ${value}` : null;
+    }).filter(Boolean).join('\n');
+    setFallback({
+      whatsapp: whatsappLink(`Hola, quisiera hacer esta consulta a ABM Estudio Contable:\n\n${message}`),
+      email: `mailto:${email}?subject=${encodeURIComponent(`Consulta ABM: ${data.get('topic') || 'General'}`)}&body=${encodeURIComponent(message)}`,
+    });
 
     if (['localhost', '127.0.0.1'].includes(window.location.hostname)) {
-      setFeedback({ type: 'error', text: 'El formulario se prueba en la web publicada en Netlify. Por ahora, escribinos por WhatsApp o correo.' });
+      setFeedback({ type: 'error', text: 'El registro automático se prueba en la web publicada. Podés enviar esta consulta por WhatsApp o correo.' });
       return;
     }
 
@@ -34,14 +49,15 @@ const ContactForm = () => {
       const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(new FormData(formRef.current)).toString(),
+        body: new URLSearchParams(data).toString(),
       });
       if (!response.ok) throw new Error('No se pudo enviar la consulta');
       trackEvent('generate_lead', { lead_source: 'formulario', topic: topic || 'otro' });
       formRef.current.reset();
+      setFallback(null);
       setFeedback({ type: 'success', text: '¡Listo! Recibimos tu consulta y te responderemos al correo que indicaste.' });
     } catch {
-      setFeedback({ type: 'error', text: 'No pudimos registrar tu consulta. Por favor escribinos por WhatsApp o correo.' });
+      setFeedback({ type: 'error', text: 'La web no registró tu consulta. Elegí WhatsApp o correo para enviarla con los datos que completaste; confirmá el envío en esa aplicación.' });
     } finally {
       setSending(false);
     }
@@ -56,7 +72,7 @@ const ContactForm = () => {
             <h2 className="mb-3 text-3xl font-bold text-primary-900">Contanos qué necesitás</h2>
             <p className="mb-8 leading-relaxed text-gray-600">Dejanos tus datos y el motivo de la consulta para que podamos responderte de manera ordenada.</p>
 
-            <form ref={formRef} name="consulta-abm" method="POST" onSubmit={handleSubmit} className="grid gap-5">
+            <form ref={formRef} name="consulta-abm" method="POST" onSubmit={handleSubmit} onChange={() => { if (feedback.type === 'error') { setFeedback({ type: '', text: '' }); setFallback(null); } }} className="grid gap-5">
               <input type="hidden" name="form-name" value="consulta-abm" />
               <input type="hidden" name="marketing_source" value={marketingSource} />
               <p className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true"><label>No completar <input name="bot-field" tabIndex={-1} autoComplete="off" /></label></p>
@@ -66,13 +82,14 @@ const ContactForm = () => {
               </div>
               <label className="grid gap-2 text-sm font-semibold text-primary-900">Teléfono o WhatsApp (opcional)<input name="phone" type="tel" maxLength={40} autoComplete="tel" className="rounded-lg border border-primary-200 bg-white px-4 py-3 font-normal outline-none transition placeholder:text-gray-400 focus:border-accent-500 focus:ring-2 focus:ring-accent-100" placeholder="Para contactarte más rápido si hay un vencimiento" /></label>
               <label className="grid gap-2 text-sm font-semibold text-primary-900">¿Sobre qué tema nos escribís?<select name="topic" value={topic} onChange={event => setTopic(event.target.value)} required className="rounded-lg border border-primary-200 bg-white px-4 py-3 font-normal outline-none transition focus:border-accent-500 focus:ring-2 focus:ring-accent-100"><option value="" disabled>Elegí un tema</option><option>Monotributo</option><option>Intimación o requerimiento de ARCA</option><option>Impuestos</option><option>Contabilidad y balances</option><option>Sueldos</option><option>Empresas y sociedades</option><option>Pymes</option><option>Otra consulta</option></select></label>
+              {topic === 'Monotributo' && <label className="grid gap-2 text-sm font-semibold text-primary-900">¿En qué situación estás?<select name="situation" defaultValue="" required className="rounded-lg border border-primary-200 bg-white px-4 py-3 font-normal outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-100"><option value="" disabled>Elegí una opción</option><option>Quiero inscribirme</option><option>Ya estoy inscripto/a</option><option>Cambió mi actividad o facturación</option><option>Otra situación</option></select></label>}
               <label className="grid gap-2 text-sm font-semibold text-primary-900">¿Tenés un vencimiento cercano?<select name="deadline" defaultValue="No lo sé" className="rounded-lg border border-primary-200 bg-white px-4 py-3 font-normal outline-none transition focus:border-accent-500 focus:ring-2 focus:ring-accent-100"><option>No lo sé</option><option>Sí, dentro de los próximos 7 días</option><option>Sí, más adelante</option><option>No</option></select></label>
               {topic === 'Intimación o requerimiento de ARCA' && <label className="grid gap-2 text-sm font-semibold text-primary-900">Fecha indicada en el aviso (si figura)<input name="deadline_date" type="date" className="rounded-lg border border-primary-200 bg-white px-4 py-3 font-normal outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-100" /></label>}
-              <label className="grid gap-2 text-sm font-semibold text-primary-900">Tu mensaje<textarea name="message" required minLength={10} maxLength={2000} rows={5} className="resize-y rounded-lg border border-primary-200 bg-white px-4 py-3 font-normal leading-relaxed outline-none transition placeholder:text-gray-400 focus:border-accent-500 focus:ring-2 focus:ring-accent-100" placeholder="Contanos brevemente tu actividad y qué necesitás resolver" /></label>
+              <label className="grid gap-2 text-sm font-semibold text-primary-900">Tu mensaje<textarea name="message" required minLength={10} maxLength={2000} rows={5} className="resize-y rounded-lg border border-primary-200 bg-white px-4 py-3 font-normal leading-relaxed outline-none transition placeholder:text-gray-400 focus:border-accent-500 focus:ring-2 focus:ring-accent-100" placeholder={topic === 'Intimación o requerimiento de ARCA' ? 'Indicá qué tipo de aviso recibiste y qué te piden, sin copiar datos sensibles' : topic === 'Monotributo' ? 'Contanos qué actividad realizás o pensás iniciar y qué necesitás resolver' : 'Contanos brevemente tu actividad y qué necesitás resolver'} /></label>
               <button type="submit" disabled={sending} className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent-500 px-6 py-4 font-bold text-white transition hover:bg-accent-600 disabled:cursor-not-allowed disabled:bg-gray-400">{sending ? 'Enviando…' : <><Send size={18} /> Enviar consulta</>}</button>
               <p className="text-xs leading-relaxed text-gray-500">Usaremos tus datos para responder esta consulta. No envíes claves fiscales, contraseñas ni documentación sensible en este formulario.</p>
               {feedback.text && <p role="status" aria-live="polite" className={`flex items-start gap-2 rounded-lg p-4 text-sm leading-relaxed ${feedback.type === 'success' ? 'bg-green-50 text-green-900' : 'bg-red-50 text-red-800'}`}>{feedback.type === 'success' && <CheckCircle2 size={18} className="mt-0.5 shrink-0" />}{feedback.text}</p>}
-              {feedback.type === 'error' && <div className="flex flex-wrap gap-3"><a href={whatsappLink('Hola, quisiera hacer una consulta al Estudio Contable ABM.')} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-primary-900 px-4 py-3 text-sm font-bold text-white">Escribir por WhatsApp</a><a href={`mailto:${email}?subject=${encodeURIComponent('Consulta desde la web de ABM')}`} className="rounded-lg border border-primary-300 px-4 py-3 text-sm font-bold text-primary-900">Enviar correo</a></div>}
+              {feedback.type === 'error' && fallback && <div className="flex flex-wrap gap-3"><a href={fallback.whatsapp} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-primary-900 px-4 py-3 text-sm font-bold text-white">Continuar por WhatsApp</a><a href={fallback.email} className="rounded-lg border border-primary-300 px-4 py-3 text-sm font-bold text-primary-900">Preparar correo</a></div>}
             </form>
           </div>
 

@@ -38,3 +38,4 @@ El build genera HTML propio para las ocho rutas en `dist/` y `public/_redirects`
 Cuando exista una propiedad GA4, copiar `.env.example` a `.env` en local o configurar `VITE_GA_MEASUREMENT_ID=G-...` en las variables de entorno de Netlify y desplegar otra vez. El sitio pedirá permiso antes de cargar el script de Analytics. Se miden vistas de páginas, clics a WhatsApp/correo/teléfono y envíos exitosos del formulario; nunca se envían nombre, correo, teléfono ni mensaje a GA4. Para Search Console, verificar el dominio desde la cuenta de Google y enviar `sitemap.xml`.
 
 Ver `PLAN_CAPTACION_30_DIAS.md` para los pasos de difusión y seguimiento.
+Ver `GESTION_ESTUDIO.md` para el flujo de consultas, el CRM inicial recomendado y los criterios para sumar un sistema de gestión contable.
