@@ -41,7 +41,7 @@ const ContactForm = () => {
       formRef.current.reset();
       setFeedback({ type: 'success', text: '¡Listo! Recibimos tu consulta y te responderemos al correo que indicaste.' });
     } catch {
-      setFeedback({ type: 'error', text: 'No pudimos enviar el mensaje. Probá nuevamente o escribinos por WhatsApp.' });
+      setFeedback({ type: 'error', text: 'No pudimos registrar tu consulta. Por favor escribinos por WhatsApp o correo.' });
     } finally {
       setSending(false);
     }
