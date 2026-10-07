@@ -18,13 +18,22 @@ Para generar la versión de producción: `npm run build`. Para revisar el códig
 - Servicios: detalle de las áreas de atención y consultas por servicio.
 - Crear sociedad: orientación inicial y alcance del acompañamiento.
 - Recursos: información práctica para preparar una consulta.
-- Contacto: formulario por correo con alternativas de WhatsApp y correo directo.
+- Monotributo e intimaciones de ARCA: páginas de entrada para esas consultas.
+- Contacto: formulario de consultas con Netlify Forms y alternativas de WhatsApp y correo directo.
 
 ## Contenido que conviene revisar antes de publicar
 
 - Teléfono, correo y textos de WhatsApp: `src/data/contact.js`.
 - Horario, ubicación y enlaces sociales: `src/components/layout/Footer.jsx` y `src/components/sections/ContactSection.jsx`.
 - Descripciones de servicios: `src/data/servicesData.jsx` para la portada y `src/data/serviceDetails.js` para la página de servicios.
-- Títulos y descripciones de las páginas: `src/App.jsx`.
+- Títulos y descripciones de las páginas: `src/data/pageInfo.js`.
 
-El formulario de contacto envía consultas por correo con EmailJS cuando están configuradas sus variables. Para activarlo, seguí la guía `EMAILJS_SETUP.md` y completá `.env.local` desde `.env.example`. Hasta entonces, la página ofrece WhatsApp y correo como alternativas.
+Para recibir consultas, activar la detección de formularios y las notificaciones por correo en Netlify siguiendo `NETLIFY_FORM_SETUP.md`. Las consultas quedan guardadas en el panel de Netlify aunque el aviso por correo todavía no esté configurado.
+
+El build genera HTML propio para las ocho rutas en `dist/` y `public/_redirects` hace que Netlify lo sirva directamente. La vista previa de Vite requiere barra final para rutas internas (`/monotributo/`); en Netlify las rutas sin barra se sirven mediante las reglas de redirección.
+
+## Medición
+
+Cuando exista una propiedad GA4, copiar `.env.example` a `.env` en local o configurar `VITE_GA_MEASUREMENT_ID=G-...` en las variables de entorno de Netlify y desplegar otra vez. El sitio pedirá permiso antes de cargar el script de Analytics. Se miden vistas de páginas, clics a WhatsApp/correo/teléfono y envíos exitosos del formulario; nunca se envían nombre, correo, teléfono ni mensaje a GA4. Para Search Console, verificar el dominio desde la cuenta de Google y enviar `sitemap.xml`.
+
+Ver `PLAN_CAPTACION_30_DIAS.md` para los pasos de difusión y seguimiento.

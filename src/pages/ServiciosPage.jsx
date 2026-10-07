@@ -19,10 +19,8 @@ const ServiciosPage = () => {
     <div className="bg-[#f7f9fb]">
       <Navbar />
       <main>
-        <section className="relative isolate overflow-hidden bg-primary-900 text-white">
-          <img src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&w=1800&q=85" alt="" className="absolute inset-0 h-full w-full object-cover object-center" />
-          <div className="absolute inset-0 bg-primary-950/75" aria-hidden="true" />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary-950/80 to-transparent" aria-hidden="true" />
+        <section className="relative isolate overflow-hidden bg-primary-950 text-white">
+          <div className="absolute -right-24 -top-32 h-96 w-96 rounded-full border border-white/10" aria-hidden="true" />
           <div className="container relative z-10 mx-auto grid min-h-[460px] items-center gap-10 px-6 py-20 lg:grid-cols-[1.25fr_0.75fr]">
             <div className="max-w-3xl">
               <p className="mb-5 text-sm font-bold uppercase tracking-[0.18em] text-accent-200">Servicios profesionales · ABM</p>

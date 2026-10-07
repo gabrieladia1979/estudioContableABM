@@ -3,9 +3,9 @@ import { ArrowUpRight, BriefcaseBusiness, Building2, UserRound } from 'lucide-re
 import { Link } from 'react-router-dom';
 
 const audiences = [
-  { icon: Building2, title: 'Pymes y empresas', text: 'Organizá la gestión contable, impositiva y laboral de tu negocio con un equipo que conozca tu operación.', tags: ['Impuestos', 'Balances', 'Sueldos'], to: '/servicios#pymes' },
+  { icon: Building2, title: 'Pymes y empresas', text: 'Organizá la gestión contable, impositiva y laboral de tu negocio con atención adaptada a tu actividad.', tags: ['Impuestos', 'Balances', 'Sueldos'], to: '/servicios#pymes' },
   { icon: BriefcaseBusiness, title: 'Emprendedores', text: 'Recibí orientación para formalizar tu proyecto, elegir cómo operar y dar los próximos pasos.', tags: ['Inicio de actividad', 'Sociedades'], to: '/crear-sociedad' },
-  { icon: UserRound, title: 'Profesionales y personas', text: 'Resolvé tus obligaciones fiscales y consultas puntuales con información clara sobre lo que tenés que presentar.', tags: ['Monotributo', 'Autónomos', 'Ganancias'], to: '/servicios#personas' },
+  { icon: UserRound, title: 'Profesionales y personas', text: 'Consultá por tu actividad independiente y organizá la información para conversar con el estudio.', tags: ['Monotributo', 'Autónomos', 'Ganancias'], to: '/monotributo' },
 ];
 
 const AudienceSection = () => <section className="bg-[#f7f9fb] py-20 md:py-24"><div className="container mx-auto px-6">

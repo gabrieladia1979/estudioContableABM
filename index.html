@@ -5,25 +5,39 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Estudio Contable ABM - Soluciones contables integrales para empresas y particulares. Asesoramiento tributario, balances, sueldos y gestión administrativa. Consulta profesional con Alejandra Mayta." />
-    <meta name="keywords" content="asesoramiento tributario, contabilidad, balances, sueldos, gestión administrativa, impuestos, empresas" />
+    <meta name="description" content="ABM Estudio Contable en CABA. Consultas de monotributo, impuestos, contabilidad y sueldos con atención directa de Alejandra Myta." />
     <meta name="author" content="Estudio Contable ABM" />
+    <link rel="canonical" href="https://estudiocontableabm.com.ar/" />
     
     <!-- Open Graph para redes sociales -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Estudio Contable ABM - Asesoramiento Tributario y Contable" />
-    <meta property="og:description" content="Soluciones contables integrales para tu empresa. Asesoramiento profesional en tributación, balances y gestión administrativa." />
-    <meta property="og:image" content="/icons/image.png" />
+    <meta property="og:title" content="ABM Estudio Contable | Impuestos, contabilidad y sueldos" />
+    <meta property="og:description" content="Consultas contables e impositivas para personas, emprendedores y empresas. Atención directa con ABM Estudio Contable." />
+    <meta property="og:url" content="https://estudiocontableabm.com.ar/" />
+    <meta property="og:image" content="https://estudiocontableabm.com.ar/icons/image.png" />
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Estudio Contable ABM" />
-    <meta name="twitter:description" content="Asesoramiento tributario y contable profesional para empresas y particulares." />
-    <meta name="twitter:image" content="/icons/image.png" />
+    <meta name="twitter:title" content="ABM Estudio Contable" />
+    <meta name="twitter:description" content="Consultas contables e impositivas para personas, emprendedores y empresas." />
+    <meta name="twitter:image" content="https://estudiocontableabm.com.ar/icons/image.png" />
     
     <title>Estudio Contable ABM | Asesoramiento Tributario y Contable</title>
   </head>
   <body>
+    <!-- Netlify detecta formularios en el HTML generado, antes de ejecutar React. -->
+    <form name="consulta-abm" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="consulta-abm" />
+      <input name="bot-field" />
+      <input name="from_name" />
+      <input name="from_email" type="email" />
+      <input name="phone" />
+      <input name="topic" />
+      <input name="deadline" />
+      <input name="deadline_date" />
+      <input name="marketing_source" />
+      <textarea name="message"></textarea>
+    </form>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

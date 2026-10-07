@@ -7,33 +7,44 @@ import ServiciosPage from './pages/ServiciosPage';
 import ContactoPage from './pages/ContactoPage';
 import NovedadesPage from './pages/NovedadesPage';
 import CrearSociedadPage from './pages/CrearSociedadPage';
-
-const pageInfo = {
-  '/': ['ABM Estudio Contable | Impuestos, contabilidad y sueldos', 'Asesoramiento contable e impositivo para empresas, pymes, profesionales y emprendedores en CABA.'],
-  '/estudio': ['El estudio | ABM Estudio Contable', 'Conocé cómo trabaja ABM Estudio Contable y las áreas en las que puede acompañarte.'],
-  '/servicios': ['Servicios contables e impositivos | ABM', 'Impuestos, contabilidad, balances, sueldos y asesoramiento para empresas y personas.'],
-  '/crear-sociedad': ['Crear una sociedad | ABM Estudio Contable', 'Orientación para constituir una sociedad y organizar la gestión contable e impositiva de tu proyecto.'],
-  '/novedades': ['Recursos y novedades | ABM Estudio Contable', 'Información práctica para preparar tu consulta y seguir las novedades del estudio.'],
-  '/contacto': ['Contacto | ABM Estudio Contable', 'Contactá a ABM Estudio Contable por WhatsApp, teléfono o correo electrónico.'],
-};
+import TopicPage from './pages/TopicPage';
+import { pageInfo } from './data/pageInfo';
+import { startAnalytics, trackPageView } from './data/analytics';
+import AnalyticsConsent from './components/AnalyticsConsent';
 
 const PageMetadata = () => {
   const { pathname } = useLocation();
   useEffect(() => {
-    const [title, description] = pageInfo[pathname] || pageInfo['/'];
+    const normalizedPath = pathname.replace(/\/+$/, '') || '/';
+    const [title, description] = pageInfo[normalizedPath] || pageInfo['/'];
     document.title = title;
     document.querySelector('meta[name="description"]')?.setAttribute('content', description);
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
     document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', `https://estudiocontableabm.com.ar${normalizedPath}`);
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', `https://estudiocontableabm.com.ar${normalizedPath}`);
+    startAnalytics();
+    trackPageView(normalizedPath);
     window.scrollTo(0, 0);
   }, [pathname]);
   return null;
 };
 
-function App() {
+const Attribution = () => {
+  const { search } = useLocation();
+  useEffect(() => {
+    const source = new URLSearchParams(search).get('utm_source');
+    if (source) window.sessionStorage.setItem('abm_utm_source', source.slice(0, 80));
+  }, [search]);
+  return null;
+};
+
+export function AppRoutes() {
   return (
-    <Router>
+    <>
       <PageMetadata />
+      <Attribution />
+      <AnalyticsConsent />
       <div className="min-h-screen">
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -42,10 +53,16 @@ function App() {
           <Route path="/contacto" element={<ContactoPage />} />
           <Route path="/novedades" element={<NovedadesPage />} />
           <Route path="/crear-sociedad" element={<CrearSociedadPage />} />
+          <Route path="/monotributo" element={<TopicPage topic="monotributo" />} />
+          <Route path="/intimaciones-arca" element={<TopicPage topic="arca" />} />
         </Routes>
       </div>
-    </Router>
+    </>
   );
+}
+
+function App() {
+  return <Router><AppRoutes /></Router>;
 }
 
 export default App;
