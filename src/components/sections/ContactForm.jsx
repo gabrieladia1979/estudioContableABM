@@ -21,9 +21,7 @@ const ContactForm = () => {
     if (source) setMarketingSource(source.slice(0, 80));
   }, [search]);
 
-  const handleSubmit = async event => {
-    event.preventDefault();
-    const data = new FormData(formRef.current);
+  const prepareAlternatives = data => {
     const fields = [
       ['Nombre', 'from_name'], ['Correo', 'from_email'], ['Teléfono', 'phone'],
       ['Tema', 'topic'], ['Situación', 'situation'], ['Vencimiento cercano', 'deadline'], ['Fecha del aviso', 'deadline_date'],
@@ -33,10 +31,23 @@ const ContactForm = () => {
       const value = String(data.get(key) || '').trim();
       return value ? `${label}: ${value}` : null;
     }).filter(Boolean).join('\n');
-    setFallback({
+    return {
       whatsapp: whatsappLink(`Hola, quisiera hacer esta consulta a ABM Estudio Contable:\n\n${message}`),
       email: `mailto:${email}?subject=${encodeURIComponent(`Consulta ABM: ${data.get('topic') || 'General'}`)}&body=${encodeURIComponent(message)}`,
-    });
+    };
+  };
+
+  const handleWhatsApp = () => {
+    if (!formRef.current.reportValidity()) return;
+    const links = prepareAlternatives(new FormData(formRef.current));
+    trackEvent('contact_click', { contact_method: 'whatsapp', page_path: window.location.pathname });
+    window.open(links.whatsapp, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+    const data = new FormData(formRef.current);
+    setFallback(prepareAlternatives(data));
 
     if (['localhost', '127.0.0.1'].includes(window.location.hostname)) {
       setFeedback({ type: 'error', text: 'El registro automático se prueba en la web publicada. Podés enviar esta consulta por WhatsApp o correo.' });
@@ -87,6 +98,8 @@ const ContactForm = () => {
               {topic === 'Intimación o requerimiento de ARCA' && <label className="grid gap-2 text-sm font-semibold text-primary-900">Fecha indicada en el aviso (si figura)<input name="deadline_date" type="date" className="rounded-lg border border-primary-200 bg-white px-4 py-3 font-normal outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-100" /></label>}
               <label className="grid gap-2 text-sm font-semibold text-primary-900">Tu mensaje<textarea name="message" required minLength={10} maxLength={2000} rows={5} className="resize-y rounded-lg border border-primary-200 bg-white px-4 py-3 font-normal leading-relaxed outline-none transition placeholder:text-gray-400 focus:border-accent-500 focus:ring-2 focus:ring-accent-100" placeholder={topic === 'Intimación o requerimiento de ARCA' ? 'Indicá qué tipo de aviso recibiste y qué te piden, sin copiar datos sensibles' : topic === 'Monotributo' ? 'Contanos qué actividad realizás o pensás iniciar y qué necesitás resolver' : 'Contanos brevemente tu actividad y qué necesitás resolver'} /></label>
               <button type="submit" disabled={sending} className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent-500 px-6 py-4 font-bold text-white transition hover:bg-accent-600 disabled:cursor-not-allowed disabled:bg-gray-400">{sending ? 'Enviando…' : <><Send size={18} /> Enviar consulta</>}</button>
+              <button type="button" onClick={handleWhatsApp} className="inline-flex items-center justify-center gap-2 rounded-lg border border-primary-300 bg-white px-6 py-3 font-semibold text-primary-900 transition hover:bg-primary-50"><MessageCircle size={18} /> Preparar consulta en WhatsApp</button>
+              <p className="text-xs text-gray-600">Se abrirá WhatsApp con un borrador. Confirmá el envío allí.</p>
               <p className="text-xs leading-relaxed text-gray-500">Usaremos tus datos para responder esta consulta. No envíes claves fiscales, contraseñas ni documentación sensible en este formulario.</p>
               {feedback.text && <p role="status" aria-live="polite" className={`flex items-start gap-2 rounded-lg p-4 text-sm leading-relaxed ${feedback.type === 'success' ? 'bg-green-50 text-green-900' : 'bg-red-50 text-red-800'}`}>{feedback.type === 'success' && <CheckCircle2 size={18} className="mt-0.5 shrink-0" />}{feedback.text}</p>}
               {feedback.type === 'error' && fallback && <div className="flex flex-wrap gap-3"><a href={fallback.whatsapp} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-primary-900 px-4 py-3 text-sm font-bold text-white">Continuar por WhatsApp</a><a href={fallback.email} className="rounded-lg border border-primary-300 px-4 py-3 text-sm font-bold text-primary-900">Preparar correo</a></div>}
