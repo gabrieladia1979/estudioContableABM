@@ -30,6 +30,8 @@ El repositorio ahora incluye las ocho páginas prerenderizadas, reglas de rutas 
 
 Después del despliegue, las ocho rutas, `robots.txt` y `sitemap.xml` respondieron 200 en el dominio público. El POST de prueba con datos ficticios respondió 404: la recepción con Netlify Forms queda pendiente de activar en la cuenta.
 
+Por preferencia de Alejandra, se preparó nuevamente un carrusel de portada con tres imágenes ilustrativas locales. Cada imagen WebP pesa aproximadamente 50–64 KB; se muestra una sola diapositiva a la vez, con controles manuales y pausa automática al interactuar. Los accesos directos a las páginas de consulta permanecen debajo del carrusel.
+
 ## Comparación con ejemplos actuales
 
 - [Bertora Brown, página de monotributo](https://estudiobertorabrown.com.ar/monotributo): una página para una intención específica, con perfiles de cliente, alcance del servicio, preguntas frecuentes y una consulta clara. Para ABM tomaría la estructura, no sus promesas ni contenido técnico.

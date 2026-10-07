@@ -72,6 +72,7 @@ const ContactForm = () => {
               <button type="submit" disabled={sending} className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent-500 px-6 py-4 font-bold text-white transition hover:bg-accent-600 disabled:cursor-not-allowed disabled:bg-gray-400">{sending ? 'Enviando…' : <><Send size={18} /> Enviar consulta</>}</button>
               <p className="text-xs leading-relaxed text-gray-500">Usaremos tus datos para responder esta consulta. No envíes claves fiscales, contraseñas ni documentación sensible en este formulario.</p>
               {feedback.text && <p role="status" aria-live="polite" className={`flex items-start gap-2 rounded-lg p-4 text-sm leading-relaxed ${feedback.type === 'success' ? 'bg-green-50 text-green-900' : 'bg-red-50 text-red-800'}`}>{feedback.type === 'success' && <CheckCircle2 size={18} className="mt-0.5 shrink-0" />}{feedback.text}</p>}
+              {feedback.type === 'error' && <div className="flex flex-wrap gap-3"><a href={whatsappLink('Hola, quisiera hacer una consulta al Estudio Contable ABM.')} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-primary-900 px-4 py-3 text-sm font-bold text-white">Escribir por WhatsApp</a><a href={`mailto:${email}?subject=${encodeURIComponent('Consulta desde la web de ABM')}`} className="rounded-lg border border-primary-300 px-4 py-3 text-sm font-bold text-primary-900">Enviar correo</a></div>}
             </form>
           </div>
 

@@ -14,6 +14,7 @@ Para generar la versión de producción: `npm run build`. Para revisar el códig
 ## Páginas
 
 - Inicio: propuesta de valor, perfiles de clientes, servicios y forma de trabajo.
+- Carrusel de portada: tres motivos de consulta con imágenes locales comprimidas en `public/hero/`; carga una imagen a la vez, permite pausar y respeta la preferencia de movimiento reducido.
 - El estudio: presentación del servicio y su enfoque de trabajo.
 - Servicios: detalle de las áreas de atención y consultas por servicio.
 - Crear sociedad: orientación inicial y alcance del acompañamiento.
