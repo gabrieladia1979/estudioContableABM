@@ -26,7 +26,7 @@ La corrida de Lighthouse fue una simulación móvil puntual del sitio público y
 
 ## Cambios preparados después de la auditoría
 
-El repositorio ahora incluye las ocho páginas prerenderizadas, reglas de rutas para Netlify, sitemap y robots, un formulario corto con clasificación de consultas y las páginas de monotributo e intimaciones. La portada dejó de usar el carrusel y el PNG de 6 MB. La presentación identifica a Alejandra Myta como titular sin atribuirle credenciales aún no verificadas. Se preparó GA4 con permiso de medición, pero todavía no hay propiedad ni ID; tampoco se pudo activar Search Console desde este repositorio. El plan de difusión está en `PLAN_CAPTACION_30_DIAS.md`. Los cambios requieren publicar y comprobar el formulario real en el panel de Netlify antes de considerarlos operativos.
+El repositorio ahora incluye las ocho páginas prerenderizadas, reglas de rutas para Netlify, sitemap y robots, un formulario corto con clasificación de consultas y las páginas de monotributo e intimaciones. La portada dejó de usar el carrusel y el PNG de 6 MB. La presentación identifica a Alejandra Mayta como titular sin atribuirle credenciales aún no verificadas. Se preparó GA4 con permiso de medición, pero todavía no hay propiedad ni ID; tampoco se pudo activar Search Console desde este repositorio. El plan de difusión está en `PLAN_CAPTACION_30_DIAS.md`. Los cambios requieren publicar y comprobar el formulario real en el panel de Netlify antes de considerarlos operativos.
 
 Después del despliegue, las ocho rutas, `robots.txt` y `sitemap.xml` respondieron 200 en el dominio público. El POST de prueba con datos ficticios respondió 404: la recepción con Netlify Forms queda pendiente de activar en la cuenta.
 

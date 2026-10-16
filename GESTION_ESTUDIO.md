@@ -1,6 +1,6 @@
 # Gestión de ABM Estudio Contable
 
-Propuesta para Alejandra Myta, que hoy trabaja sola y busca sus primeros clientes desde la web. Revisada el 7/10/2026. Los precios y límites de los proveedores pueden cambiar.
+Propuesta para Alejandra Mayta, que hoy trabaja sola y busca sus primeros clientes desde la web. Revisada el 7/10/2026. Los precios y límites de los proveedores pueden cambiar.
 
 ## Decisión recomendada
 
