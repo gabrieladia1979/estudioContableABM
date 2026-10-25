@@ -49,7 +49,17 @@ section[id] {
   animation: hero-reveal 220ms ease-out both;
 }
 
+@keyframes hero-photo-drift {
+  from { transform: scale(1.02) translateX(0); }
+  to { transform: scale(1.08) translateX(-1.5%); }
+}
+
+.hero-photo-motion {
+  animation: hero-reveal 220ms ease-out both, hero-photo-drift 7s ease-in-out infinite alternate;
+  transform-origin: center center;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .hero-reveal { animation: none; }
+  .hero-reveal, .hero-photo-motion { animation: none; }
 }
