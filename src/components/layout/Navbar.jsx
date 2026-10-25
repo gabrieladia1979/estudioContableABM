@@ -15,7 +15,7 @@ const Navbar = () => {
   return <header className="sticky top-0 z-50 border-b border-primary-100 bg-white/95 shadow-sm backdrop-blur">
     <div className="container mx-auto flex h-20 items-center justify-between gap-4 px-6">
       <Link to="/" className="flex shrink-0 items-center gap-3" aria-label="ABM Estudio Contable, inicio">
-        <img src="/logo-abm.jpg" alt="" className="h-11 w-11 shrink-0 rounded-xl object-cover" />
+        <img src="/logo-abm-franjas.svg" alt="" width="72" height="48" className="h-12 w-[72px] shrink-0" />
         <span className="hidden leading-tight sm:block"><strong className="block text-base text-primary-900">Estudio Contable</strong><span className="text-xs font-semibold uppercase tracking-[0.12em] text-accent-600">Contable e impositivo</span></span>
       </Link>
       <nav className="hidden items-center gap-3 xl:flex" aria-label="Navegación principal">{links.map(([to, label]) => <NavLink key={to} to={to} end={to === '/'} className={({ isActive }) => `text-xs font-semibold transition hover:text-accent-700 ${isActive ? 'text-accent-700' : 'text-primary-900'}`}>{label}</NavLink>)}</nav>
