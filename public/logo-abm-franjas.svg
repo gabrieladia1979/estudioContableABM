@@ -4,8 +4,8 @@
   <rect x="126" y="0" width="108" height="242" fill="#080808" />
   <rect x="252" y="0" width="108" height="242" fill="#080808" />
   <g font-family="Georgia, 'Times New Roman', serif" font-size="100" font-weight="400" text-anchor="middle">
-    <text x="54" y="225" fill="#d6e9e4">A</text>
-    <text x="180" y="225" fill="#eacb76">B</text>
-    <text x="306" y="225" fill="#c896ae">M</text>
+    <text x="54" y="225" fill="#ffffff">A</text>
+    <text x="180" y="225" fill="#ffffff">B</text>
+    <text x="306" y="225" fill="#ffffff">M</text>
   </g>
 </svg>
