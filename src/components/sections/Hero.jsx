@@ -88,7 +88,7 @@ export default function Hero() {
         <span className="px-1 text-xs font-bold tabular-nums" aria-hidden="true">{active + 1}/{slides.length}</span>
         <button type="button" onClick={() => select(active + 1)} className="rounded p-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white" aria-label="Diapositiva siguiente" aria-controls="hero-slide"><ArrowRight size={19} /></button>
       </div>
-      <div id="hero-slide" className="container relative mx-auto flex min-h-[440px] items-center px-6 pb-12 pt-12 md:min-h-[560px] md:py-20" role="group" aria-roledescription="diapositiva" aria-label={`${active + 1} de ${slides.length}: ${slide.label}`} aria-live={paused ? 'polite' : 'off'}>
+      <div id="hero-slide" className="container relative mx-auto flex min-h-[440px] items-center px-6 pb-12 pt-12 md:h-[560px] md:min-h-0 md:py-12" role="group" aria-roledescription="diapositiva" aria-label={`${active + 1} de ${slides.length}: ${slide.label}`} aria-live={paused ? 'polite' : 'off'}>
         <div key={active} className="hero-reveal max-w-2xl">
           <p className="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-accent-200 sm:text-sm">{slide.eyebrow}</p>
           <h1 className="text-4xl font-bold leading-[1.12] tracking-tight sm:text-5xl lg:text-6xl">{slide.title}</h1>
