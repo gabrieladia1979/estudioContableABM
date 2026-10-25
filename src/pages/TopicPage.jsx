@@ -1,4 +1,5 @@
-import { ArrowRight, CheckCircle2, MessageCircle } from 'lucide-react';
+import WhatsAppIcon from '../components/WhatsAppIcon';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -20,7 +21,7 @@ export default function TopicPage({ topic }) {
             <p className="mt-6 max-w-3xl text-lg leading-relaxed text-primary-100">{content.intro}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to={`/contacto?tema=${topic}`} className="inline-flex items-center gap-2 rounded-lg bg-accent-700 px-6 py-4 font-bold text-white hover:bg-accent-800">Contar mi situación <ArrowRight size={18} /></Link>
-              <a href={whatsappLink(content.whatsappMessage)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-6 py-4 font-semibold text-white hover:bg-white/10"><MessageCircle size={18} /> Escribir por WhatsApp</a>
+              <a href={whatsappLink(content.whatsappMessage)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-6 py-4 font-semibold text-white hover:bg-white/10"><WhatsAppIcon size={18} /> Escribir por WhatsApp</a>
             </div>
           </div>
         </section>

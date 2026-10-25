@@ -1,5 +1,6 @@
+import WhatsAppIcon from '../WhatsAppIcon';
 import { useEffect, useRef, useState } from 'react';
-import { CheckCircle2, Clock3, Mail, MapPin, MessageCircle, Phone, Send } from 'lucide-react';
+import { CheckCircle2, Clock3, Mail, MapPin, Phone, Send } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { email, phoneDisplay, phoneHref, whatsappLink } from '../../data/contact';
 import { trackEvent } from '../../data/analytics';
@@ -98,7 +99,7 @@ const ContactForm = () => {
               {topic === 'Intimación o requerimiento de ARCA' && <label className="grid gap-2 text-sm font-semibold text-primary-900">Fecha indicada en el aviso (si figura)<input name="deadline_date" type="date" className="rounded-lg border border-primary-200 bg-white px-4 py-3 font-normal outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-100" /></label>}
               <label className="grid gap-2 text-sm font-semibold text-primary-900">Tu mensaje<textarea name="message" required minLength={10} maxLength={2000} rows={5} className="resize-y rounded-lg border border-primary-200 bg-white px-4 py-3 font-normal leading-relaxed outline-none transition placeholder:text-gray-400 focus:border-accent-500 focus:ring-2 focus:ring-accent-100" placeholder={topic === 'Intimación o requerimiento de ARCA' ? 'Indicá qué tipo de aviso recibiste y qué te piden, sin copiar datos sensibles' : topic === 'Monotributo' ? 'Contanos qué actividad realizás o pensás iniciar y qué necesitás resolver' : 'Contanos brevemente tu actividad y qué necesitás resolver'} /></label>
               <button type="submit" disabled={sending} className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent-500 px-6 py-4 font-bold text-white transition hover:bg-accent-600 disabled:cursor-not-allowed disabled:bg-gray-400">{sending ? 'Enviando…' : <><Send size={18} /> Enviar consulta</>}</button>
-              <button type="button" onClick={handleWhatsApp} className="inline-flex items-center justify-center gap-2 rounded-lg border border-primary-300 bg-white px-6 py-3 font-semibold text-primary-900 transition hover:bg-primary-50"><MessageCircle size={18} /> Preparar consulta en WhatsApp</button>
+              <button type="button" onClick={handleWhatsApp} className="inline-flex items-center justify-center gap-2 rounded-lg border border-primary-300 bg-white px-6 py-3 font-semibold text-primary-900 transition hover:bg-primary-50"><WhatsAppIcon size={18} /> Preparar consulta en WhatsApp</button>
               <p className="text-xs text-gray-600">Se abrirá WhatsApp con un borrador. Confirmá el envío allí.</p>
               <p className="text-xs leading-relaxed text-gray-500">Usaremos tus datos para responder esta consulta. No envíes claves fiscales, contraseñas ni documentación sensible en este formulario.</p>
               {feedback.text && <p role="status" aria-live="polite" className={`flex items-start gap-2 rounded-lg p-4 text-sm leading-relaxed ${feedback.type === 'success' ? 'bg-green-50 text-green-900' : 'bg-red-50 text-red-800'}`}>{feedback.type === 'success' && <CheckCircle2 size={18} className="mt-0.5 shrink-0" />}{feedback.text}</p>}
@@ -111,7 +112,7 @@ const ContactForm = () => {
             <h2 className="mb-4 text-2xl font-bold">También podés contactarnos directamente</h2>
             <p className="mb-9 leading-relaxed text-primary-100">Si preferís, escribinos por WhatsApp o comunicate con el estudio por teléfono o correo.</p>
             <div className="space-y-6">
-              <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 rounded-xl border border-white/15 bg-white/5 p-4 transition hover:bg-white/10"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#25D366] text-white"><MessageCircle size={22} /></span><span><strong className="block">WhatsApp</strong><span className="text-sm text-primary-100">+54 11 6817 2147</span></span></a>
+              <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 rounded-xl border border-white/15 bg-white/5 p-4 transition hover:bg-white/10"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#25D366] text-white"><WhatsAppIcon size={22} /></span><span><strong className="block">WhatsApp</strong><span className="text-sm text-primary-100">+54 11 6817 2147</span></span></a>
               <a href={phoneHref} className="flex items-center gap-4 text-white transition hover:text-accent-200"><Phone className="shrink-0 text-accent-300" size={20} /><span><strong className="block">Teléfono</strong><span className="text-sm text-primary-100">{phoneDisplay}</span></span></a>
               <a href={`mailto:${email}`} className="flex items-center gap-4 break-all text-white transition hover:text-accent-200"><Mail className="shrink-0 text-accent-300" size={20} /><span><strong className="block">Correo</strong><span className="text-sm text-primary-100">{email}</span></span></a>
               <div className="h-px bg-white/15" />

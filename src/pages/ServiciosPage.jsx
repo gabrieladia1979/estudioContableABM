@@ -1,5 +1,6 @@
+import WhatsAppIcon from '../components/WhatsAppIcon';
 import { useEffect } from 'react';
-import { ArrowDown, ArrowRight, ArrowUpRight, Check, MessageCircle } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, Check } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -59,7 +60,7 @@ const ServiciosPage = () => {
                   <ul className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
                     {service.items.map(item => <li key={item} className="flex items-start gap-3 leading-relaxed text-gray-700"><span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent-50 text-accent-700"><Check size={13} strokeWidth={3} /></span><span>{item}</span></li>)}
                   </ul>
-                  <a href={whatsappLink(`Hola, quisiera consultar por ${service.title.toLowerCase()}.`)} target="_blank" rel="noopener noreferrer" className="mt-9 inline-flex self-start items-center gap-2 rounded-lg bg-accent-500 px-6 py-3.5 font-bold text-white transition hover:bg-accent-600"><MessageCircle size={19} /> Consultar por este servicio <ArrowRight size={18} /></a>
+                  <a href={whatsappLink(`Hola, quisiera consultar por ${service.title.toLowerCase()}.`)} target="_blank" rel="noopener noreferrer" className="mt-9 inline-flex self-start items-center gap-2 rounded-lg bg-accent-500 px-6 py-3.5 font-bold text-white transition hover:bg-accent-600"><WhatsAppIcon size={19} /> Consultar por este servicio <ArrowRight size={18} /></a>
                 </div>
               </div>
             </section>
