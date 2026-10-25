@@ -24,16 +24,16 @@ export default function HeroLogoTransition() {
 
       const source = anchor.getBoundingClientRect();
       const target = headerLogo.getBoundingClientRect();
-      const progress = clamp(window.scrollY / 240);
+      const progress = clamp(window.scrollY / 360);
       const eased = progress * progress * (3 - 2 * progress);
       const handoff = clamp((progress - 0.96) / 0.04);
       overlay.style.display = progress < 1 ? 'block' : 'none';
       const left = between(source.left, target.left, eased);
       const top = between(source.top + window.scrollY, target.top, eased);
-      const scale = between(source.width / target.width, 1, eased);
-      overlay.style.width = `${target.width}px`;
-      overlay.style.height = `${target.height}px`;
-      overlay.style.transform = `translate3d(${left}px, ${top}px, 0) scale(${scale})`;
+      overlay.style.left = `${left}px`;
+      overlay.style.top = `${top}px`;
+      overlay.style.width = `${between(source.width, target.width, eased)}px`;
+      overlay.style.height = `${between(source.height, target.height, eased)}px`;
       overlay.style.opacity = `${1 - handoff}`;
       headerLogo.style.opacity = `${handoff}`;
     };

@@ -28,15 +28,19 @@ section[id] {
   scroll-margin-top: 6rem;
 }
 
-.hero-brand-motion { will-change: transform; filter: drop-shadow(0 0 1px rgba(255, 255, 255, .55)); }
+.hero-brand-motion img { display: block; }
 .home-wave-surface { position: relative; isolation: isolate; overflow: hidden; background: #f7f9fc; }
-.home-wave-art { position: absolute; inset: -2% -5%; width: 110%; height: 104%; pointer-events: none; animation: abm-waves 18s ease-in-out infinite alternate; }
+.home-wave-art { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .home-wave-content { position: relative; z-index: 1; }
 .home-wave-content > section { background: transparent; }
-@keyframes abm-waves {
-  from { transform: translate3d(-1%, -1%, 0) scale(1.02); }
-  to { transform: translate3d(1.5%, 1%, 0) scale(1.04); }
-}
+.service-carousel { position: relative; display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: #829ab1 transparent; padding: 5px 3px 16px; }
+.service-photo-card { position: relative; isolation: isolate; flex: 0 0 260px; height: 350px; overflow: hidden; border-radius: 14px; scroll-snap-align: start; background: #102a43; }
+.service-photo-card > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 400ms ease; }
+.service-card-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,26,51,.15), rgba(0,26,51,.35) 35%, rgba(0,26,51,.95)); }
+.service-photo-card.is-active { outline: 3px solid #a33005; outline-offset: 1px; }
+.service-photo-card:hover > img { transform: scale(1.04); }
+.service-photo-card:focus-visible { outline: 3px solid #a33005; outline-offset: 1px; }
+@media (min-width: 1536px) { .service-photo-card { flex-basis: calc((100% - 64px) / 5); } }
 
 @media (min-width: 768px) {
   .hero-photo-overlay {
@@ -72,4 +76,5 @@ section[id] {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .hero-reveal, .hero-photo-motion, .home-wave-art { animation: none; }
+  .service-photo-card > img { transition: none; }
 }

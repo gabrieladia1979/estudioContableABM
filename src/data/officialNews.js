@@ -1,0 +1,9 @@
+// Selección editorial: verificar fuente, fecha y resumen antes de agregar una noticia.
+export const newsReviewedAt = '2026-10-25';
+
+export const officialNews = [
+  { id: 'ganancias-web', source: 'ARCA', date: '2026-10-19', category: 'Impuestos', title: 'Ganancias para sociedades: nuevo servicio web', summary: 'ARCA presentó una plataforma para confeccionar la declaración anual de personas jurídicas y explicó la transición desde SIAP.', url: 'https://servicioscf.arca.gob.ar/publico/sitio/contenido/novedad/ver.aspx?id=5979' },
+  { id: 'actualidad-tributaria', source: 'Consejo Profesional CABA', date: '2026-10-16', category: 'Actualidad tributaria', title: 'ARCA y el Consejo: novedades sobre cumplimiento tributario', summary: 'La reunión profesional abordó herramientas de cumplimiento, novedades laborales e incentivos para inversiones de pymes.', url: 'https://www.consejo.org.ar/noticias/2026/funcionarios-de-arca-expusieron-en-la-70-reunion-del-ciclo-de-actualidad-y-pratica-tributaria' },
+  { id: 'recibo-asistido', source: 'ARCA', date: '2026-10-14', category: 'Sueldos', title: 'Casas particulares: recibo de sueldo asistido', summary: 'El organismo incorporó cálculos automáticos para ayudar a los empleadores a preparar los recibos del personal de casas particulares.', url: 'https://servicioscf.arca.gob.ar/publico/sitio/contenido/novedad/ver.aspx?id=5978' },
+  { id: 'tecnologia-profesional', source: 'Consejo Profesional CABA', date: '2026-10-16', category: 'Profesión y tecnología', title: 'Tecnología y nuevas herramientas para la práctica profesional', summary: 'El Consejo compartió las experiencias de su encuentro sobre inteligencia artificial, automatización y herramientas para el trabajo profesional.', url: 'https://www.consejo.org.ar/noticias/2026/el-futuro-esta-entre-nosotros-asi-se-vivio-el-encuentro-tecnologico-del-consejo' },
+];

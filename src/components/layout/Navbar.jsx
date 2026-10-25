@@ -7,7 +7,7 @@ import { whatsappLink } from '../../data/contact';
 const links = [
   ['/', 'Inicio'], ['/estudio', 'El estudio'], ['/servicios', 'Servicios'],
   ['/monotributo', 'Monotributo'], ['/intimaciones-arca', 'Intimaciones ARCA'],
-  ['/crear-sociedad', 'Crear sociedad'], ['/novedades', 'Recursos'], ['/contacto', 'Contacto'],
+  ['/crear-sociedad', 'Crear sociedad'], ['/novedades', 'Noticias'], ['/contacto', 'Contacto'],
 ];
 
 const Navbar = () => {

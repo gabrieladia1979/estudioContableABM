@@ -26,7 +26,7 @@ Para generar la versión de producción: `npm run build`. Para revisar el códig
 
 - Teléfono, correo y textos de WhatsApp: `src/data/contact.js`.
 - Horario, ubicación y enlaces sociales: `src/components/layout/Footer.jsx` y `src/components/sections/ContactSection.jsx`.
-- Descripciones de servicios: `src/data/servicesData.jsx` para la portada y `src/data/serviceDetails.js` para la página de servicios.
+- Descripciones de servicios: `src/data/serviceGroups.js` para las áreas de la portada y `src/data/serviceDetails.js` para la página de servicios.
 - Títulos y descripciones de las páginas: `src/data/pageInfo.js`.
 
 Para recibir consultas, activar la detección de formularios y las notificaciones por correo en Netlify siguiendo `NETLIFY_FORM_SETUP.md`. Las consultas quedan guardadas en el panel de Netlify aunque el aviso por correo todavía no esté configurado.
@@ -39,3 +39,7 @@ Cuando exista una propiedad GA4, copiar `.env.example` a `.env` en local o confi
 
 Ver `PLAN_CAPTACION_30_DIAS.md` para los pasos de difusión y seguimiento.
 Ver `GESTION_ESTUDIO.md` para el flujo de consultas, el CRM inicial recomendado y los criterios para sumar un sistema de gestión contable.
+
+## Noticias oficiales
+
+La portada y `/novedades` muestran una selección editorial de ARCA y del Consejo Profesional CABA definida en `src/data/officialNews.js`. No es un feed automático. Para actualizarla, verificar cada publicación original, registrar su fecha y enlace, escribir un resumen breve y actualizar `newsReviewedAt`. Las guías del estudio se mantienen aparte de las noticias.
