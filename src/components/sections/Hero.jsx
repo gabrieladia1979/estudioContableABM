@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, Building2, FileWarning, Pause, Play, ReceiptText
 import WhatsAppIcon from '../WhatsAppIcon';
 import { Link } from 'react-router-dom';
 import { whatsappLink } from '../../data/contact';
+import { accountingImages } from '../../data/accountingImages';
 
 const slides = [
   {
@@ -10,7 +11,7 @@ const slides = [
     eyebrow: 'ABM · Estudio contable en CABA',
     title: 'Tu negocio merece cuentas claras.',
     description: 'Impuestos, contabilidad y sueldos para acompañar cada etapa de tu actividad. Contanos qué necesitás resolver.',
-    image: '/hero/hero-negocios.webp',
+    image: accountingImages.contabilidad,
     link: '/servicios#pymes',
     action: 'Ver servicios para pymes',
     message: 'Hola, quisiera consultar por los servicios contables para mi negocio.',
@@ -20,7 +21,7 @@ const slides = [
     eyebrow: 'Para quienes trabajan por cuenta propia',
     title: '¿Empezás con monotributo?',
     description: 'Si tenés dudas sobre el alta, tu actividad o un cambio en tu situación, explicanos brevemente el caso para orientarte sobre los próximos pasos.',
-    image: '/hero/hero-monotributo.webp',
+    image: accountingImages.monotributo,
     link: '/monotributo',
     action: 'Consultar sobre monotributo',
     message: 'Hola, quisiera consultar por monotributo. Mi situación es: ',
@@ -30,7 +31,7 @@ const slides = [
     eyebrow: 'Consultas con un plazo o requerimiento',
     title: '¿Recibiste una comunicación de ARCA?',
     description: 'Contanos qué aviso recibiste y si indica un vencimiento. Alejandra revisará tu consulta durante el horario de atención.',
-    image: '/hero/hero-arca.webp',
+    image: accountingImages.asesoramiento,
     link: '/intimaciones-arca',
     action: 'Ver cómo consultar',
     message: 'Hola, recibí una comunicación de ARCA y quisiera hacer una consulta. El plazo indicado es: ',
@@ -80,7 +81,7 @@ export default function Hero() {
       onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}
     >
       <div className="relative h-64 overflow-hidden sm:h-80 md:absolute md:inset-0 md:h-auto" aria-hidden="true">
-        <img key={slide.image} src={slide.image} alt="" width="1599" height="900" fetchPriority={active === 0 ? 'high' : 'auto'} className="hero-photo-motion h-full w-full object-cover object-[65%_center] md:object-center" />
+        <img key={slide.image.src} {...slide.image} sizes="100vw" alt="" decoding="async" fetchPriority={active === 0 ? 'high' : 'auto'} className="hero-photo-motion h-full w-full object-cover object-[70%_center] md:object-center" />
         <div className="hero-photo-overlay absolute inset-0 hidden md:block" />
       </div>
       <div className="container pointer-events-none absolute inset-x-0 top-12 z-10 mx-auto hidden px-6 lg:block" aria-hidden="true">
