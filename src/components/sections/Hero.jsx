@@ -81,7 +81,7 @@ export default function Hero() {
     >
       <div className="relative h-56 overflow-hidden sm:h-72 md:absolute md:inset-0 md:h-auto" aria-hidden="true">
         <img key={slide.image} src={slide.image} alt="" width="1599" height="900" fetchPriority={active === 0 ? 'high' : 'auto'} className="hero-reveal h-full w-full object-cover object-[65%_center] md:object-center" />
-        <div className="absolute inset-0 hidden bg-gradient-to-r from-primary-950 via-primary-950/95 to-primary-950/30 md:block" />
+        <div className="hero-photo-overlay absolute inset-0 hidden md:block" />
       </div>
       <div className="absolute right-4 top-56 z-10 flex -translate-y-full items-center gap-1 rounded-lg bg-primary-950/85 p-1 text-white sm:top-72 md:hidden">
         <button type="button" onClick={() => select(active - 1)} className="rounded p-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white" aria-label="Diapositiva anterior" aria-controls="hero-slide"><ArrowLeft size={19} /></button>

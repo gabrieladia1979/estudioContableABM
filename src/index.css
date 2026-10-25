@@ -28,6 +28,18 @@ section[id] {
   scroll-margin-top: 6rem;
 }
 
+@media (min-width: 768px) {
+  .hero-photo-overlay {
+    background: linear-gradient(90deg, #001a33 0%, rgba(0, 26, 51, .94) 40%, rgba(0, 26, 51, .55) 70%, rgba(0, 26, 51, .08) 100%);
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero-photo-overlay {
+    background: linear-gradient(90deg, #001a33 0%, rgba(0, 26, 51, .96) 26%, rgba(0, 26, 51, .66) 43%, rgba(0, 26, 51, .12) 62%, transparent 78%);
+  }
+}
+
 @keyframes hero-reveal {
   from { opacity: 0.72; }
   to { opacity: 1; }
