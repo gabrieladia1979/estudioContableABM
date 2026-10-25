@@ -24,14 +24,16 @@ export default function HeroLogoTransition() {
 
       const source = anchor.getBoundingClientRect();
       const target = headerLogo.getBoundingClientRect();
-      const progress = clamp(window.scrollY / 320);
-      const handoff = clamp((progress - 0.84) / 0.16);
+      const progress = clamp(window.scrollY / 240);
+      const eased = progress * progress * (3 - 2 * progress);
+      const handoff = clamp((progress - 0.96) / 0.04);
       overlay.style.display = progress < 1 ? 'block' : 'none';
-      overlay.style.left = `${between(source.left, target.left, progress)}px`;
-      overlay.style.top = `${between(source.top + window.scrollY, target.top, progress)}px`;
-      overlay.style.width = `${between(source.width, target.width, progress)}px`;
-      overlay.style.height = `${between(source.height, target.height, progress)}px`;
-      overlay.style.padding = `${between(12, 0, progress)}px`;
+      const left = between(source.left, target.left, eased);
+      const top = between(source.top + window.scrollY, target.top, eased);
+      const scale = between(source.width / target.width, 1, eased);
+      overlay.style.width = `${target.width}px`;
+      overlay.style.height = `${target.height}px`;
+      overlay.style.transform = `translate3d(${left}px, ${top}px, 0) scale(${scale})`;
       overlay.style.opacity = `${1 - handoff}`;
       headerLogo.style.opacity = `${handoff}`;
     };
@@ -52,5 +54,5 @@ export default function HeroLogoTransition() {
     };
   }, []);
 
-  return <div ref={movingLogo} className="pointer-events-none fixed z-[60] hidden box-border overflow-hidden rounded-xl bg-white shadow-lg" aria-hidden="true"><img src="/logo-abm-franjas.svg" alt="" className="h-full w-full object-contain" /></div>;
+  return <div ref={movingLogo} className="hero-brand-motion pointer-events-none fixed left-0 top-0 z-[60] hidden origin-top-left" aria-hidden="true"><img src="/logo-abm-franjas.svg" alt="" className="h-full w-full object-contain" /></div>;
 }
