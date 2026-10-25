@@ -79,16 +79,16 @@ export default function Hero() {
       onFocusCapture={() => setFocused(true)}
       onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}
     >
-      <div className="relative h-56 overflow-hidden sm:h-72 md:absolute md:inset-0 md:h-auto" aria-hidden="true">
+      <div className="relative h-64 overflow-hidden sm:h-80 md:absolute md:inset-0 md:h-auto" aria-hidden="true">
         <img key={slide.image} src={slide.image} alt="" width="1599" height="900" fetchPriority={active === 0 ? 'high' : 'auto'} className="hero-reveal h-full w-full object-cover object-[65%_center] md:object-center" />
         <div className="hero-photo-overlay absolute inset-0 hidden md:block" />
       </div>
-      <div className="absolute right-4 top-56 z-10 flex -translate-y-full items-center gap-1 rounded-lg bg-primary-950/85 p-1 text-white sm:top-72 md:hidden">
+      <div className="absolute right-4 top-64 z-10 flex -translate-y-full items-center gap-1 rounded-lg bg-primary-950/85 p-1 text-white sm:top-80 md:hidden">
         <button type="button" onClick={() => select(active - 1)} className="rounded p-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white" aria-label="Diapositiva anterior" aria-controls="hero-slide"><ArrowLeft size={19} /></button>
         <span className="px-1 text-xs font-bold tabular-nums" aria-hidden="true">{active + 1}/{slides.length}</span>
         <button type="button" onClick={() => select(active + 1)} className="rounded p-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white" aria-label="Diapositiva siguiente" aria-controls="hero-slide"><ArrowRight size={19} /></button>
       </div>
-      <div id="hero-slide" className="container relative mx-auto flex min-h-[440px] items-center px-6 pb-12 pt-12 md:h-[560px] md:min-h-0 md:py-12" role="group" aria-roledescription="diapositiva" aria-label={`${active + 1} de ${slides.length}: ${slide.label}`} aria-live={paused ? 'polite' : 'off'}>
+      <div id="hero-slide" className="container relative mx-auto flex min-h-[440px] items-center px-6 pb-12 pt-12 md:h-[620px] md:min-h-0 md:py-12 xl:h-[640px]" role="group" aria-roledescription="diapositiva" aria-label={`${active + 1} de ${slides.length}: ${slide.label}`} aria-live={paused ? 'polite' : 'off'}>
         <div key={active} className="hero-reveal max-w-2xl">
           <p className="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-accent-200 sm:text-sm">{slide.eyebrow}</p>
           <h1 className="text-4xl font-bold leading-[1.12] tracking-tight sm:text-5xl lg:text-6xl">{slide.title}</h1>
