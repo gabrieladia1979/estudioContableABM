@@ -1,47 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { ArrowLeft, ArrowRight, Building2, FileWarning, Pause, Play, ReceiptText } from 'lucide-react';
-import WhatsAppIcon from '../WhatsAppIcon';
+import { useEffect, useState } from 'react';
+import { ArrowRight, Pause, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import WhatsAppIcon from '../WhatsAppIcon';
 import { whatsappLink } from '../../data/contact';
-import { accountingImages } from '../../data/accountingImages';
 
 const slides = [
-  {
-    label: 'Negocios y pymes',
-    eyebrow: 'ABM · Estudio contable en CABA',
-    title: 'Tu negocio merece cuentas claras.',
-    description: 'Impuestos, contabilidad y sueldos para acompañar cada etapa de tu actividad. Contanos qué necesitás resolver.',
-    image: accountingImages.contabilidad,
-    link: '/servicios#pymes',
-    action: 'Ver servicios para pymes',
-    message: 'Hola, quisiera consultar por los servicios contables para mi negocio.',
-  },
-  {
-    label: 'Monotributo',
-    eyebrow: 'Para quienes trabajan por cuenta propia',
-    title: '¿Empezás con monotributo?',
-    description: 'Si tenés dudas sobre el alta, tu actividad o un cambio en tu situación, explicanos brevemente el caso para orientarte sobre los próximos pasos.',
-    image: accountingImages.monotributo,
-    link: '/servicios#monotributo',
-    action: 'Consultar sobre monotributo',
-    message: 'Hola, quisiera consultar por monotributo. Mi situación es: ',
-  },
-  {
-    label: 'Comunicaciones de ARCA',
-    eyebrow: 'Consultas con un plazo o requerimiento',
-    title: '¿Recibiste una comunicación de ARCA?',
-    description: 'Contanos qué aviso recibiste y si indica un vencimiento. Alejandra revisará tu consulta durante el horario de atención.',
-    image: accountingImages.asesoramiento,
-    link: '/servicios#intimaciones-arca',
-    action: 'Ver cómo consultar',
-    message: 'Hola, recibí una comunicación de ARCA y quisiera hacer una consulta. El plazo indicado es: ',
-  },
-];
-
-const quickPaths = [
-  { to: '/servicios#monotributo', icon: ReceiptText, title: 'Monotributo', text: 'Alta, seguimiento o una duda sobre tu situación.' },
-  { to: '/servicios#intimaciones-arca', icon: FileWarning, title: 'Intimaciones de ARCA', text: 'Qué información reunir para iniciar la consulta.' },
-  { to: '/servicios#pymes', icon: Building2, title: 'Empresa o pyme', text: 'Impuestos, balances, contabilidad y sueldos.' },
+  { label: 'Negocios y pymes', topic: 'Contabilidad para tu empresa', eyebrow: 'ABM · Estudio contable en CABA', title: 'Tu negocio merece cuentas claras.', description: 'Impuestos, contabilidad y sueldos para acompañar cada etapa de tu actividad. Contanos qué necesitás resolver.', image: '/hero-v2/pymes-hero.webp', thumb: '/hero-v2/pymes-thumb.webp', link: '/servicios#pymes', action: 'Ver servicios para pymes', message: 'Hola, quisiera consultar por los servicios contables para mi negocio.' },
+  { label: 'Sociedades', topic: 'Crear una sociedad', eyebrow: 'Para proyectos que crecen', title: 'Dale una estructura clara a tu proyecto.', description: 'Te acompañamos en la constitución de tu sociedad y en sus primeros pasos contables e impositivos.', image: '/hero-v2/sociedades-hero.webp', thumb: '/hero-v2/sociedades-thumb.webp', link: '/servicios#crear-sociedad', action: 'Conocer el servicio', message: 'Hola, quisiera consultar sobre la creación de una sociedad.' },
+  { label: 'Balances e impuestos', topic: 'Ordenar tus números', eyebrow: 'Información para decidir mejor', title: 'Números claros para seguir creciendo.', description: 'Organizamos la información contable, los balances y tus obligaciones fiscales para que puedas decidir con confianza.', image: '/hero-v2/balances-hero.webp', thumb: '/hero-v2/balances-thumb.webp', link: '/servicios#contabilidad-balances', action: 'Ver contabilidad y balances', message: 'Hola, quisiera consultar sobre contabilidad, balances e impuestos.' },
 ];
 
 export default function Hero() {
@@ -62,66 +28,41 @@ export default function Hero() {
     if (paused || focused || reducedMotion) return;
     const timer = window.setInterval(() => {
       if (!document.hidden) setActive(index => (index + 1) % slides.length);
-    }, 5500);
+    }, 6500);
     return () => window.clearInterval(timer);
   }, [paused, focused, reducedMotion]);
 
   const select = index => {
-    setActive((index + slides.length) % slides.length);
+    setActive(index);
     setPaused(true);
   };
   const slide = slides[active];
 
-  return <>
-    <section
-      className="relative isolate overflow-hidden bg-primary-950 text-white"
-      aria-label="Servicios destacados de ABM"
-      aria-roledescription="carrusel"
-      onFocusCapture={() => setFocused(true)}
-      onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}
-    >
-      <div className="relative h-64 overflow-hidden sm:h-80 md:absolute md:inset-0 md:h-auto" aria-hidden="true">
-        <img key={slide.image.src} {...slide.image} sizes="100vw" alt="" decoding="async" fetchPriority={active === 0 ? 'high' : 'auto'} className="hero-photo-motion h-full w-full object-cover object-[70%_center] md:object-center" />
-        <div className="hero-photo-overlay absolute inset-0 hidden md:block" />
-      </div>
-      <div className="container pointer-events-none absolute inset-x-0 top-12 z-10 mx-auto hidden px-6 lg:block" aria-hidden="true">
-        <div id="hero-logo-anchor" className="h-[100px] w-[236px]"><img src="/branding/abm-firma-inversa.svg" alt="" width="236" height="100" className="h-full w-full" /></div>
-      </div>
-      <div className="absolute right-4 top-64 z-10 flex -translate-y-full items-center gap-1 rounded-lg bg-primary-950/85 p-1 text-white sm:top-80 md:hidden">
-        <button type="button" onClick={() => select(active - 1)} className="rounded p-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white" aria-label="Diapositiva anterior" aria-controls="hero-slide"><ArrowLeft size={19} /></button>
-        <span className="px-1 text-xs font-bold tabular-nums" aria-hidden="true">{active + 1}/{slides.length}</span>
-        <button type="button" onClick={() => select(active + 1)} className="rounded p-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white" aria-label="Diapositiva siguiente" aria-controls="hero-slide"><ArrowRight size={19} /></button>
-      </div>
-      <div id="hero-slide" className="container relative mx-auto flex min-h-[440px] items-center px-6 pb-12 pt-12 md:h-[620px] md:min-h-0 md:py-12 lg:h-[700px] lg:items-start lg:pb-8 lg:pt-[190px]" role="group" aria-roledescription="diapositiva" aria-label={`${active + 1} de ${slides.length}: ${slide.label}`} aria-live={paused ? 'polite' : 'off'}>
-        <div key={active} className="hero-reveal max-w-2xl">
-          <p className="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-accent-200 sm:text-sm">{slide.eyebrow}</p>
-          <h1 className="text-4xl font-bold leading-[1.12] tracking-tight sm:text-5xl lg:text-6xl">{slide.title}</h1>
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-primary-100 sm:text-lg">{slide.description}</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href={whatsappLink(slide.message)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent-700 px-6 py-4 font-bold text-white transition hover:bg-accent-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"><WhatsAppIcon size={19} /> Escribir por WhatsApp</a>
-            <Link to={slide.link} className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/50 px-6 py-4 font-semibold text-white transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">{slide.action} <ArrowRight size={18} /></Link>
-          </div>
-          <p className="mt-6 text-sm text-primary-200">Podés dejar tu mensaje en cualquier momento. Respondemos durante el horario de atención.</p>
+  return <section className="home-hero" aria-label="Servicios destacados de ABM" aria-roledescription="carrusel" onFocusCapture={() => setFocused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
+    <img key={slide.image} className="home-hero-photo hero-photo-motion" src={slide.image} width="1672" height="941" alt="" fetchPriority={active === 0 ? 'high' : 'auto'} decoding="async" />
+    <div className="home-hero-shade" aria-hidden="true" />
+    <div id="hero-slide" className="home-hero-content" role="group" aria-roledescription="diapositiva" aria-label={`${active + 1} de ${slides.length}: ${slide.label}`} aria-live={paused ? 'polite' : 'off'}>
+      <div key={active} className="hero-reveal">
+        <p className="home-hero-eyebrow">{slide.eyebrow}</p>
+        <h1>{slide.title}</h1>
+        <p className="home-hero-description">{slide.description}</p>
+        <div className="home-hero-actions">
+          <a href={whatsappLink(slide.message)} target="_blank" rel="noopener noreferrer" className="home-hero-primary"><WhatsAppIcon size={18} /> Escribir por WhatsApp</a>
+          <Link to={slide.link} className="home-hero-secondary">{slide.action}<ArrowRight size={17} aria-hidden="true" /></Link>
         </div>
       </div>
-      <div className="relative border-t border-white/15 bg-primary-950/80">
-        <div className="container mx-auto flex items-center gap-4 px-6 py-4">
-          <div className="flex flex-1 gap-2" role="group" aria-label="Elegir diapositiva">
-            {slides.map((item, index) => <button key={item.label} type="button" onClick={() => select(index)} aria-label={`Diapositiva ${index + 1}: ${item.label}`} aria-pressed={active === index} aria-controls="hero-slide" className={`min-w-0 flex-1 border-t-2 pt-2 text-left text-xs font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-white ${active === index ? 'border-accent-300 text-white' : 'border-white/30 text-primary-200 hover:border-white hover:text-white'}`}><span>0{index + 1}</span><span className="ml-2 hidden sm:inline">{item.label}</span></button>)}
-          </div>
-          <div className="flex shrink-0 items-center gap-1">
-            <button type="button" onClick={() => select(active - 1)} className="rounded-lg p-2 text-white transition hover:bg-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white" aria-label="Diapositiva anterior"><ArrowLeft size={20} /></button>
-            {!reducedMotion && <button type="button" onClick={() => setPaused(value => !value)} className="rounded-lg p-2 text-white transition hover:bg-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white" aria-label={paused ? 'Reanudar carrusel' : 'Pausar carrusel'}>{paused ? <Play size={18} /> : <Pause size={18} />}</button>}
-            <button type="button" onClick={() => select(active + 1)} className="rounded-lg p-2 text-white transition hover:bg-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white" aria-label="Diapositiva siguiente"><ArrowRight size={20} /></button>
-          </div>
+    </div>
+    <div className="home-hero-bottom">
+      <div className="home-hero-bottom-head"><span>Explorá el estudio</span><span>0{active + 1} — 0{slides.length}</span></div>
+      <div className="home-hero-bottom-row">
+        <div className="home-hero-topics" role="group" aria-label="Elegir tema destacado">
+          {slides.map((item, index) => <button key={item.label} type="button" onClick={() => select(index)} aria-label={`Diapositiva ${index + 1}: ${item.label}`} aria-pressed={active === index} aria-controls="hero-slide" className="home-hero-topic">
+            <img src={item.thumb} width="64" height="64" alt="" loading="lazy" />
+            <span><small>0{index + 1} · {item.label}</small><strong>{item.topic}</strong></span>
+          </button>)}
         </div>
+        {!reducedMotion && <button type="button" className="home-hero-pause" onClick={() => setPaused(value => !value)} aria-label={paused ? 'Reanudar carrusel' : 'Pausar carrusel'}>{paused ? <Play size={18} /> : <Pause size={18} />}</button>}
       </div>
-    </section>
-
-    <section className="bg-[#f4f7fa] py-10" aria-label="Consultas frecuentes">
-      <div className="container mx-auto grid gap-4 px-6 md:grid-cols-3">
-        {quickPaths.map(({ to, icon: Icon, title, text }) => <Link key={to} to={to} className="group flex items-start gap-4 rounded-2xl border border-primary-100 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-accent-300 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-700"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-accent-700">{React.createElement(Icon, { size: 22 })}</span><span className="flex-1"><strong className="block text-primary-900">{title}</strong><span className="mt-1 block text-sm leading-relaxed text-gray-600">{text}</span></span><ArrowRight size={18} className="mt-1 shrink-0 text-accent-700 transition group-hover:translate-x-1" aria-hidden="true" /></Link>)}
-      </div>
-    </section>
-  </>;
+    </div>
+  </section>;
 }

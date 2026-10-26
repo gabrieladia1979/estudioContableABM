@@ -15,7 +15,7 @@ export default function TopicPage({ topic }) {
     <div>
       <Navbar />
       <main>
-        <PageHeading title={topic === 'monotributo' ? 'Monotributo' : 'Intimaciones ARCA'} />
+        <PageHeading title={topic === 'monotributo' ? 'Monotributo' : 'Intimaciones ARCA'} description={topic === 'monotributo' ? 'Orientación para empezar, seguir o revisar tu actividad.' : 'Revisemos la comunicación y los plazos para definir los próximos pasos.'} />
         <section className="bg-primary-950 px-6 py-16 text-white md:py-24">
           <div className="container mx-auto max-w-5xl">
             <p className="mb-4 text-sm font-bold uppercase tracking-[0.16em] text-accent-200">{content.eyebrow}</p>

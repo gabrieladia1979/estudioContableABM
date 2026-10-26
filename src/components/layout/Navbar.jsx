@@ -1,5 +1,5 @@
 import WhatsAppIcon from '../WhatsAppIcon';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { whatsappLink } from '../../data/contact';
@@ -18,13 +18,21 @@ const serviceAreas = [
   ['Profesionales y personas', [['Profesionales y personas', 'personas']]],
 ];
 
-const Navbar = () => {
+const Navbar = ({ overlay = false }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    if (!overlay) return;
+    const update = () => setScrolled(window.scrollY > 60);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
+  }, [overlay]);
   const closeMenus = () => { setMobileOpen(false); setServicesOpen(false); };
 
   return <header
-    className="site-header sticky top-0 z-50"
+    className={`site-header top-0 z-50 ${overlay ? `fixed inset-x-0 is-overlay ${scrolled ? 'is-scrolled' : ''}` : 'sticky'}`}
     onMouseLeave={() => setServicesOpen(false)}
     onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setServicesOpen(false); }}
     onKeyDown={event => { if (event.key === 'Escape') setServicesOpen(false); }}

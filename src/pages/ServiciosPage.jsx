@@ -10,7 +10,7 @@ const ServiciosPage = () => {
     <div className="bg-[#f7f9fb]">
       <Navbar />
       <main>
-        <PageHeading title="Servicios" />
+        <PageHeading title="Servicios" description="Encontrá el asesoramiento contable e impositivo que necesita tu actividad." />
 
         <GroupedServiceExplorer />
 

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ABM · Modelo de inicio con navegación sobre imagen</title>
+  <style>
+    :root { font-family: Arial, Helvetica, sans-serif; color: #102a43; background: #fff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+    .preview-note { display: flex; align-items: center; justify-content: space-between; gap: 18px; min-height: 44px; padding: 8px 5vw; background: #f1f4f7; color: #29445c; font-size: 12px; }
+    .preview-note strong { color: #8c2803; text-transform: uppercase; letter-spacing: .08em; }
+    .preview-note span { text-align: right; }
+    .hero { position: relative; isolation: isolate; min-height: 860px; overflow: hidden; background: #061c2c; color: #fff; }
+    .hero-photo { position: absolute; inset: 0; z-index: -3; width: 100%; height: 100%; object-fit: cover; object-position: 62% center; transition: opacity 250ms ease; }
+    .hero-shade { position: absolute; inset: 0; z-index: -2; background: linear-gradient(90deg,rgba(0,19,36,.96) 0%,rgba(0,22,41,.87) 28%,rgba(0,22,41,.53) 55%,rgba(0,14,27,.28) 100%),linear-gradient(0deg,rgba(0,16,31,.89),transparent 30%,rgba(0,16,31,.35)); }
+    .hero::after { position: absolute; right: 0; bottom: -1px; z-index: -1; width: 100%; height: 90px; background: #fff; clip-path: polygon(0 100%,100% 12%,100% 100%); content: ''; }
+    .ticker { display: flex; align-items: center; gap: 34px; height: 34px; overflow: hidden; padding: 0 5vw; border-bottom: 1px solid #ffffff25; background: #001a33a8; color: #e4edf3; white-space: nowrap; font-size: 10px; }
+    .ticker b { letter-spacing: .1em; }
+    .site-nav { display: grid; grid-template-columns: 310px minmax(0,1fr) 150px; align-items: center; gap: 30px; height: 104px; padding: 0 5vw; border-bottom: 1px solid #ffffff55; background: linear-gradient(#001a33a6,#001a330e); }
+    .brand { display: flex; align-items: center; gap: 13px; white-space: nowrap; }
+    .brand img { display: block; width: 87px; height: 41px; object-fit: contain; }
+    .brand strong { display: block; font-size: 20px; }
+    .brand small { display: block; margin-top: 5px; color: #ffd4b7; font-size: 10px; font-weight: 800; letter-spacing: .14em; }
+    .links { display: flex; align-items: stretch; justify-content: space-between; gap: 18px; height: 100%; }
+    .links a { position: relative; display: flex; align-items: center; white-space: nowrap; font-size: 16px; font-weight: 650; }
+    .links a:hover::after,.links a.current::after { position: absolute; right: 0; bottom: 24px; left: 0; height: 2px; background: #ffccaa; content: ''; }
+    .consult { justify-self: end; border: 1px solid #ffd4b7; border-radius: 8px; padding: 14px 19px; white-space: nowrap; font-size: 15px; font-weight: 750; }
+    .consult:hover { background: #ffffff20; }
+    .mobile-menu { display: none; border: 0; background: transparent; color: #fff; font-size: 25px; }
+    .hero-content { max-width: 1600px; margin: auto; padding: 113px 5vw 0; }
+    .eyebrow { margin: 0 0 22px; color: #ffd4b7; font-size: 12px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+    h1 { max-width: 760px; margin: 0; font-family: Georgia,'Times New Roman',serif; font-size: clamp(58px,6vw,92px); font-weight: 400; line-height: 1.06; letter-spacing: -.045em; }
+    .summary { max-width: 580px; margin: 26px 0 33px; color: #e0eaf2; font-size: 19px; line-height: 1.55; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .actions a { display: inline-flex; align-items: center; min-height: 51px; border: 1px solid #fff9; border-radius: 6px; padding: 0 20px; font-size: 14px; font-weight: 750; }
+    .actions .primary { border-color: #a33005; background: #a33005; }
+    .actions a:hover { background: #ffffff28; }
+    .actions .primary:hover { background: #8c2803; }
+    .hero-bottom { max-width: 1600px; margin: 91px auto 0; padding: 0 5vw 100px; }
+    .hero-bottom-head { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #ffffff9e; padding-top: 13px; color: #e7eff5; font-size: 11px; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; }
+    .hero-bottom-head span:last-child { color: #ffccaa; }
+    .topics { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 24px; }
+    .topic { display: flex; align-items: center; gap: 15px; border: 0; border-left: 2px solid #ffffff69; padding: 6px 12px 6px 17px; background: transparent; color: #f4f8fb; text-align: left; }
+    .topic[aria-pressed="true"] { border-left-color: #ffccaa; background: #ffffff18; }
+    .topic img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+    .topic small { display: block; margin-bottom: 3px; color: #ffd4b7; font-size: 10px; font-weight: 800; letter-spacing: .1em; }
+    .topic strong { font-size: 14px; line-height: 1.3; }
+    .below { max-width: 1440px; margin: auto; padding: 48px 5vw 80px; }
+    .below p { margin: 0 0 11px; color: #9b3007; font-size: 11px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+    .below h2 { margin: 0; color: #102a43; font-family: Georgia,serif; font-size: 38px; font-weight: 400; }
+    @media (max-width: 1120px) { .site-nav { grid-template-columns: 275px minmax(0,1fr) 120px; gap: 16px; } .brand strong { font-size: 16px; } .brand small { font-size: 8px; } .brand img { width: 76px; } .links a { font-size: 13px; } .consult { padding: 12px; font-size: 12px; } }
+    @media (max-width: 800px) { .hero { min-height: 780px; } .site-nav { display: flex; height: 84px; } .links,.consult { display: none; } .mobile-menu { display: block; margin-left: auto; } .hero-content { padding-top: 92px; } .hero-bottom { margin-top: 70px; } .topics { gap: 5px; } .topic { gap: 8px; padding: 5px 8px; } .topic img { display: none; } }
+    @media (max-width: 550px) { .preview-note { align-items: start; flex-direction: column; } .preview-note span { text-align: left; } .hero { min-height: 800px; } .hero-photo { object-position: 66% center; } .hero-shade { background: linear-gradient(90deg,rgba(0,19,36,.94),rgba(0,19,36,.66)),linear-gradient(0deg,rgba(0,16,31,.88),transparent 50%); } .ticker { gap: 20px; } .site-nav { padding: 0 19px; } .brand img { width: 72px; } .brand strong { font-size: 14px; } .brand small { font-size: 8px; } .hero-content { padding: 92px 20px 0; } h1 { font-size: 50px; } .summary { font-size: 16px; } .hero-bottom { margin-top: 62px; padding: 0 20px 80px; } .topics { grid-template-columns: 1fr 1fr 1fr; } .topic strong { font-size: 11px; } .topic small { font-size: 9px; } }
+  </style>
+</head>
+<body>
+  <div class="preview-note"><strong>Modelo de inicio · ABM</strong><span>La barra azul se integra sobre la foto y puede volverse sólida al desplazarte. Prototipo: la web real sigue igual.</span></div>
+  <section class="hero" aria-label="Inicio de ABM"><img class="hero-photo" id="hero-photo" src="../../public/accounting/contabilidad-1672.webp" alt="Contadora revisando documentación y cálculos en un escritorio"><div class="hero-shade"></div>
+    <div class="ticker"><b>COTIZACIONES</b><span>Dólar mayorista · Referencia: $ 1.540,48</span><span>Dólar blue · C $ 1.555,00 · V $ 1.575,00</span><span>Dólar MEP · C $ 1.571,70 · V $ 1.577,50</span></div>
+    <header class="site-nav"><a class="brand" href="#inicio"><img src="../../public/branding/abm-firma-inversa.svg" alt=""><span><strong>Estudio Contable</strong><small>CONTABLE E IMPOSITIVO</small></span></a><nav class="links" aria-label="Navegación principal"><a class="current" href="#inicio">Inicio</a><a href="#estudio">El estudio</a><a href="#servicios">Servicios</a><a href="#noticias">Noticias</a><a href="#contacto">Contacto</a></nav><a class="consult" href="#contacto">Consultar</a><button class="mobile-menu" aria-label="Abrir menú">☰</button></header>
+    <div class="hero-content" id="inicio"><p class="eyebrow" id="hero-eyebrow">ABM · Estudio contable en CABA</p><h1 id="hero-title">Tu negocio merece cuentas claras.</h1><p class="summary" id="hero-summary">Impuestos, contabilidad y sueldos para acompañar cada etapa de tu actividad. Contanos qué necesitás resolver.</p><div class="actions"><a class="primary" href="#contacto">Escribir por WhatsApp</a><a href="#servicios" id="hero-action">Ver servicios para pymes →</a></div></div>
+    <div class="hero-bottom"><div class="hero-bottom-head"><span>Explorá el estudio</span><span>01 — 03</span></div><div class="topics"><button class="topic" type="button" data-slide="0" aria-pressed="true"><img src="../../public/accounting/contabilidad-card.webp" alt=""><span><small>01 · NEGOCIOS</small><strong>Contabilidad para tu empresa</strong></span></button><button class="topic" type="button" data-slide="1" aria-pressed="false"><img src="../../public/accounting/monotributo-card.webp" alt=""><span><small>02 · PERSONAS</small><strong>Empezar con monotributo</strong></span></button><button class="topic" type="button" data-slide="2" aria-pressed="false"><img src="../../public/accounting/asesoramiento-card.webp" alt=""><span><small>03 · CONSULTAS</small><strong>Comunicaciones de ARCA</strong></span></button></div></div>
+  </section>
+  <section class="below" id="estudio"><p>El estudio</p><h2>Una conversación clara para empezar a resolver.</h2></section>
+  <script>
+    const slides = [
+      { image: '../../public/accounting/contabilidad-1672.webp', eyebrow: 'ABM · Estudio contable en CABA', title: 'Tu negocio merece cuentas claras.', summary: 'Impuestos, contabilidad y sueldos para acompañar cada etapa de tu actividad. Contanos qué necesitás resolver.', action: 'Ver servicios para pymes →' },
+      { image: '../../public/accounting/monotributo-1672.webp', eyebrow: 'Para quienes trabajan por cuenta propia', title: '¿Empezás con monotributo?', summary: 'Te ayudamos a ordenar el alta, tu actividad y los próximos pasos según tu situación.', action: 'Consultar sobre monotributo →' },
+      { image: '../../public/accounting/asesoramiento-1672.webp', eyebrow: 'Consultas con un plazo o requerimiento', title: '¿Recibiste una comunicación de ARCA?', summary: 'Contanos qué aviso recibiste y si indica un vencimiento para empezar la consulta.', action: 'Ver cómo consultar →' },
+    ];
+    document.querySelectorAll('[data-slide]').forEach(button => button.addEventListener('click', () => {
+      const index = Number(button.dataset.slide);
+      const slide = slides[index];
+      document.getElementById('hero-photo').src = slide.image;
+      document.getElementById('hero-eyebrow').textContent = slide.eyebrow;
+      document.getElementById('hero-title').textContent = slide.title;
+      document.getElementById('hero-summary').textContent = slide.summary;
+      document.getElementById('hero-action').textContent = slide.action;
+      document.querySelector('.hero-bottom-head span:last-child').textContent = `0${index + 1} — 03`;
+      document.querySelectorAll('[data-slide]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    }));
+  </script>
+</body>
+</html>

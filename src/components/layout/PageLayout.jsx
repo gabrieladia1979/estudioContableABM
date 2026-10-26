@@ -9,8 +9,7 @@ const PageLayout = ({ title, subtitle, children }) => {
     <div>
       <Navbar />
       <main>
-        <PageHeading title={title} />
-        {subtitle && <p className="container mx-auto px-6 pt-8 text-lg text-primary-700">{subtitle}</p>}
+        <PageHeading title={title} description={subtitle} />
         
         {/* Contenido principal de la página */}
         <div className="bg-white">

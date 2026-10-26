@@ -7,7 +7,7 @@ const ContactoPage = () => (
   <div>
     <Navbar />
     <main>
-      <PageHeading title="Contacto" />
+      <PageHeading title="Contacto" description="Contanos qué necesitás resolver y empecemos a conversar." />
       <ContactForm />
     </main>
     <Footer />

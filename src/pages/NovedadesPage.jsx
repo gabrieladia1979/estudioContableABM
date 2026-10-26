@@ -11,7 +11,7 @@ const NovedadesPage = () => {
     <div>
       <Navbar />
       <main>
-          <PageHeading title="Noticias" />
+          <PageHeading title="Noticias" description="Novedades oficiales y recursos útiles para mantenerte al día." />
           <OfficialNewsSection />
           <NewsSection />
       </main>

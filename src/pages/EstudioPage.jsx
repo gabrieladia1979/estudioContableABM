@@ -10,7 +10,7 @@ const EstudioPage = () => {
     <div>
       <Navbar />
       <main>
-        <PageHeading title="El estudio" />
+        <PageHeading title="El estudio" description="Conocé a Alejandra Mayta y la forma en que acompañamos cada consulta." />
         <AboutSection />
       </main>
       <Footer />
