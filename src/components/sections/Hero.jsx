@@ -85,14 +85,14 @@ export default function Hero() {
         <div className="hero-photo-overlay absolute inset-0 hidden md:block" />
       </div>
       <div className="container pointer-events-none absolute inset-x-0 top-12 z-10 mx-auto hidden px-6 lg:block" aria-hidden="true">
-        <div id="hero-logo-anchor" className="h-[140px] w-[210px]" />
+        <div id="hero-logo-anchor" className="h-[100px] w-[236px]"><img src="/branding/abm-firma-inversa.svg" alt="" width="236" height="100" className="h-full w-full" /></div>
       </div>
       <div className="absolute right-4 top-64 z-10 flex -translate-y-full items-center gap-1 rounded-lg bg-primary-950/85 p-1 text-white sm:top-80 md:hidden">
         <button type="button" onClick={() => select(active - 1)} className="rounded p-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white" aria-label="Diapositiva anterior" aria-controls="hero-slide"><ArrowLeft size={19} /></button>
         <span className="px-1 text-xs font-bold tabular-nums" aria-hidden="true">{active + 1}/{slides.length}</span>
         <button type="button" onClick={() => select(active + 1)} className="rounded p-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white" aria-label="Diapositiva siguiente" aria-controls="hero-slide"><ArrowRight size={19} /></button>
       </div>
-      <div id="hero-slide" className="container relative mx-auto flex min-h-[440px] items-center px-6 pb-12 pt-12 md:h-[620px] md:min-h-0 md:py-12 lg:h-[700px] lg:items-start lg:pb-8 lg:pt-[220px]" role="group" aria-roledescription="diapositiva" aria-label={`${active + 1} de ${slides.length}: ${slide.label}`} aria-live={paused ? 'polite' : 'off'}>
+      <div id="hero-slide" className="container relative mx-auto flex min-h-[440px] items-center px-6 pb-12 pt-12 md:h-[620px] md:min-h-0 md:py-12 lg:h-[700px] lg:items-start lg:pb-8 lg:pt-[190px]" role="group" aria-roledescription="diapositiva" aria-label={`${active + 1} de ${slides.length}: ${slide.label}`} aria-live={paused ? 'polite' : 'off'}>
         <div key={active} className="hero-reveal max-w-2xl">
           <p className="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-accent-200 sm:text-sm">{slide.eyebrow}</p>
           <h1 className="text-4xl font-bold leading-[1.12] tracking-tight sm:text-5xl lg:text-6xl">{slide.title}</h1>

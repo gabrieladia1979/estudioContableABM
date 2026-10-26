@@ -13,7 +13,7 @@ export default function AboutSection() {
     <section id="estudio" className="bg-white px-6 py-16 md:py-24">
       <div className="container mx-auto grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-16">
         <div className="rounded-3xl bg-primary-950 p-8 text-white md:p-12">
-          <span className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-2xl font-black tracking-tight text-primary-950">ABM</span>
+          <img src="/branding/abm-firma-inversa.svg" alt="ABM" width="118" height="50" className="mb-8 h-[50px] w-[118px]" />
           <p className="text-sm font-bold uppercase tracking-[0.17em] text-accent-200">Quién está detrás del estudio</p>
           <h2 className="mt-4 text-3xl font-bold">Alejandra Mayta</h2>
           <p className="mt-2 text-lg text-primary-100">Contadora y administradora de empresas</p>
