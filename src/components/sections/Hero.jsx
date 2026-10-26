@@ -22,7 +22,7 @@ const slides = [
     title: '¿Empezás con monotributo?',
     description: 'Si tenés dudas sobre el alta, tu actividad o un cambio en tu situación, explicanos brevemente el caso para orientarte sobre los próximos pasos.',
     image: accountingImages.monotributo,
-    link: '/monotributo',
+    link: '/servicios#monotributo',
     action: 'Consultar sobre monotributo',
     message: 'Hola, quisiera consultar por monotributo. Mi situación es: ',
   },
@@ -32,15 +32,15 @@ const slides = [
     title: '¿Recibiste una comunicación de ARCA?',
     description: 'Contanos qué aviso recibiste y si indica un vencimiento. Alejandra revisará tu consulta durante el horario de atención.',
     image: accountingImages.asesoramiento,
-    link: '/intimaciones-arca',
+    link: '/servicios#intimaciones-arca',
     action: 'Ver cómo consultar',
     message: 'Hola, recibí una comunicación de ARCA y quisiera hacer una consulta. El plazo indicado es: ',
   },
 ];
 
 const quickPaths = [
-  { to: '/monotributo', icon: ReceiptText, title: 'Monotributo', text: 'Alta, seguimiento o una duda sobre tu situación.' },
-  { to: '/intimaciones-arca', icon: FileWarning, title: 'Intimaciones de ARCA', text: 'Qué información reunir para iniciar la consulta.' },
+  { to: '/servicios#monotributo', icon: ReceiptText, title: 'Monotributo', text: 'Alta, seguimiento o una duda sobre tu situación.' },
+  { to: '/servicios#intimaciones-arca', icon: FileWarning, title: 'Intimaciones de ARCA', text: 'Qué información reunir para iniciar la consulta.' },
   { to: '/servicios#pymes', icon: Building2, title: 'Empresa o pyme', text: 'Impuestos, balances, contabilidad y sueldos.' },
 ];
 

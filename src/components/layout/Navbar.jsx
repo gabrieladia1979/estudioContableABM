@@ -7,8 +7,7 @@ import MarketTicker from './MarketTicker';
 
 const links = [
   ['/', 'Inicio'], ['/estudio', 'El estudio'], ['/servicios', 'Servicios'],
-  ['/monotributo', 'Monotributo'], ['/intimaciones-arca', 'Intimaciones ARCA'],
-  ['/crear-sociedad', 'Crear sociedad'], ['/novedades', 'Noticias'], ['/contacto', 'Contacto'],
+  ['/novedades', 'Noticias'], ['/contacto', 'Contacto'],
 ];
 
 const Navbar = () => {

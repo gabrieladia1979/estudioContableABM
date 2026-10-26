@@ -7,13 +7,13 @@ const guides = [
     icon: ReceiptText,
     title: 'Consulta por monotributo',
     text: 'Qué datos conviene contar en el primer mensaje si vas a empezar, ya estás inscripto o algo cambió en tu actividad.',
-    to: '/monotributo',
+    to: '/servicios#monotributo',
   },
   {
     icon: FileWarning,
     title: 'Recibí una intimación de ARCA',
     text: 'Cómo iniciar la consulta sin compartir claves ni documentación sensible en el formulario público.',
-    to: '/intimaciones-arca',
+    to: '/servicios#intimaciones-arca',
   },
   {
     icon: ClipboardList,
