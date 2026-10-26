@@ -71,5 +71,5 @@ export default function HeroLogoTransition() {
     };
   }, []);
 
-  return <div ref={movingLogo} className="hero-brand-motion pointer-events-none fixed left-0 top-0 z-[60] hidden" aria-hidden="true"><img ref={onDark} src="/branding/abm-firma-inversa.svg" alt="" className="absolute inset-0 h-full w-full object-contain" /><img ref={onLight} src="/branding/abm-firma.svg" alt="" className="absolute inset-0 h-full w-full object-contain" /></div>;
+  return <div ref={movingLogo} className="hero-brand-motion pointer-events-none fixed left-0 top-0 z-[60] hidden" aria-hidden="true"><img ref={onDark} src="/branding/abm-firma-inversa.svg" alt="" className="absolute inset-0 h-full w-full object-contain" /><img ref={onLight} src="/branding/abm-firma-inversa.svg" alt="" className="absolute inset-0 h-full w-full object-contain" /></div>;
 }

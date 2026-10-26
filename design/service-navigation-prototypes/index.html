@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ABM · Modelos de navegación de Servicios</title>
+  <style>
+    :root { font-family: Arial, Helvetica, sans-serif; color: #102a43; background: #edf2f7; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button { font: inherit; cursor: pointer; }
+    .prototype-bar { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 13px max(36px, calc((100vw - 1440px)/2)); background: #102a43; color: #fff; }
+    .prototype-bar strong { font-size: 14px; letter-spacing: .04em; }
+    .prototype-bar small { display: block; margin-top: 3px; color: #bbcad7; font-size: 11px; }
+    .switcher { display: flex; flex-wrap: wrap; gap: 8px; }
+    .switcher button { border: 1px solid #70859a; border-radius: 999px; padding: 8px 15px; background: transparent; color: #fff; font-size: 12px; font-weight: 700; }
+    .switcher button[aria-pressed="true"] { border-color: #f0ae81; background: #f0ae81; color: #102a43; }
+    .site-head { display: flex; align-items: center; justify-content: space-between; height: 88px; gap: 20px; padding: 0 max(36px, calc((100vw - 1440px)/2)); border-bottom: 1px solid #d9e2ec; background: #fff; }
+    .brand { display: flex; align-items: center; gap: 13px; white-space: nowrap; }
+    .brand-mark { color: #102a43; font-family: Georgia, serif; font-size: 45px; line-height: 1; }
+    .brand-copy b { display: block; font-size: 19px; }
+    .brand-copy span { display: block; margin-top: 6px; color: #8d2907; font-size: 11px; font-weight: 800; letter-spacing: .17em; }
+    .top-links { display: flex; align-items: center; gap: 22px; font-size: 14px; font-weight: 700; }
+    .top-links .current { color: #8d2907; }
+    .consult { border: 0; border-radius: 9px; padding: 14px 23px; background: #8d2907; color: white; font-weight: 800; }
+    .page { max-width: 1440px; margin: auto; padding: 54px 36px 80px; }
+    .design-intro { display: flex; align-items: end; justify-content: space-between; gap: 32px; margin-bottom: 29px; }
+    .eyebrow { margin: 0 0 12px; color: #9a320d; font-size: 12px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+    h1 { margin: 0; font-size: clamp(29px, 3.1vw, 43px); letter-spacing: -.035em; }
+    .design-intro p:last-child { margin: 12px 0 0; color: #52677e; font-size: 16px; }
+    .model-note { max-width: 390px; border-left: 3px solid #b24719; padding-left: 17px; color: #344f68; font-size: 14px; line-height: 1.5; }
+    .workbench { display: grid; grid-template-columns: 320px minmax(0, 1fr); align-items: start; gap: 44px; }
+    aside { min-height: 625px; background: #fff; }
+    .detail { min-height: 625px; padding: 10px 0; }
+    .detail .eyebrow { margin-bottom: 14px; }
+    .detail h2 { margin: 0 0 25px; font-size: 42px; letter-spacing: -.035em; }
+    .detail .lead { max-width: 760px; margin: 0 0 22px; color: #35516b; font-size: 21px; line-height: 1.5; }
+    .detail .fit { max-width: 790px; margin: 0 0 31px; color: #35516b; font-size: 16px; line-height: 1.6; }
+    .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+    .fact { min-height: 80px; display: flex; align-items: center; gap: 16px; border: 1px solid #d5e1ec; border-radius: 12px; padding: 18px; background: #fff; font-size: 15px; line-height: 1.4; }
+    .fact span { color: #a33005; font-size: 20px; }
+    .cta { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 28px; border-radius: 15px; padding: 23px 25px; background: #102a43; color: #fff; }
+    .cta b { font-size: 18px; }
+    .cta button { flex-shrink: 0; border: 0; border-radius: 8px; padding: 13px 18px; background: #9e320b; color: #fff; font-weight: 700; }
+    .side-title { color: #526e88; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .service-button { width: 100%; border: 0; background: transparent; color: #102a43; text-align: left; font-size: 14px; line-height: 1.35; }
+    .service-button:focus-visible, .group-button:focus-visible, .switcher button:focus-visible { outline: 3px solid #a33005; outline-offset: 2px; }
+    /* A: clear hierarchy with an active rail */
+    .model-a { border: 1px solid #d4e0ec; border-radius: 17px; padding: 15px; box-shadow: 0 10px 25px #102a430b; }
+    .model-a .side-title { margin: 11px 8px 6px; }
+    .model-a .group { padding-bottom: 12px; border-bottom: 1px solid #e2e9f0; }
+    .model-a .group:last-child { border: 0; }
+    .model-a .service-button { margin: 2px 0; border-left: 3px solid transparent; border-radius: 0 8px 8px 0; padding: 10px 11px; font-weight: 650; }
+    .model-a .service-button:hover { background: #edf3f8; }
+    .model-a .service-button.active { border-left-color: #a33005; background: #f7ede8; color: #822404; }
+    /* B: collapsible groups */
+    .model-b { border: 1px solid #d4e0ec; border-radius: 17px; overflow: hidden; box-shadow: 0 10px 25px #102a430b; }
+    .model-b .group { border-bottom: 1px solid #e2e9f0; }
+    .model-b .group:last-child { border: 0; }
+    .model-b .group-button { display: flex; width: 100%; align-items: center; justify-content: space-between; border: 0; padding: 21px 19px; background: #fff; color: #102a43; text-align: left; font-weight: 800; }
+    .model-b .group-button.open { background: #102a43; color: #fff; }
+    .model-b .group-button span:last-child { font-size: 20px; font-weight: 400; }
+    .model-b .group-links { padding: 9px 10px 13px; }
+    .model-b .service-button { border-radius: 9px; padding: 12px 11px; font-weight: 650; }
+    .model-b .service-button:hover { background: #edf3f8; }
+    .model-b .service-button.active { background: #f7ede8; color: #822404; }
+    /* C: prominent entry points with a compact directory */
+    .model-c { border: 1px solid #d4e0ec; border-radius: 17px; padding: 17px; box-shadow: 0 10px 25px #102a430b; }
+    .model-c .side-title { margin: 7px 4px 14px; }
+    .model-c .featured { display: grid; gap: 8px; }
+    .model-c .featured .service-button { display: flex; align-items: center; justify-content: space-between; min-height: 57px; border: 1px solid #d4e0ec; border-radius: 11px; padding: 10px 13px; background: #f8fafc; font-weight: 750; }
+    .model-c .featured .service-button.active { border-color: #a33005; background: #fff4ed; color: #822404; }
+    .model-c .featured .service-button::after { content: '›'; font-size: 26px; font-weight: 400; }
+    .model-c .other { margin-top: 24px; border-top: 1px solid #e2e9f0; padding-top: 14px; }
+    .model-c .other .service-button { padding: 9px 5px; font-weight: 650; }
+    .model-c .other .service-button:hover, .model-c .other .service-button.active { color: #a33005; }
+    /* D: compact numbered index */
+    .model-d { border: 1px solid #d4e0ec; border-radius: 17px; padding: 15px 18px; box-shadow: 0 10px 25px #102a430b; }
+    .model-d .group { padding: 16px 0; border-bottom: 1px solid #dbe5ed; }
+    .model-d .group:last-child { border: 0; }
+    .model-d .group-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+    .model-d .number { color: #b1441b; font-family: Georgia, serif; font-size: 22px; }
+    .model-d .side-title { color: #254761; }
+    .model-d .service-button { padding: 8px 8px 8px 31px; font-weight: 650; }
+    .model-d .service-button::before { content: '—'; margin-right: 8px; color: #9db1c2; }
+    .model-d .service-button:hover, .model-d .service-button.active { color: #a33005; }
+    .model-d .service-button.active::before { color: #a33005; }
+    @media (max-width: 850px) { .top-links { display: none; } .workbench { grid-template-columns: 1fr; gap: 24px; } aside { min-height: 0; } .design-intro { align-items: start; flex-direction: column; } .model-note { max-width: none; } }
+    @media (max-width: 550px) { .prototype-bar { align-items: start; flex-direction: column; padding: 16px; } .site-head { padding: 0 16px; } .brand-mark { font-size: 37px; } .brand-copy b { font-size: 14px; } .brand-copy span { font-size: 9px; } .consult { padding: 11px; font-size: 12px; } .page { padding: 34px 16px; } .facts { grid-template-columns: 1fr; } .detail h2 { font-size: 32px; } .cta { align-items: start; flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <div class="prototype-bar"><div><strong>ABM · Opciones para la navegación de Servicios</strong><small>Prototipos para elegir diseño. La web publicada sigue igual.</small></div><div class="switcher" role="group" aria-label="Elegir modelo"><button data-model="a">A · Jerarquía clara</button><button data-model="b">B · Acordeón</button><button data-model="c">C · Accesos destacados</button><button data-model="d">D · Índice editorial</button></div></div>
+  <div class="site-head"><div class="brand"><span class="brand-mark">ABM</span><div class="brand-copy"><b>Estudio Contable</b><span>CONTABLE E IMPOSITIVO</span></div></div><div class="top-links"><span>Inicio</span><span>El estudio</span><span class="current">Servicios</span><span>Noticias</span><span>Contacto</span></div><button class="consult">Consultar</button></div>
+  <main class="page"><div class="design-intro"><div><p class="eyebrow">Servicios por área</p><h1>Elegí el área de tu consulta.</h1><p>Una navegación más fácil de recorrer, con toda la información en Servicios.</p></div><div class="model-note" id="model-note"></div></div><div class="workbench"><aside id="service-nav" aria-label="Áreas y servicios"></aside><section class="detail" id="detail" aria-live="polite"></section></div></main>
+  <script>
+    const groups = [
+      { name: 'Impuestos', ids: ['asesoramiento', 'monotributo', 'arca'] },
+      { name: 'Contabilidad y gestión', ids: ['contabilidad', 'pymes'] },
+      { name: 'Sueldos', ids: ['sueldos'] },
+      { name: 'Sociedades', ids: ['empresas', 'sociedades'] },
+      { name: 'Profesionales y personas', ids: ['personas'] },
+    ];
+    const services = {
+      asesoramiento: { title: 'Asesoramiento tributario', category: 'Impuestos', lead: 'Ordenamos tus obligaciones fiscales y te ayudamos a entender qué corresponde a tu actividad.', fit: 'Para empresas y personas que necesitan acompañamiento periódico o resolver una situación impositiva puntual.', facts: ['Impuestos nacionales y provinciales', 'Presentaciones y regímenes', 'Planeamiento fiscal', 'Consultas ante organismos'] },
+      monotributo: { title: 'Monotributo', category: 'Impuestos', lead: 'Te orientamos con el alta, la facturación y el seguimiento de tu actividad.', fit: 'Para quienes están por empezar, ya están inscriptos o necesitan revisar cambios en su situación.', facts: ['Alta e inicio de actividad', 'Obligaciones y facturación', 'Categoría y cambios de actividad', 'Comunicaciones recibidas'] },
+      arca: { title: 'Intimaciones de ARCA', category: 'Impuestos', lead: 'Revisamos tu consulta sobre una comunicación de ARCA y los próximos pasos.', fit: 'Si recibiste un aviso, contanos de qué se trata y si tiene un vencimiento próximo.', facts: ['Revisión inicial del aviso', 'Identificación de plazos', 'Documentación necesaria', 'Organización de antecedentes'] },
+      contabilidad: { title: 'Contabilidad y balances', category: 'Contabilidad y gestión', lead: 'Información contable ordenada para cumplir obligaciones y conocer mejor tu empresa.', fit: 'Para negocios que buscan organizar registros, preparar balances o mejorar procesos.', facts: ['Estados contables', 'Balances', 'Tareas contables', 'Informes y certificaciones'] },
+      pymes: { title: 'Pymes', category: 'Contabilidad y gestión', lead: 'Más claridad sobre los números y los procesos de tu empresa pequeña o familiar.', fit: 'Para negocios que quieren delegar tareas contables y ordenar su gestión administrativa.', facts: ['Tercerización contable', 'Consultoría para pymes', 'Organización administrativa', 'Reportes de gestión'] },
+      sueldos: { title: 'Sueldos', category: 'Sueldos', lead: 'Acompañamiento en la liquidación de haberes y las obligaciones vinculadas al personal.', fit: 'Para empresas y pymes que necesitan organizar la liquidación de su equipo.', facts: ['Liquidación de sueldos', 'Cargas sociales', 'Libros laborales', 'Certificaciones'] },
+      empresas: { title: 'Empresas y sociedades', category: 'Sociedades', lead: 'Te acompañamos en la organización y los cambios de tu sociedad.', fit: 'Para quienes gestionan una empresa o necesitan tramitar cambios societarios.', facts: ['Reformas estatutarias', 'Cambios de autoridades', 'Cambio de jurisdicción', 'Reorganización societaria'] },
+      sociedades: { title: 'Crear sociedad o cooperativa', category: 'Sociedades', lead: 'Te acompañamos en la constitución y puesta en marcha de tu organización.', fit: 'Conversamos sobre tu proyecto y la estructura más adecuada para definir el alcance del trabajo.', facts: ['SRL', 'SA', 'SAS', 'Cooperativas'] },
+      personas: { title: 'Profesionales y personas', category: 'Profesionales y personas', lead: 'Orientación para profesionales, autónomos y personas con obligaciones fiscales propias.', fit: 'Para quienes trabajan de forma independiente o tienen una consulta impositiva personal.', facts: ['Monotributistas', 'Autónomos', 'Ganancias', 'Certificaciones'] },
+    };
+    const notes = {
+      a: '<b>A · Jerarquía clara.</b> Todas las opciones están a la vista. La línea naranja marca el servicio elegido sin llenar la columna de bloques oscuros.',
+      b: '<b>B · Acordeón.</b> Muestra solo un área por vez. Ocupa menos alto y permite concentrarse, aunque requiere abrir las demás áreas.',
+      c: '<b>C · Accesos destacados.</b> Da prioridad a las consultas más frecuentes y deja el resto en un listado compacto.',
+      d: '<b>D · Índice editorial.</b> Una lista liviana y elegante, con números por área y menos recuadros visuales.',
+    };
+    const params = new URLSearchParams(location.search);
+    let model = ['a', 'b', 'c', 'd'].includes(params.get('model')) ? params.get('model') : 'a';
+    let active = 'monotributo';
+    let openGroup = 0;
+    const nav = document.getElementById('service-nav');
+    const detail = document.getElementById('detail');
+    const serviceButton = id => `<button class="service-button ${active === id ? 'active' : ''}" data-service="${id}" ${active === id ? 'aria-current="true"' : ''}>${services[id].title}</button>`;
+    function render() {
+      document.querySelectorAll('.switcher button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.model === model)));
+      document.getElementById('model-note').innerHTML = notes[model];
+      nav.className = `model-${model}`;
+      if (model === 'a') nav.innerHTML = groups.map(group => `<div class="group"><p class="side-title">${group.name}</p>${group.ids.map(serviceButton).join('')}</div>`).join('');
+      if (model === 'b') nav.innerHTML = groups.map((group, index) => `<div class="group"><button class="group-button ${openGroup === index ? 'open' : ''}" data-group="${index}" aria-expanded="${openGroup === index}"><span>${group.name}</span><span>${openGroup === index ? '−' : '+'}</span></button>${openGroup === index ? `<div class="group-links">${group.ids.map(serviceButton).join('')}</div>` : ''}</div>`).join('');
+      if (model === 'c') nav.innerHTML = `<p class="side-title">Consultas frecuentes</p><div class="featured">${['monotributo', 'arca', 'sociedades', 'asesoramiento'].map(serviceButton).join('')}</div><div class="other"><p class="side-title">Todos los servicios</p>${['contabilidad', 'pymes', 'sueldos', 'empresas', 'personas'].map(serviceButton).join('')}</div>`;
+      if (model === 'd') nav.innerHTML = groups.map((group, index) => `<div class="group"><div class="group-head"><span class="number">0${index + 1}</span><span class="side-title">${group.name}</span></div>${group.ids.map(serviceButton).join('')}</div>`).join('');
+      const item = services[active];
+      detail.innerHTML = `<p class="eyebrow">${item.category}</p><h2>${item.title}</h2><p class="lead">${item.lead}</p><p class="fit">${item.fit}</p><div class="facts">${item.facts.map(fact => `<div class="fact"><span>✓</span>${fact}</div>`).join('')}</div><div class="cta"><b>Conversá con Alejandra sobre tu consulta.</b><button>Consultar</button></div>`;
+    }
+    document.addEventListener('click', event => {
+      const modelButton = event.target.closest('[data-model]');
+      const groupButton = event.target.closest('[data-group]');
+      const itemButton = event.target.closest('[data-service]');
+      if (modelButton) { model = modelButton.dataset.model; history.replaceState(null, '', `?model=${model}`); render(); }
+      if (groupButton) { openGroup = Number(groupButton.dataset.group); render(); }
+      if (itemButton) { active = itemButton.dataset.service; render(); }
+    });
+    render();
+  </script>
+</body>
+</html>

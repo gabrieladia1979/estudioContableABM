@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ABM · Modelos de barra de navegación</title>
+  <style>
+    :root { font-family: Arial, Helvetica, sans-serif; color: #102a43; background: #f3f6f9; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button { font: inherit; cursor: pointer; }
+    .preview-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 11px 5vw; background: #102a43; color: #fff; }
+    .preview-bar strong { font-size: 13px; }
+    .preview-bar small { display: block; margin-top: 3px; color: #c4d1de; font-size: 11px; }
+    .switcher { display: flex; gap: 7px; }
+    .switcher button { border: 1px solid #71869a; border-radius: 999px; padding: 7px 14px; background: transparent; color: white; font-size: 12px; font-weight: 700; }
+    .switcher button[aria-pressed="true"] { border-color: #f6ad78; background: #f6ad78; color: #102a43; }
+    .ticker { display: flex; align-items: center; gap: 40px; height: 32px; overflow: hidden; padding: 0 5vw; background: #14384a; color: #dce8ef; white-space: nowrap; font-size: 10px; }
+    .ticker b { letter-spacing: .08em; }
+    .ticker span { opacity: .85; }
+    .header { position: relative; z-index: 2; box-shadow: 0 4px 20px #102a4310; }
+    .header-main { display: grid; grid-template-columns: 350px minmax(0, 1fr) 155px; align-items: center; gap: 22px; min-height: 112px; padding: 0 5vw; }
+    .brand { display: flex; align-items: center; gap: 14px; white-space: nowrap; }
+    .brand-mark { color: #102a43; font-family: Georgia, serif; font-size: 52px; line-height: .95; }
+    .brand-copy strong { display: block; font-size: 20px; }
+    .brand-copy span { display: block; margin-top: 7px; color: #8d2907; font-size: 12px; font-weight: 800; letter-spacing: .16em; }
+    .links { display: flex; align-items: stretch; justify-content: space-between; gap: 16px; height: 100%; }
+    .links button { position: relative; border: 0; padding: 0 5px; background: transparent; color: inherit; white-space: nowrap; font-size: 17px; font-weight: 650; }
+    .links button.active::after { position: absolute; right: 4px; bottom: 25px; left: 4px; height: 2px; background: #a33005; content: ''; }
+    .links .chevron { padding-left: 3px; font-size: 13px; }
+    .consult { justify-self: end; border: 0; border-radius: 8px; padding: 15px 23px; background: #872600; color: white; white-space: nowrap; font-size: 16px; font-weight: 800; }
+    .mobile-toggle { display: none; border: 0; background: transparent; color: inherit; font-size: 25px; }
+    .mega { border-top: 1px solid #d9e2ec; padding: 32px 5vw 38px; background: #f8fafc; }
+    .mega-inner { display: grid; grid-template-columns: 240px repeat(5, minmax(0, 1fr)); gap: 27px; max-width: 1680px; margin: auto; }
+    .mega-intro { padding-right: 25px; border-right: 1px solid #d7e1ea; }
+    .mega-intro span { color: #a33005; font-size: 11px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+    .mega-intro h2 { margin: 12px 0; font-size: 29px; line-height: 1.1; }
+    .mega-intro p { margin: 0; color: #4c657c; font-size: 13px; line-height: 1.5; }
+    .mega-group h3 { margin: 2px 0 16px; color: #254b67; font-size: 13px; line-height: 1.4; text-transform: uppercase; letter-spacing: .04em; }
+    .mega-group button { display: block; width: 100%; border: 0; padding: 9px 0; background: none; color: #102a43; text-align: left; font-size: 14px; line-height: 1.35; }
+    .mega-group button::before { display: inline-block; width: 6px; height: 6px; margin: 0 11px 2px 0; border-radius: 2px; background: #a33005; content: ''; }
+    .mega-group button:hover { color: #a33005; }
+    .page { max-width: 1440px; margin: auto; padding: 65px 5vw; }
+    .page small { color: #9a320d; font-size: 12px; font-weight: 800; letter-spacing: .17em; text-transform: uppercase; }
+    .page h1 { margin: 15px 0 17px; font-size: 45px; }
+    .page p { max-width: 650px; margin: 0; color: #46617a; font-size: 19px; line-height: 1.5; }
+    .layout-placeholder { display: grid; grid-template-columns: 260px 1fr; gap: 35px; margin-top: 38px; opacity: .6; }
+    .layout-placeholder div { height: 230px; border: 1px solid #cbd9e6; border-radius: 15px; background: #fff; }
+    .design-note { position: fixed; right: 22px; bottom: 20px; z-index: 3; max-width: 370px; border-left: 3px solid #a33005; border-radius: 8px; padding: 14px 17px; background: white; box-shadow: 0 8px 30px #102a4320; color: #35516b; font-size: 13px; line-height: 1.5; }
+    .model-one .header-main { background: white; }
+    .model-one .mega { background: #f8fafc; }
+    .model-two .header-main { background: #102a43; color: white; }
+    .model-two .brand-mark, .model-two .brand-copy strong { color: white; }
+    .model-two .brand-copy span { color: #f6bd99; }
+    .model-two .links button.active::after { background: #f6bd99; }
+    .model-two .consult { border: 1px solid #f2bd9b; background: transparent; }
+    .model-two .mega { background: #f4f4f2; }
+    .model-two .mega-group button::before { background: #102a43; }
+    .model-three .header-main { grid-template-columns: 1fr 160px; min-height: 82px; background: white; }
+    .model-three .brand-mark { font-size: 43px; }
+    .model-three .brand-copy strong { font-size: 17px; }
+    .model-three .brand-copy span { font-size: 10px; }
+    .model-three .links { grid-column: 1 / -1; grid-row: 2; justify-content: stretch; height: 61px; margin: 0 -5.6vw; padding: 0 5vw; background: #102a43; color: #fff; }
+    .model-three .links button { flex: 1; font-size: 18px; }
+    .model-three .links button.active { background: #214560; }
+    .model-three .links button.active::after { right: 20%; bottom: 0; left: 20%; background: #f6bd99; }
+    .model-three .consult { grid-column: 2; grid-row: 1; }
+    .model-three .mega { background: #fbf6f2; }
+    @media (max-width: 1120px) { .header-main { grid-template-columns: 260px 1fr 145px; gap: 12px; } .brand-mark { font-size: 43px; } .brand-copy strong { font-size: 16px; } .brand-copy span { font-size: 10px; } .links button { font-size: 14px; } .mega-inner { grid-template-columns: repeat(3, 1fr); } .mega-intro { border: 0; } }
+    @media (max-width: 800px) { .header-main, .model-three .header-main { display: flex; min-height: 80px; } .links, .model-three .links { display: none; } .mobile-toggle { display: block; margin-left: auto; } .consult { padding: 12px 15px; font-size: 13px; } .mega-inner { grid-template-columns: repeat(2, 1fr); } .ticker { gap: 20px; } }
+    @media (max-width: 520px) { .preview-bar { align-items: start; flex-direction: column; } .switcher { flex-wrap: wrap; } .brand-mark { font-size: 38px; } .brand-copy strong { font-size: 13px; } .brand-copy span { font-size: 8px; } .consult { display: none; } .mega-inner { grid-template-columns: 1fr; } .mega-intro { border-bottom: 1px solid #d7e1ea; padding: 0 0 20px; } .page h1 { font-size: 34px; } .layout-placeholder { display: none; } .design-note { position: static; margin: 20px; } }
+  </style>
+</head>
+<body>
+  <div class="preview-bar"><div><strong>ABM · Modelos de barra de navegación</strong><small>Prototipos para elegir. La barra de la web publicada sigue igual.</small></div><div class="switcher" role="group" aria-label="Elegir modelo"><button data-model="one">1 · Blanca amplia</button><button data-model="two">2 · Azul institucional</button><button data-model="three">3 · Dos niveles</button></div></div>
+  <div class="ticker"><b>COTIZACIONES</b><span>Dólar mayorista · Referencia: $ 1.540,48</span><span>Dólar blue · C $ 1.555,00 · V $ 1.575,00</span><span>Dólar MEP · C $ 1.571,70 · V $ 1.577,50</span></div>
+  <header class="header model-one" id="header"><div class="header-main"><div class="brand"><span class="brand-mark">ABM</span><div class="brand-copy"><strong>Estudio Contable</strong><span>CONTABLE E IMPOSITIVO</span></div></div><nav class="links" aria-label="Navegación principal"><button>Inicio</button><button>El estudio</button><button class="active" id="services-button" aria-expanded="true">Servicios</button><button>Noticias</button><button>Contacto</button></nav><button class="mobile-toggle" aria-label="Abrir menú">☰</button><button class="consult">Consultar</button></div><div class="mega" id="mega"><div class="mega-inner"><div class="mega-intro"><span>Explorá los servicios</span><h2>¿En qué podemos ayudarte?</h2><p>Encontrá el tema de tu consulta y leé la información dentro de Servicios.</p></div><div class="mega-group"><h3>Impuestos</h3><button>Asesoramiento tributario</button><button>Monotributo</button><button>Intimaciones ARCA</button></div><div class="mega-group"><h3>Contabilidad y gestión</h3><button>Contabilidad y balances</button><button>Pymes</button></div><div class="mega-group"><h3>Sueldos</h3><button>Sueldos y cargas sociales</button></div><div class="mega-group"><h3>Sociedades</h3><button>Empresas y sociedades</button><button>Crear sociedad o cooperativa</button></div><div class="mega-group"><h3>Personas</h3><button>Profesionales y personas</button></div></div></div></header>
+  <main class="page"><small>Servicios por área</small><h1>Elegí el área de tu consulta.</h1><p>El menú superior deja respirar a las cinco secciones. Al abrir Servicios, muestra accesos directos sin sacar la información de esta página.</p><div class="layout-placeholder"><div></div><div></div></div></main>
+  <div class="design-note" id="design-note"></div>
+  <script>
+    const descriptions = {
+      one: '<b>1 · Blanca amplia.</b> Conserva la identidad actual y distribuye los cinco enlaces con más espacio. Recomendado si buscamos un cambio discreto.',
+      two: '<b>2 · Azul institucional.</b> Se acerca a la referencia que compartiste: barra sólida, letras grandes y menú desplegado de ancho completo.',
+      three: '<b>3 · Dos niveles.</b> El logo y la consulta tienen su propia fila; los cinco enlaces ocupan todo el ancho de la segunda fila.',
+    };
+    const params = new URLSearchParams(location.search);
+    let model = ['one', 'two', 'three'].includes(params.get('model')) ? params.get('model') : 'one';
+    let open = true;
+    function render() {
+      document.getElementById('header').className = `header model-${model}`;
+      document.getElementById('mega').hidden = !open;
+      document.getElementById('services-button').setAttribute('aria-expanded', String(open));
+      document.getElementById('design-note').innerHTML = descriptions[model];
+      document.querySelectorAll('[data-model]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.model === model)));
+    }
+    document.addEventListener('click', event => {
+      const modelButton = event.target.closest('[data-model]');
+      if (modelButton) { model = modelButton.dataset.model; history.replaceState(null, '', `?model=${model}`); render(); }
+      if (event.target.closest('#services-button') || event.target.closest('.mobile-toggle')) { open = !open; render(); }
+    });
+    render();
+  </script>
+</body>
+</html>
