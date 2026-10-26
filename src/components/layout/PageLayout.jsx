@@ -2,26 +2,15 @@
 import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import PageHeading from './PageHeading';
 
 const PageLayout = ({ title, subtitle, children }) => {
   return (
     <div>
       <Navbar />
       <main>
-        {/* Encabezado dinámico */}
-        <div className="bg-gray-50 py-16">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-                {title}
-              </h1>
-              <div className="w-20 h-1 bg-red-500 mx-auto mb-6"></div>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                {subtitle}
-              </p>
-            </div>
-          </div>
-        </div>
+        <PageHeading title={title} />
+        {subtitle && <p className="container mx-auto px-6 pt-8 text-lg text-primary-700">{subtitle}</p>}
         
         {/* Contenido principal de la página */}
         <div className="bg-white">

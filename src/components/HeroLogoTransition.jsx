@@ -57,10 +57,14 @@ export default function HeroLogoTransition() {
     window.addEventListener('scroll', requestUpdate, { passive: true });
     window.addEventListener('resize', requestUpdate);
     media.addEventListener('change', requestUpdate);
+    const layoutObserver = new ResizeObserver(requestUpdate);
+    layoutObserver.observe(headerLogo.closest('header'));
+    layoutObserver.observe(anchor);
     return () => {
       window.removeEventListener('scroll', requestUpdate);
       window.removeEventListener('resize', requestUpdate);
       media.removeEventListener('change', requestUpdate);
+      layoutObserver.disconnect();
       if (frame) window.cancelAnimationFrame(frame);
       headerLogo.style.opacity = '';
       if (staticLogo) staticLogo.style.opacity = '';

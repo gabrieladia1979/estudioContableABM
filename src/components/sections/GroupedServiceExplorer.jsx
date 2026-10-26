@@ -27,7 +27,7 @@ export default function GroupedServiceExplorer() {
   return <section id="explorar-servicios" className="container mx-auto px-6 py-16 md:py-24">
     <div className="mb-10 max-w-3xl"><p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent-700">Servicios por área</p><h2 className="text-3xl font-bold text-primary-950 md:text-4xl">Elegí el área de tu consulta.</h2><p className="mt-4 text-lg text-primary-700">Cada área reúne los servicios relacionados para que encuentres el acompañamiento que necesitás.</p></div>
     <div className="grid items-start gap-8 lg:grid-cols-[260px_1fr] lg:gap-12">
-      <nav aria-label="Áreas y servicios" className="rounded-2xl border border-primary-100 bg-white p-5 lg:sticky lg:top-28">
+      <nav aria-label="Áreas y servicios" className="rounded-2xl border border-primary-100 bg-white p-5 lg:sticky lg:top-36">
         {areas.map(([title, ids]) => <div key={title} className="border-b border-primary-100 py-4 last:border-0"><p className="mb-2 text-xs font-bold uppercase tracking-wider text-primary-500">{title}</p>{ids.map(id => <Link key={id} to={`#${id}`} aria-current={active === id ? 'true' : undefined} className={`block rounded-lg px-3 py-3 text-sm font-semibold ${active === id ? 'bg-primary-900 text-white' : 'text-primary-900 hover:bg-primary-50'}`}>{serviceDetails.find(item => item.id === id).title}</Link>)}{title === 'Sociedades' && <Link to="/crear-sociedad" className="block px-3 py-3 text-sm font-semibold text-accent-700">Constitución y cooperativas ↗</Link>}</div>)}
       </nav>
       <div id={service.id} className="min-w-0">

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { whatsappLink } from '../../data/contact';
+import MarketTicker from './MarketTicker';
 
 const links = [
   ['/', 'Inicio'], ['/estudio', 'El estudio'], ['/servicios', 'Servicios'],
@@ -13,6 +14,7 @@ const links = [
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   return <header className="sticky top-0 z-50 border-b border-primary-100 bg-white/95 shadow-sm backdrop-blur">
+    <MarketTicker />
     <div className="container mx-auto flex h-20 items-center justify-between gap-4 px-6">
       <Link to="/" className="flex shrink-0 items-center gap-3" aria-label="ABM Estudio Contable, inicio">
         <img id="site-header-logo" src="/branding/abm-firma.svg" alt="" width="84" height="36" className="h-9 w-[84px] shrink-0" />

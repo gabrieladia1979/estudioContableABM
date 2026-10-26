@@ -25,8 +25,28 @@ body {
 }
 
 section[id] {
-  scroll-margin-top: 6rem;
+  scroll-margin-top: 8rem;
 }
+
+.page-heading { border-bottom: 1px solid #d9e2ec; background: radial-gradient(ellipse at 0 0,#d9e8f0 0,transparent 65%),#f7f9fc; padding: 64px 0 56px; }
+.page-heading h1 { margin: 0; max-width: 1100px; color: #102a43; font-size: clamp(44px,6.5vw,96px); font-weight: 700; line-height: 1.06; letter-spacing: -.045em; overflow-wrap: break-word; }
+.market-ticker { display: flex; align-items: stretch; min-height: 38px; background: #102f43; color: #e7f1f6; font-size: 11px; }
+.market-ticker-label { display: flex; flex-shrink: 0; align-items: center; gap: 8px; padding: 0 16px; border-right: 1px solid #ffffff25; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+.market-ticker-label button { display: grid; place-items: center; padding: 5px; border-radius: 4px; }
+.market-ticker-label button:hover { background: #ffffff20; }
+.market-ticker-window { flex: 1; min-width: 0; overflow: hidden; }
+.market-ticker-track { display: flex; width: max-content; animation: market-scroll 65s linear infinite; }
+.market-ticker-group { display: flex; align-items: center; flex-shrink: 0; gap: 32px; margin: 0; padding: 0 32px 0 0; list-style: none; }
+.market-ticker-quote { display: flex; align-items: center; gap: 10px; min-height: 38px; white-space: nowrap; }
+.market-ticker-quote strong { font-size: 11px; }
+.market-ticker-quote small { color: #aecad8; font-size: 9px; }
+a.market-ticker-quote:hover { text-decoration: underline; }
+.market-ticker-quote:focus-visible,.market-ticker button:focus-visible { outline: 2px solid #ffccaa; outline-offset: -2px; }
+.market-ticker-status { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; padding: 8px 16px; font-size: 11px; }
+.market-ticker-status a { text-decoration: underline; }
+.market-ticker:hover .market-ticker-track,.market-ticker-window:focus-within .market-ticker-track,.market-ticker.is-paused .market-ticker-track { animation-play-state: paused; }
+@keyframes market-scroll { to { transform: translateX(-50%); } }
+@media(max-width:600px) { .page-heading { padding: 45px 0; } .market-ticker-label { padding: 0 10px; font-size: 9px; } }
 
 .hero-brand-motion img { display: block; }
 .home-wave-surface { position: relative; isolation: isolate; overflow: hidden; background: #f7f9fc; }
@@ -77,4 +97,7 @@ section[id] {
   html { scroll-behavior: auto; }
   .hero-reveal, .hero-photo-motion, .home-wave-art { animation: none; }
   .service-photo-card > img { transition: none; }
+  .market-ticker-track { animation: none; }
+  .market-ticker-group[aria-hidden="true"] { display: none; }
+  .market-ticker-window { overflow-x: auto; }
 }

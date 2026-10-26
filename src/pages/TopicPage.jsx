@@ -5,6 +5,7 @@ import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { whatsappLink } from '../data/contact';
 import { topicPages } from '../data/topicPages';
+import PageHeading from '../components/layout/PageHeading';
 
 export default function TopicPage({ topic }) {
   const content = topicPages[topic];
@@ -14,10 +15,11 @@ export default function TopicPage({ topic }) {
     <div>
       <Navbar />
       <main>
+        <PageHeading title={topic === 'monotributo' ? 'Monotributo' : 'Intimaciones ARCA'} />
         <section className="bg-primary-950 px-6 py-16 text-white md:py-24">
           <div className="container mx-auto max-w-5xl">
             <p className="mb-4 text-sm font-bold uppercase tracking-[0.16em] text-accent-200">{content.eyebrow}</p>
-            <h1 className="max-w-4xl text-4xl font-bold leading-tight md:text-5xl">{content.title}</h1>
+            <h2 className="max-w-4xl text-3xl font-bold leading-tight md:text-4xl">{content.title}</h2>
             <p className="mt-6 max-w-3xl text-lg leading-relaxed text-primary-100">{content.intro}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to={`/contacto?tema=${topic}`} className="inline-flex items-center gap-2 rounded-lg bg-accent-700 px-6 py-4 font-bold text-white hover:bg-accent-800">Contar mi situación <ArrowRight size={18} /></Link>

@@ -43,3 +43,11 @@ Ver `GESTION_ESTUDIO.md` para el flujo de consultas, el CRM inicial recomendado 
 ## Noticias oficiales
 
 La portada y `/novedades` muestran una selección editorial de ARCA y del Consejo Profesional CABA definida en `src/data/officialNews.js`. No es un feed automático. Para actualizarla, verificar cada publicación original, registrar su fecha y enlace, escribir un resumen breve y actualizar `newsReviewedAt`. Las guías del estudio se mantienen aparte de las noticias.
+
+## Franja de cotizaciones
+
+`/api/market` consulta las API públicas del BCRA (minorista vendedor promedio, mayorista de referencia, euro y real) y DolarAPI (blue, MEP, CCL y tarjeta). DolarAPI documenta a DolarHoy y Ámbito como fuentes. Cada registro conserva su fuente y su fecha de publicación; la fecha de consulta no reemplaza la fecha del dato. No se calculan compras ficticias para cotizaciones que solo tienen venta.
+
+La función de Netlify está en `netlify/functions/market.mjs` y la lógica compartida en `server/market-data.mjs`. Vite sirve el mismo endpoint en desarrollo. El navegador consulta al abrir la página, al volver a la pestaña y cada minuto mientras está visible. La caché del servidor y la caché compartida de Netlify duran cinco minutos. Los precios cambian cuando las fuentes publican valores nuevos; no es una conexión de mercado segundo a segundo.
+
+Si una fuente falla, se conserva en memoria su último dato durante un máximo de tres días, identificado como anterior y con su fecha original. Si no existe una cotización verificada, se muestra un enlace a DolarHoy o un mensaje de indisponibilidad, sin rellenar precios con ceros. Las consultas tienen un tiempo máximo de ocho segundos. No requiere claves de API. Pruebas de caché, errores y normalización: `node --test server/market-data.test.mjs`.
