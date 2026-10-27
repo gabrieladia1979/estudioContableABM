@@ -4,6 +4,45 @@
 @tailwind components;
 @tailwind utilities;
 
+.news-editor { min-height: 100vh; padding: 35px max(22px,4vw) 70px; background: #f3f7fa; color: #102a43; }
+.news-editor-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; margin-bottom: 24px; }
+.news-editor-header a { color: #8c2803; font-size: 13px; font-weight: 650; }
+.news-editor h1 { margin: 8px 0 4px; font-size: clamp(30px,3vw,44px); font-weight: 650; letter-spacing: -.045em; }
+.news-editor h2 { margin: 15px 0 10px; font-size: clamp(24px,2.3vw,34px); font-weight: 650; line-height: 1.2; letter-spacing: -.035em; }
+.news-editor h3 { font-size: 17px; font-weight: 700; }
+.news-editor button { border: 1px solid #b8cbd9; border-radius: 7px; padding: 10px 16px; background: #fff; color: #102a43; font-size: 13px; font-weight: 650; }
+.news-editor button:hover { border-color: #327c9d; background: #e8f3fb; }
+.news-editor button.is-primary { border-color: #102a43; background: #102a43; color: #fff; }
+.news-editor button:disabled { cursor: not-allowed; opacity: .45; }
+.news-editor button:focus-visible,.news-editor a:focus-visible { outline: 2px solid #a33005; outline-offset: 3px; }
+.news-editor label { display: grid; gap: 7px; font-size: 13px; font-weight: 600; }
+.news-editor input:not([type="checkbox"]),.news-editor textarea,.news-editor select { width: 100%; border: 1px solid #bccedc; border-radius: 7px; padding: 10px 12px; background: #fff; color: #102a43; font: inherit; font-weight: 400; }
+.news-editor input:focus-visible,.news-editor textarea:focus-visible,.news-editor select:focus-visible { outline: 2px solid #327c9d; outline-offset: 2px; }
+.news-editor-status { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 20px; font-size: 12px; color: #48647d; }
+.news-editor-layout { display: grid; grid-template-columns: 320px minmax(0,1fr); align-items: start; gap: 25px; max-width: 1500px; }
+.news-editor-list { display: grid; gap: 8px; max-height: 78vh; overflow: auto; padding: 4px 5px 5px 0; position: sticky; top: 20px; }
+.news-editor-list > label { margin-bottom: 12px; }
+.news-editor-list button { display: grid; gap: 6px; padding: 15px; text-align: left; }
+.news-editor-list button.is-selected { border-color: #327c9d; border-left-width: 4px; background: #e6f1f8; }
+.news-editor-list small,.news-editor-list span { color: #48647d; font-size: 11px; }
+.news-editor-list strong { font-size: 14px; line-height: 1.4; }
+.news-editor-detail { min-width: 0; border: 1px solid #d6e2ec; border-radius: 15px; padding: clamp(20px,3vw,38px); background: #fff; }
+.news-editor-meta { display: flex; flex-wrap: wrap; gap: 8px; font-size: 11px; color: #48647d; }
+.news-editor-meta span { border-radius: 15px; padding: 4px 9px; background: #e9f2f8; }
+.news-editor-source { display: inline-block; margin-top: 12px; color: #8c2803; font-size: 13px; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.news-editor-source-box { display: grid; gap: 15px; margin-top: 25px; padding: 20px; border: 1px solid #d6e2ec; border-radius: 10px; background: #f7fafc; }
+.news-editor-source-box button { justify-self: start; }
+.news-editor-checks { margin-top: 18px; border-left: 3px solid #c19354; padding: 12px 15px; background: #fff8e9; color: #684a20; font-size: 13px; }
+.news-editor-checks ul { padding-left: 18px; list-style: disc; }
+.news-editor-section { display: grid; gap: 10px; border-top: 1px solid #e0e8ee; padding-top: 18px; }
+.news-editor-publish { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 30px; border-top: 1px solid #d6e2ec; padding-top: 25px; }
+.news-editor-publish h3 { width: 100%; }
+.news-editor .news-editor-confirm { display: flex; align-items: flex-start; gap: 10px; width: 100%; font-size: 14px; }
+.news-editor-confirm input { margin-top: 4px; }
+.news-editor-error { margin-bottom: 20px; border: 1px solid #dcb8a8; border-radius: 8px; padding: 15px; background: #fff2ed; color: #7a2609; }
+.news-editor-login { display: grid; gap: 15px; max-width: 450px; padding: 25px; background: #fff; }
+@media (max-width: 850px) { .news-editor-layout { grid-template-columns: 1fr; } .news-editor-list { position: static; max-height: 320px; } }
+
 :root {
   font-family: 'Inter', sans-serif;
   line-height: 1.6;

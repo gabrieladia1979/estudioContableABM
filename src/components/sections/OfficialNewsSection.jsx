@@ -7,7 +7,8 @@ const dateLabel = value => value.split('-').reverse().join('/');
 
 export default function OfficialNewsSection({ compact = false }) {
   const [source, setSource] = useState('Todas');
-  const articles = compact ? officialNews.slice(0, 3) : officialNews.filter(item => source === 'Todas' || item.source === source).sort((a, b) => b.date.localeCompare(a.date));
+  const sorted = [...officialNews].sort((a, b) => b.date.localeCompare(a.date));
+  const articles = compact ? sorted.slice(0, 3) : sorted.filter(item => source === 'Todas' || item.source === source);
   return <section className="bg-[#f7f9fc] py-16 md:py-24" aria-labelledby="official-news-title">
     <div className="container mx-auto px-6">
       <div className="mb-9 flex flex-wrap items-end justify-between gap-6"><div className="max-w-2xl"><p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent-700">Noticias · Fuentes oficiales</p><h2 id="official-news-title" className="text-3xl font-bold tracking-tight text-primary-950 md:text-4xl">Actualidad para tu actividad.</h2><p className="mt-4 text-lg text-primary-700">Una selección de publicaciones de ARCA y del Consejo Profesional de Ciencias Económicas de CABA.</p></div>{compact && <Link to="/novedades" className="inline-flex items-center gap-2 font-bold text-accent-700">Ver todas las noticias <ArrowRight size={18} /></Link>}</div>

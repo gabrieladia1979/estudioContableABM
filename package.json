@@ -7,9 +7,14 @@
     "dev": "vite",
     "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node scripts/prerender.mjs",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "news:scan": "node scripts/news-scan.mjs",
+    "test:news": "node --test server/news.test.mjs"
   },
   "dependencies": {
+    "@netlify/blobs": "^11.1.6",
+    "cheerio": "^1.2.0",
+    "fast-xml-parser": "^5.11.2",
     "lucide-react": "^0.562.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

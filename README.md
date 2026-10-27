@@ -44,6 +44,8 @@ Ver `GESTION_ESTUDIO.md` para el flujo de consultas, el CRM inicial recomendado 
 
 La portada y `/novedades` muestran una selección editorial de ARCA y del Consejo Profesional CABA definida en `src/data/officialNews.js`. No es un feed automático. Para actualizarla, verificar cada publicación original, registrar su fecha y enlace, escribir un resumen breve y actualizar `newsReviewedAt`. Las guías del estudio se mantienen aparte de las noticias.
 
+Además, el backend de noticias detecta temas de fuentes seleccionadas y permite preparar notas propias en `/editor-noticias`. Incluye filtrado por palabras clave, tres ejemplos privados, IA opcional, revisión antes de publicar y consulta programada en Netlify. La configuración, los límites y el flujo completo están en [NOTICIAS_BACKEND.md](NOTICIAS_BACKEND.md). Prueba local: `npm run news:scan`.
+
 ## Franja de cotizaciones
 
 `/api/market` consulta las API públicas del BCRA (minorista vendedor promedio, mayorista de referencia, euro y real) y DolarAPI (blue, MEP, CCL y tarjeta). DolarAPI documenta a DolarHoy y Ámbito como fuentes. Cada registro conserva su fuente y su fecha de publicación; la fecha de consulta no reemplaza la fecha del dato. No se calculan compras ficticias para cotizaciones que solo tienen venta.

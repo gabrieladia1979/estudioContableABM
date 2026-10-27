@@ -1,0 +1,6 @@
+/editor-noticias
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+/api/news/admin
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store

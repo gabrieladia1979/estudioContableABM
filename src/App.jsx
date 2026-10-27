@@ -1,16 +1,18 @@
 // src/App.jsx
-import React, { useEffect } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import EstudioPage from './pages/EstudioPage';
 import ServiciosPage from './pages/ServiciosPage';
 import ContactoPage from './pages/ContactoPage';
 import NovedadesPage from './pages/NovedadesPage';
+import NewsArticlePage from './pages/NewsArticlePage';
 import CrearSociedadPage from './pages/CrearSociedadPage';
 import TopicPage from './pages/TopicPage';
 import { pageInfo } from './data/pageInfo';
 import { startAnalytics, trackPageView } from './data/analytics';
 import AnalyticsConsent from './components/AnalyticsConsent';
+const NewsEditorPage = lazy(() => import('./pages/NewsEditorPage'));
 
 const PageMetadata = () => {
   const { pathname } = useLocation();
@@ -52,6 +54,8 @@ export function AppRoutes() {
           <Route path="/servicios" element={<ServiciosPage />} />
           <Route path="/contacto" element={<ContactoPage />} />
           <Route path="/novedades" element={<NovedadesPage />} />
+          <Route path="/novedades/:slug" element={<NewsArticlePage />} />
+          <Route path="/editor-noticias" element={<Suspense fallback={<p className="p-8">Abriendo editor…</p>}><NewsEditorPage /></Suspense>} />
           <Route path="/crear-sociedad" element={<CrearSociedadPage />} />
           <Route path="/monotributo" element={<TopicPage topic="monotributo" />} />
           <Route path="/intimaciones-arca" element={<TopicPage topic="arca" />} />
