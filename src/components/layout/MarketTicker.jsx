@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Pause, Play } from 'lucide-react';
 
 const money = new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 2 });
 const marketTypes = [['usd-blue', 'Dólar blue'], ['usd-mep', 'Dólar MEP'], ['usd-ccl', 'Dólar CCL']];
@@ -11,7 +10,6 @@ function dateLabel(value) {
 export default function MarketTicker() {
   const [data, setData] = useState(null);
   const [failed, setFailed] = useState(false);
-  const [paused, setPaused] = useState(false);
   useEffect(() => {
     let disposed = false;
     let controller;
@@ -44,8 +42,8 @@ export default function MarketTicker() {
     {missing.map(([id, label]) => <li key={id}>{duplicate ? <span className="market-ticker-quote"><strong>{label}</strong><span>Consultar en DolarHoy ↗</span></span> : <a className="market-ticker-quote" href="https://dolarhoy.com/" target="_blank" rel="noopener noreferrer"><strong>{label}</strong><span>Consultar en DolarHoy ↗</span></a>}</li>)}
   </ul>;
 
-  return <section className={`market-ticker ${paused ? 'is-paused' : ''}`} aria-label="Cotizaciones del dólar y otras monedas">
-    <div className="market-ticker-label"><span>Cotizaciones</span>{quotes.length > 0 && <button type="button" onClick={() => setPaused(value => !value)} aria-label={paused ? 'Reanudar franja de cotizaciones' : 'Pausar franja de cotizaciones'}>{paused ? <Play size={12} /> : <Pause size={12} />}</button>}</div>
+  return <section className="market-ticker" aria-label="Cotizaciones del dólar y otras monedas">
+    <div className="market-ticker-label"><span>Cotizaciones</span></div>
     {quotes.length ? <div className="market-ticker-window"><div className="market-ticker-track">{group(false)}{group(true)}</div></div> : <div className="market-ticker-status" role="status">{failed ? 'Cotizaciones temporalmente no disponibles.' : 'Consultando cotizaciones…'} <a href="https://dolarhoy.com/" target="_blank" rel="noopener noreferrer">Ver DolarHoy ↗</a></div>}
   </section>;
 }

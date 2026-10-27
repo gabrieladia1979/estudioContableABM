@@ -32,10 +32,6 @@ export default function Hero() {
     return () => window.clearInterval(timer);
   }, [paused, focused, reducedMotion]);
 
-  const select = index => {
-    setActive(index);
-    setPaused(true);
-  };
   const slide = slides[active];
 
   return <section className="home-hero" aria-label="Servicios destacados de ABM" aria-roledescription="carrusel" onFocusCapture={() => setFocused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
@@ -52,17 +48,6 @@ export default function Hero() {
         </div>
       </div>
     </div>
-    <div className="home-hero-bottom">
-      <div className="home-hero-bottom-head"><span>Explorá el estudio</span><span>0{active + 1} — 0{slides.length}</span></div>
-      <div className="home-hero-bottom-row">
-        <div className="home-hero-topics" role="group" aria-label="Elegir tema destacado">
-          {slides.map((item, index) => <button key={item.label} type="button" onClick={() => select(index)} aria-label={`Diapositiva ${index + 1}: ${item.label}`} aria-pressed={active === index} aria-controls="hero-slide" className="home-hero-topic">
-            <img src={item.thumb} width="64" height="64" alt="" loading="lazy" />
-            <span><small>0{index + 1} · {item.label}</small><strong>{item.topic}</strong></span>
-          </button>)}
-        </div>
-        {!reducedMotion && <button type="button" className="home-hero-pause" onClick={() => setPaused(value => !value)} aria-label={paused ? 'Reanudar carrusel' : 'Pausar carrusel'}>{paused ? <Play size={18} /> : <Pause size={18} />}</button>}
-      </div>
-    </div>
+    {!reducedMotion && <button type="button" className="home-hero-pause" onClick={() => setPaused(value => !value)} aria-label={paused ? 'Reanudar carrusel' : 'Pausar carrusel'}>{paused ? <Play size={18} /> : <Pause size={18} />}</button>}
   </section>;
 }
