@@ -36,7 +36,7 @@ export default function MarketTicker() {
   const quotes = data?.quotes || [];
   const missing = marketTypes.filter(([id]) => !quotes.some(quote => quote.id === id));
 
-  const quoteContent = quote => <><strong>{quote.label}</strong><span>{quote.value ? `${quote.kind}: ${money.format(quote.value)}` : `${quote.buy ? `C ${money.format(quote.buy)} · ` : ''}V ${money.format(quote.sell)}`}</span><small>{quote.source} · <time dateTime={quote.date}>{dateLabel(quote.date)}</time>{quote.stale || failed ? ' · Último dato disponible' : ''}</small></>;
+  const quoteContent = quote => <><strong>{quote.label}</strong><span>{quote.value ? `${quote.kind}: ${money.format(quote.value)}` : `${quote.buy ? `C ${money.format(quote.buy)} · ` : ''}V ${money.format(quote.sell)}`}</span><small>{quote.source !== 'DolarAPI' && `${quote.source} · `}<time dateTime={quote.date}>{dateLabel(quote.date)}</time>{quote.stale || failed ? ' · Último dato disponible' : ''}</small></>;
   const group = duplicate => <ul className="market-ticker-group" aria-hidden={duplicate || undefined}>
     {quotes.map(quote => <li key={quote.id}>{duplicate ? <span className="market-ticker-quote">{quoteContent(quote)}</span> : <a className="market-ticker-quote" href={quote.sourceUrl} target="_blank" rel="noopener noreferrer">{quoteContent(quote)}</a>}</li>)}
     {missing.map(([id, label]) => <li key={id}>{duplicate ? <span className="market-ticker-quote"><strong>{label}</strong><span>Consultar en DolarHoy ↗</span></span> : <a className="market-ticker-quote" href="https://dolarhoy.com/" target="_blank" rel="noopener noreferrer"><strong>{label}</strong><span>Consultar en DolarHoy ↗</span></a>}</li>)}

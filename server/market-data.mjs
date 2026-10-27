@@ -1,4 +1,4 @@
-const FIVE_MINUTES = 5 * 60 * 1000;
+const ONE_MINUTE = 60 * 1000;
 const MAX_STALE = 3 * 24 * 60 * 60 * 1000;
 export const MARKET_SOURCES = {
   currencies: 'https://api.bcra.gob.ar/estadisticascambiarias/v1.0/Cotizaciones',
@@ -40,7 +40,7 @@ export function normalizeMarket(payload) {
   });
 }
 
-export function createMarketService({ fetchImpl = fetch, now = Date.now, cacheMs = FIVE_MINUTES } = {}) {
+export function createMarketService({ fetchImpl = fetch, now = Date.now, cacheMs = ONE_MINUTE } = {}) {
   let cached = null;
   let expires = 0;
   let pending = null;
