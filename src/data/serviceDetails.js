@@ -53,6 +53,20 @@ export const serviceDetails = [
     ],
   },
   {
+    id: 'consultoria-financiera',
+    title: 'Asesoramiento estratégico y financiero',
+    category: 'Consultoría',
+    subtitle: 'Decisiones basadas en información clara',
+    summary: 'Te ayudamos a interpretar los números de tu negocio y a planificar sus próximos pasos con una mirada contable y financiera.',
+    fit: 'Para empresas y pymes que quieren evaluar su situación, ordenar el flujo de fondos o contar con información útil para decidir.',
+    cards: [
+      ['Planeamiento y control de gestión', 'Presupuestos, objetivos e indicadores para seguir la evolución del negocio.'],
+      ['Flujo de fondos', 'Proyecciones de ingresos y egresos para anticipar necesidades y organizar recursos.'],
+      ['Análisis de alternativas', 'Revisión de costos, inversiones y opciones de financiamiento según cada proyecto.'],
+      ['Informes para decidir', 'Reportes de gestión claros para conversar sobre resultados y próximos pasos.'],
+    ],
+  },
+  {
     id: 'empresas-sociedades',
     title: 'Empresas y sociedades',
     icon: '/icons/empresas-sociedades.png',

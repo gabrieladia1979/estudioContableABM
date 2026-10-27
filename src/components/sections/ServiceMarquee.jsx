@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 const services = [
   ['Asesoramiento impositivo', 'asesoramiento-tributario'],
   ['Contabilidad y balances', 'contabilidad-balances'],
+  ['Consultoría financiera', 'consultoria-financiera'],
   ['Constitución de sociedades', 'crear-sociedad'],
   ['Monotributo', 'monotributo'],
   ['Sueldos y cargas sociales', 'sueldos'],

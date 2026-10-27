@@ -12,7 +12,7 @@ const links = [
 
 const serviceAreas = [
   ['Impuestos', [['Asesoramiento tributario', 'asesoramiento-tributario'], ['Monotributo', 'monotributo'], ['Intimaciones ARCA', 'intimaciones-arca']]],
-  ['Contabilidad y gestión', [['Contabilidad y balances', 'contabilidad-balances'], ['Pymes', 'pymes']]],
+  ['Contabilidad y gestión', [['Contabilidad y balances', 'contabilidad-balances'], ['Asesoramiento estratégico y financiero', 'consultoria-financiera'], ['Pymes', 'pymes']]],
   ['Sueldos', [['Sueldos y cargas sociales', 'sueldos']]],
   ['Sociedades', [['Empresas y sociedades', 'empresas-sociedades'], ['Crear sociedad o cooperativa', 'crear-sociedad']]],
   ['Profesionales y personas', [['Profesionales y personas', 'personas']]],

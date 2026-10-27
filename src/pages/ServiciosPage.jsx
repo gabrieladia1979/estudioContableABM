@@ -7,7 +7,7 @@ import GroupedServiceExplorer from '../components/sections/GroupedServiceExplore
 
 const ServiciosPage = () => {
   return (
-    <div className="bg-[#f7f9fb]">
+    <div className="services-page bg-[#f7f9fb]">
       <Navbar />
       <main>
         <PageHeading title="Servicios" description="Encontrá el asesoramiento contable e impositivo que necesita tu actividad." />
