@@ -41,12 +41,12 @@ const ContactForm = () => {
     <section className="bg-[#f4f7fa] py-14 md:py-20">
       <div className="container mx-auto px-6">
         <div className="mx-auto grid max-w-6xl overflow-hidden rounded-3xl bg-white shadow-xl lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="p-7 md:p-10 lg:p-12">
+          <div className="contact-form-panel min-w-0 p-7 md:p-10 lg:p-12">
             <p className="mb-3 text-sm font-bold uppercase tracking-[0.17em] text-accent-700">Escribinos</p>
             <h2 className="mb-3 text-3xl font-bold text-primary-900">Contanos qué necesitás</h2>
             <p className="mb-8 leading-relaxed text-gray-600">Completá tu consulta y abriremos WhatsApp con el mensaje preparado para enviarlo al estudio.</p>
 
-            <form ref={formRef} onSubmit={handleSubmit} className="grid gap-5">
+            <form ref={formRef} onSubmit={handleSubmit} className="contact-form-fields grid min-w-0 gap-5">
               <div className="grid gap-5 sm:grid-cols-2">
                 <label className="grid gap-2 text-sm font-semibold text-primary-900">Nombre y apellido<input name="from_name" required maxLength={100} autoComplete="name" className="rounded-lg border border-primary-200 bg-white px-4 py-3 font-normal outline-none transition placeholder:text-gray-400 focus:border-accent-500 focus:ring-2 focus:ring-accent-100" placeholder="Tu nombre" /></label>
                 <label className="grid gap-2 text-sm font-semibold text-primary-900">Correo electrónico (opcional)<input name="from_email" type="email" maxLength={160} autoComplete="email" className="rounded-lg border border-primary-200 bg-white px-4 py-3 font-normal outline-none transition placeholder:text-gray-400 focus:border-accent-500 focus:ring-2 focus:ring-accent-100" placeholder="nombre@correo.com" /></label>

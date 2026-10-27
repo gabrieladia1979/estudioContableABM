@@ -107,6 +107,7 @@ section[id] {
 .site-mobile-service-areas strong { margin-bottom: 5px; color: #ffccaa; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
 .site-mobile-service-areas a { padding: 9px 3px; color: #e2edf4; font-size: 13px; }
 .site-mobile-consult { display: inline-flex; align-items: center; justify-content: center; gap: 9px; margin-top: 16px; border-radius: 8px; padding: 13px 18px; background: #a33005; color: white; font-weight: 700; }
+@media (max-width: 380px) { .site-nav-shell { gap: 8px; padding: 0 12px; } .site-brand { gap: 6px; } .site-brand-mark { width: 64px; height: 32px; } .site-brand-copy strong { font-size: 14px; } .site-brand-copy span { font-size: 8px; letter-spacing: .07em; } .site-mobile-toggle { padding: 6px; } }
 .site-nav-link:focus-visible,.site-brand:focus-visible,.site-consult:focus-visible,.site-mobile-toggle:focus-visible,.site-mobile-link:focus-visible,.site-megamenu a:focus-visible { outline: 2px solid #ffccaa; outline-offset: 3px; }
 @media (min-width: 1280px) {
   .site-mobile-nav { display: none; }
@@ -183,8 +184,10 @@ section[id] {
 .service-feature-number { display: block; margin-bottom: 16px; color: #327c9d; font-size: 11px; font-weight: 800; letter-spacing: .17em; }
 .service-feature-card h4 { margin: 0; color: #102a43; font-size: clamp(17px,1.25vw,20px); font-weight: 650; line-height: 1.35; letter-spacing: -.025em; }
 .service-feature-card p { margin: 14px 0 0; color: #48647d; font-size: 14px; line-height: 1.55; }
-@media (min-width: 1450px) { .service-feature-grid.is-detailed { grid-template-columns: repeat(4,minmax(0,1fr)); } .service-feature-grid.is-detailed .service-feature-card { min-height: 270px; } }
+@media (min-width: 1450px) { .service-feature-grid { grid-template-columns: repeat(4,minmax(0,1fr)); } .service-feature-card { min-height: 245px; } }
 @media (max-width: 640px) { .service-feature-grid { grid-template-columns: 1fr; } .service-feature-card { min-height: 0; } .services-page .page-heading h1 { font-size: clamp(55px,13vw,74px); } }
+.contact-form-panel,.contact-form-fields,.contact-form-fields > * { min-width: 0; }
+.contact-form-fields input,.contact-form-fields select,.contact-form-fields textarea { width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; }
 @media (prefers-reduced-motion: reduce) { .service-feature-card,.service-explorer-nav-link { transition: none; } .service-feature-card:hover { transform: none; } }
 .studio-presentation { position: relative; isolation: isolate; padding: 56px 0 80px; color: #102a43; background: radial-gradient(ellipse at 12% 18%,#dceef9 0,transparent 46%),radial-gradient(ellipse at 95% 78%,#dfebf2 0,transparent 43%),#f7f9fc; }
 .studio-presentation::before { position: absolute; inset: 0; z-index: -1; pointer-events: none; content: ''; opacity: var(--studio-pointer-opacity,0); background: radial-gradient(520px circle at var(--studio-pointer-x,50%) var(--studio-pointer-y,30%),#9ac6e13d,transparent 75%); transition: opacity 350ms ease; }
@@ -285,7 +288,7 @@ section[id] {
 .home-service-card > button img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .home-service-shade { position: absolute; inset: 0; background: linear-gradient(180deg,#001a3310 15%,#001a33dc 100%); }
 .home-service-card-title { position: absolute; right: 18px; bottom: 20px; left: 18px; color: #fff; font-size: clamp(18px,1.55vw,25px); font-weight: 750; line-height: 1.15; }
-.home-service-detail { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #cbdce6; background: #fffffff2; padding: 24px; transform: translateX(-101%); transition: transform 450ms ease; }
+.home-service-detail { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #cbdce6; background: #fff; padding: 24px; transform: translateX(-101%); transition: transform 450ms ease; }
 .home-service-card.is-active .home-service-detail { transform: translateX(0); }
 .home-service-number { color: #6d8394; font-size: 11px; font-weight: 700; letter-spacing: .14em; }
 .home-service-detail h3 { margin: 0 0 5px; font-size: clamp(20px,1.8vw,29px); font-weight: 750; line-height: 1.15; }

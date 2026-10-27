@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import WhatsAppIcon from '../WhatsAppIcon';
 import { serviceDetails } from '../../data/serviceDetails';
+import { serviceItemDescriptions } from '../../data/serviceItemDescriptions';
 import { serviceAreas } from '../../data/serviceAreas';
 import { whatsappLink } from '../../data/contact';
 import { topicPages } from '../../data/topicPages';
@@ -19,7 +20,7 @@ export default function GroupedServiceExplorer() {
   const service = serviceDetails.find(item => item.id === active);
   const selectedArea = serviceAreas.find(area => area.items.some(([, id]) => id === active));
   const topic = service.topic ? topicPages[service.topic] : null;
-  const cards = service.cards || service.items.map(item => [item, null]);
+  const cards = service.cards || service.items.map(item => [item, serviceItemDescriptions[item]]);
 
   return <section id="explorar-servicios" className="service-explorer container mx-auto px-6 py-16 md:py-24">
     <div className="mb-10 max-w-3xl"><p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent-700">Servicios por área</p><h2 className="text-3xl font-bold text-primary-950 md:text-4xl">Elegí el área de tu consulta.</h2><p className="mt-4 text-lg text-primary-700">Cada área reúne los servicios relacionados para que encuentres el acompañamiento que necesitás.</p></div>
