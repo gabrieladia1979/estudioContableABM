@@ -82,10 +82,7 @@ section[id] {
 .market-ticker-quote { display: flex; align-items: center; gap: 10px; min-height: 38px; white-space: nowrap; }
 .market-ticker-quote strong { font-size: 11px; }
 .market-ticker-quote small { color: #aecad8; font-size: 9px; }
-a.market-ticker-quote:hover { text-decoration: underline; }
-.market-ticker-quote:focus-visible { outline: 2px solid #ffccaa; outline-offset: -2px; }
 .market-ticker-status { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; padding: 8px 16px; font-size: 11px; }
-.market-ticker-status a { text-decoration: underline; }
 @keyframes market-scroll { to { transform: translateX(-50%); } }
 @media(max-width:600px) { .market-ticker-label { padding: 0 10px; font-size: 9px; } }
 

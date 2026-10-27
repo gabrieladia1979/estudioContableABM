@@ -38,12 +38,12 @@ export default function MarketTicker() {
 
   const quoteContent = quote => <><strong>{quote.label}</strong><span>{quote.value ? `${quote.kind}: ${money.format(quote.value)}` : `${quote.buy ? `C ${money.format(quote.buy)} · ` : ''}V ${money.format(quote.sell)}`}</span><small>{quote.source !== 'DolarAPI' && `${quote.source} · `}<time dateTime={quote.date}>{dateLabel(quote.date)}</time>{quote.stale || failed ? ' · Último dato disponible' : ''}</small></>;
   const group = duplicate => <ul className="market-ticker-group" aria-hidden={duplicate || undefined}>
-    {quotes.map(quote => <li key={quote.id}>{duplicate ? <span className="market-ticker-quote">{quoteContent(quote)}</span> : <a className="market-ticker-quote" href={quote.sourceUrl} target="_blank" rel="noopener noreferrer">{quoteContent(quote)}</a>}</li>)}
-    {missing.map(([id, label]) => <li key={id}>{duplicate ? <span className="market-ticker-quote"><strong>{label}</strong><span>Consultar en DolarHoy ↗</span></span> : <a className="market-ticker-quote" href="https://dolarhoy.com/" target="_blank" rel="noopener noreferrer"><strong>{label}</strong><span>Consultar en DolarHoy ↗</span></a>}</li>)}
+    {quotes.map(quote => <li key={quote.id}><span className="market-ticker-quote">{quoteContent(quote)}</span></li>)}
+    {missing.map(([id, label]) => <li key={id}><span className="market-ticker-quote"><strong>{label}</strong><span>Cotización no disponible</span></span></li>)}
   </ul>;
 
   return <section className="market-ticker" aria-label="Cotizaciones del dólar y otras monedas">
     <div className="market-ticker-label"><span>Cotizaciones</span></div>
-    {quotes.length ? <div className="market-ticker-window"><div className="market-ticker-track">{group(false)}{group(true)}</div></div> : <div className="market-ticker-status" role="status">{failed ? 'Cotizaciones temporalmente no disponibles.' : 'Consultando cotizaciones…'} <a href="https://dolarhoy.com/" target="_blank" rel="noopener noreferrer">Ver DolarHoy ↗</a></div>}
+    {quotes.length ? <div className="market-ticker-window"><div className="market-ticker-track">{group(false)}{group(true)}</div></div> : <div className="market-ticker-status" role="status">{failed ? 'Cotizaciones temporalmente no disponibles.' : 'Consultando cotizaciones…'}</div>}
   </section>;
 }
