@@ -93,11 +93,9 @@ a.market-ticker-quote:hover { text-decoration: underline; }
 @media(max-width:600px) { .market-ticker-label { padding: 0 10px; font-size: 9px; } }
 
 .site-header { background: #102a43; color: #fff; box-shadow: 0 5px 20px #001a3320; }
-.site-header.is-overlay { background: transparent; box-shadow: none; transition: background 200ms ease, box-shadow 200ms ease; }
+.site-header.is-overlay { background: linear-gradient(180deg,rgba(0,26,51,.72),rgba(0,26,51,.08)); box-shadow: none; transition: background 200ms ease, box-shadow 200ms ease; }
 .site-header.is-overlay .market-ticker { border-bottom: 1px solid #ffffff25; background: #001a33b8; }
-.site-header.is-overlay .site-nav-shell { border-bottom: 1px solid #ffffff55; background: linear-gradient(#001a33b0,#001a3310); }
 .site-header.is-overlay.is-scrolled { background: #102a43; box-shadow: 0 5px 20px #001a3320; }
-.site-header.is-overlay.is-scrolled .site-nav-shell { border-bottom: 0; background: transparent; }
 .site-nav-shell { display: flex; align-items: center; gap: 18px; min-height: 82px; max-width: 1600px; margin: 0 auto; padding: 0 24px; }
 .site-brand { display: flex; flex-shrink: 0; align-items: center; gap: 13px; color: #fff; white-space: nowrap; }
 .site-brand-mark { display: block; width: 84px; height: 36px; object-fit: contain; }
