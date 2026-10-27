@@ -4,7 +4,7 @@ export const pageInfo = {
   '/servicios': ['Servicios contables e impositivos | ABM', 'Impuestos, contabilidad, balances, sueldos y asesoramiento para empresas y personas.'],
   '/crear-sociedad': ['Sociedades y cooperativas | ABM Estudio Contable', 'Constitución y acompañamiento contable e impositivo para SRL, SAS, SA y cooperativas con ABM Estudio Contable.'],
   '/novedades': ['Noticias y recursos | ABM Estudio Contable', 'Noticias de ARCA y del Consejo Profesional CABA, junto con guías para preparar tu consulta contable e impositiva.'],
-  '/contacto': ['Contacto | ABM Estudio Contable', 'Dejá tu consulta a ABM Estudio Contable o escribinos por WhatsApp. Atención directa de Alejandra Mayta.'],
+  '/contacto': ['Contacto | ABM Estudio Contable', 'Prepará tu consulta y enviala por WhatsApp a ABM Estudio Contable. Atención directa de Alejandra Mayta.'],
   '/monotributo': ['Asesoramiento para monotributo | ABM Estudio Contable', 'Consultá por alta, seguimiento o dudas sobre tu monotributo con ABM Estudio Contable en CABA.'],
   '/intimaciones-arca': ['Intimaciones y requerimientos de ARCA | ABM Estudio Contable', 'Recibiste una comunicación de ARCA: contanos el motivo y el plazo para iniciar una consulta con ABM Estudio Contable.'],
 };

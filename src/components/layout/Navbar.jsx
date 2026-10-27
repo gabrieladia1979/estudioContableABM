@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { whatsappLink } from '../../data/contact';
+import { serviceAreas } from '../../data/serviceAreas';
 import MarketTicker from './MarketTicker';
 
 const links = [
@@ -10,17 +11,10 @@ const links = [
   ['/novedades', 'Noticias'], ['/contacto', 'Contacto'],
 ];
 
-const serviceAreas = [
-  ['Impuestos', [['Asesoramiento tributario', 'asesoramiento-tributario'], ['Monotributo', 'monotributo'], ['Intimaciones ARCA', 'intimaciones-arca']]],
-  ['Contabilidad y gestión', [['Contabilidad y balances', 'contabilidad-balances'], ['Asesoramiento estratégico y financiero', 'consultoria-financiera'], ['Pymes', 'pymes']]],
-  ['Sueldos', [['Sueldos y cargas sociales', 'sueldos']]],
-  ['Sociedades', [['Empresas y sociedades', 'empresas-sociedades'], ['Crear sociedad o cooperativa', 'crear-sociedad']]],
-  ['Profesionales y personas', [['Profesionales y personas', 'personas']]],
-];
-
 const Navbar = ({ overlay = false }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [selectedArea, setSelectedArea] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     if (!overlay) return;
@@ -54,7 +48,7 @@ const Navbar = ({ overlay = false }) => {
             if (to === '/servicios' && event.key === 'ArrowDown') {
               event.preventDefault();
               setServicesOpen(true);
-              requestAnimationFrame(() => document.querySelector('#services-megamenu a')?.focus());
+              requestAnimationFrame(() => document.querySelector('#services-megamenu button')?.focus());
             }
           }}
           onClick={closeMenus}
@@ -69,11 +63,13 @@ const Navbar = ({ overlay = false }) => {
     {servicesOpen && <div id="services-megamenu" className="site-megamenu hidden xl:block">
       <div className="site-megamenu-inner">
         <div className="site-megamenu-intro"><span>Explorá los servicios</span><h2>¿En qué podemos ayudarte?</h2><Link to="/servicios" onClick={closeMenus}>Ver todos los servicios →</Link></div>
-        {serviceAreas.map(([area, items]) => <div key={area} className="site-megamenu-group"><h3>{area}</h3>{items.map(([label, id]) => <Link key={id} to={`/servicios#${id}`} onClick={closeMenus}>{label}</Link>)}</div>)}
+        <div className="site-megamenu-areas" role="group" aria-label="Elegir área de servicios">{serviceAreas.map((area, index) => <button key={area.title} type="button" onMouseEnter={() => setSelectedArea(index)} onFocus={() => setSelectedArea(index)} onClick={() => setSelectedArea(index)} aria-pressed={selectedArea === index}>{area.title}</button>)}</div>
+        <div className="site-megamenu-services"><h3>{serviceAreas[selectedArea].title}</h3>{serviceAreas[selectedArea].items.map(([label, id]) => <Link key={id} to={`/servicios#${id}`} onClick={closeMenus}>{label}</Link>)}</div>
       </div>
     </div>}
     {mobileOpen && <nav id="mobile-navigation" className="site-mobile-nav xl:hidden" aria-label="Navegación móvil">
       {links.map(([to, label]) => <NavLink key={to} to={to} end={to === '/'} onClick={closeMenus} className={({ isActive }) => `site-mobile-link ${isActive ? 'is-active' : ''}`}>{label}</NavLink>)}
+      <div className="site-mobile-service-areas"><strong>Áreas de servicios</strong>{serviceAreas.map(area => <Link key={area.title} to={`/servicios#${area.items[0][1]}`} onClick={closeMenus}>{area.title}</Link>)}</div>
       <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="site-mobile-consult"><WhatsAppIcon size={18} /> Consultar por WhatsApp</a>
     </nav>}
   </header>;

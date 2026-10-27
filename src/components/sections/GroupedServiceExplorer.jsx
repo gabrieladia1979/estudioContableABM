@@ -3,16 +3,9 @@ import { ArrowRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import WhatsAppIcon from '../WhatsAppIcon';
 import { serviceDetails } from '../../data/serviceDetails';
+import { serviceAreas } from '../../data/serviceAreas';
 import { whatsappLink } from '../../data/contact';
 import { topicPages } from '../../data/topicPages';
-
-const areas = [
-  ['Impuestos', ['asesoramiento-tributario', 'monotributo', 'intimaciones-arca']],
-  ['Contabilidad y gestión', ['contabilidad-balances', 'consultoria-financiera', 'pymes']],
-  ['Sueldos', ['sueldos']],
-  ['Sociedades', ['empresas-sociedades', 'crear-sociedad']],
-  ['Profesionales y personas', ['personas']],
-];
 
 export default function GroupedServiceExplorer() {
   const { hash } = useLocation();
@@ -24,6 +17,7 @@ export default function GroupedServiceExplorer() {
     requestAnimationFrame(() => document.getElementById('explorar-servicios')?.scrollIntoView({ block: 'start' }));
   }, [hash]);
   const service = serviceDetails.find(item => item.id === active);
+  const selectedArea = serviceAreas.find(area => area.items.some(([, id]) => id === active));
   const topic = service.topic ? topicPages[service.topic] : null;
   const cards = service.cards || service.items.map(item => [item, null]);
 
@@ -31,7 +25,8 @@ export default function GroupedServiceExplorer() {
     <div className="mb-10 max-w-3xl"><p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent-700">Servicios por área</p><h2 className="text-3xl font-bold text-primary-950 md:text-4xl">Elegí el área de tu consulta.</h2><p className="mt-4 text-lg text-primary-700">Cada área reúne los servicios relacionados para que encuentres el acompañamiento que necesitás.</p></div>
     <div className="grid items-start gap-8 lg:grid-cols-[280px_1fr] lg:gap-12">
       <nav aria-label="Áreas y servicios" className="service-explorer-nav rounded-2xl border border-primary-100 bg-white p-4 shadow-sm lg:sticky lg:top-36">
-        {areas.map(([title, ids]) => <div key={title} className="border-b border-primary-100 pb-3 pt-2 last:border-0"><p className="mb-2 px-2 text-[11px] font-extrabold uppercase tracking-[0.1em] text-primary-600">{title}</p>{ids.map(id => <Link key={id} to={`#${id}`} aria-current={active === id ? 'true' : undefined} className={`service-explorer-nav-link my-0.5 block rounded-r-lg border-l-[3px] px-3 py-2.5 text-sm font-semibold leading-snug transition ${active === id ? 'border-accent-700 bg-[#f7ede8] text-accent-800' : 'border-transparent text-primary-900 hover:bg-primary-50'}`}>{serviceDetails.find(item => item.id === id).title}</Link>)}</div>)}
+        <div className="service-area-choices">{serviceAreas.map(area => <Link key={area.title} to={`#${area.items[0][1]}`} aria-current={selectedArea === area ? 'true' : undefined} className={`service-area-choice ${selectedArea === area ? 'is-active' : ''}`}>{area.title}</Link>)}</div>
+        <div className="service-area-items"><p>{selectedArea.title}</p>{selectedArea.items.map(([label, id]) => <Link key={id} to={`#${id}`} aria-current={active === id ? 'true' : undefined} className={`service-explorer-nav-link ${active === id ? 'is-active' : ''}`}>{label}</Link>)}</div>
       </nav>
       <div id={service.id} className="service-detail min-w-0">
         <p className="service-detail-kicker">{service.category}</p><h3 className="service-detail-title">{service.title}</h3>{service.subtitle && <p className="service-detail-subtitle">{service.subtitle}</p>}<p className="service-detail-summary">{service.summary}</p><p className="service-detail-fit">{service.fit}</p>
