@@ -27,15 +27,7 @@ export default function GroupedServiceExplorer() {
   const topic = service.topic ? topicPages[service.topic] : null;
   const cards = service.cards || service.items.map(item => [item, null]);
 
-  return <section id="explorar-servicios" className="service-explorer container mx-auto px-6 py-16 md:py-24" onPointerMove={event => {
-    if (event.pointerType !== 'mouse') return;
-    const bounds = event.currentTarget.getBoundingClientRect();
-    event.currentTarget.style.setProperty('--service-pointer-x', `${event.clientX - bounds.left}px`);
-    event.currentTarget.style.setProperty('--service-pointer-y', `${event.clientY - bounds.top}px`);
-  }} onPointerLeave={event => {
-    event.currentTarget.style.setProperty('--service-pointer-x', '-1000px');
-    event.currentTarget.style.setProperty('--service-pointer-y', '-1000px');
-  }}>
+  return <section id="explorar-servicios" className="service-explorer container mx-auto px-6 py-16 md:py-24">
     <div className="mb-10 max-w-3xl"><p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent-700">Servicios por área</p><h2 className="text-3xl font-bold text-primary-950 md:text-4xl">Elegí el área de tu consulta.</h2><p className="mt-4 text-lg text-primary-700">Cada área reúne los servicios relacionados para que encuentres el acompañamiento que necesitás.</p></div>
     <div className="grid items-start gap-8 lg:grid-cols-[280px_1fr] lg:gap-12">
       <nav aria-label="Áreas y servicios" className="service-explorer-nav rounded-2xl border border-primary-100 bg-white p-4 shadow-sm lg:sticky lg:top-36">

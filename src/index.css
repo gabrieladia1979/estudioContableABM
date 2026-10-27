@@ -159,8 +159,8 @@ a.market-ticker-quote:hover { text-decoration: underline; }
 @keyframes service-marquee-scroll { to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .service-marquee { overflow-x: auto; } .service-marquee-track { animation: none; } .service-marquee-group[aria-hidden="true"] { display: none; } }
 .services-page .page-heading h1 { font-family: 'Inter',sans-serif; font-size: clamp(62px,7vw,104px); font-weight: 650; letter-spacing: -.065em; }
-.service-explorer { --service-pointer-x: -1000px; --service-pointer-y: -1000px; position: relative; isolation: isolate; }
-.service-explorer::before { position: absolute; inset: 0; z-index: -1; background: radial-gradient(600px circle at var(--service-pointer-x) var(--service-pointer-y),rgba(139,197,231,.3),transparent 72%); content: ''; pointer-events: none; }
+.services-page main { --service-pointer-x: -1000px; --service-pointer-y: -1000px; background: radial-gradient(600px circle at var(--service-pointer-x) var(--service-pointer-y),rgba(139,197,231,.3),transparent 72%),#f7f9fb; }
+.services-page .page-heading { background: transparent; }
 .service-explorer-nav { background: #ffffffc9; backdrop-filter: blur(8px); }
 .service-explorer-nav-link { transition: background 180ms ease,color 180ms ease,transform 180ms ease; }
 .service-explorer-nav-link:hover { transform: translateX(3px); }
@@ -279,9 +279,6 @@ a.market-ticker-quote:hover { text-decoration: underline; }
 .home-service-card-title { position: absolute; right: 18px; bottom: 20px; left: 18px; color: #fff; font-size: clamp(18px,1.55vw,25px); font-weight: 750; line-height: 1.15; }
 .home-service-detail { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #cbdce6; background: #fffffff2; padding: 24px; transform: translateX(-101%); transition: transform 450ms ease; }
 .home-service-card.is-active .home-service-detail { transform: translateX(0); }
-.home-service-detail-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.home-service-detail-top button { display: grid; place-items: center; width: 25px; height: 25px; border-radius: 50%; color: #48647d; }
-.home-service-detail-top button:hover { background: #e8f0f5; }
 .home-service-number { color: #6d8394; font-size: 11px; font-weight: 700; letter-spacing: .14em; }
 .home-service-detail h3 { margin: 0 0 5px; font-size: clamp(20px,1.8vw,29px); font-weight: 750; line-height: 1.15; }
 .home-service-detail p { margin: 0 0 16px; color: #48647d; font-size: 13px; line-height: 1.4; }
