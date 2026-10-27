@@ -12,7 +12,7 @@ const escapeHtml = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quo
 
 for (const [pathname, [title, description]] of Object.entries(pageInfo)) {
   const url = `${origin}${pathname}`;
-  let html = template.replace('<div id="root"></div>', `<div id="root">${render(pathname)}</div>`);
+  let html = template.replace('<div id="root"></div>', `<div id="root" data-rendered-path="${escapeHtml(pathname)}">${render(pathname)}</div>`);
   if (html === template) throw new Error('No se encontró el contenedor de React en el HTML generado');
   html = html
     .replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(title)}</title>`)

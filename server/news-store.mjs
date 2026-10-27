@@ -1,5 +1,5 @@
 import { createHash, randomUUID } from 'node:crypto';
-import { mkdir, readFile, readdir, rename, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, rename, rm, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 
 const etagOf = text => createHash('sha256').update(text).digest('hex');
@@ -16,6 +16,7 @@ export function createLocalNewsStore(directory = resolve('.news-cache')) {
         return { data: JSON.parse(text), etag: etagOf(text) };
       } catch (error) { if (error.code === 'ENOENT') return null; throw error; }
     },
+    async remove(key) { await rm(pathFor(key), { force: true }); },
     write(key, value, conditions = {}) {
       const operation = queue.then(async () => {
         const previous = await store.read(key);
@@ -47,6 +48,7 @@ export async function createNewsStore({ local = false } = {}) {
   const blobs = getStore({ name: 'abm-newsroom', consistency: 'strong' });
   return {
     read: key => blobs.getWithMetadata(key, { type: 'json' }),
+    remove: key => blobs.delete(key),
     write: (key, data, conditions) => blobs.setJSON(key, data, conditions),
     async articles() {
       const { blobs: records } = await blobs.list({ prefix: 'articles/' });

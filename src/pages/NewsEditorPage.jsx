@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const states = { candidate: 'Tema detectado', draft: 'Borrador', generating: 'Generando', published: 'Publicado', archived: 'Archivado' };
@@ -43,7 +43,7 @@ function EditorDetail({ row, onAction, busy, aiReady }) {
 
 export default function NewsEditorPage() {
   const [accessKey, setAccessKey] = useState('');
-  const [token, setToken] = useState('');
+  const [sessionExpiresAt, setSessionExpiresAt] = useState(null);
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
@@ -51,25 +51,54 @@ export default function NewsEditorPage() {
   const [filter, setFilter] = useState('pending');
   const [refresh, setRefresh] = useState(0);
   const [loginNeeded, setLoginNeeded] = useState(false);
+  const pendingRead = useRef(null);
+  const endSession = () => { pendingRead.current?.abort(); setData(null); setSelected(''); setSessionExpiresAt(null); setAccessKey(''); setLoginNeeded(true); };
   useEffect(() => {
     const tag = document.createElement('meta'); tag.name = 'robots'; tag.content = 'noindex,nofollow'; document.head.appendChild(tag);
     return () => tag.remove();
   }, []);
   useEffect(() => {
     const controller = new AbortController();
-    fetch('/api/news/admin', { headers: token ? { Authorization: 'Bearer ' + token } : {}, cache: 'no-store', signal: controller.signal }).then(async response => {
+    pendingRead.current = controller;
+    fetch('/api/news/admin', { credentials: 'same-origin', cache: 'no-store', signal: controller.signal }).then(async response => {
       const result = await response.json();
-      if (!response.ok) { setLoginNeeded(response.status === 401); throw new Error(result.error || 'No se pudo abrir la bandeja'); }
+      if (controller.signal.aborted) return;
+      if (!response.ok) { if (response.status === 401) { setData(null); setLoginNeeded(true); } throw new Error(result.error || 'No se pudo abrir la bandeja'); }
+      const expiresAt = Number(response.headers.get('X-Editor-Session-Expires')) || null;
+      if (expiresAt && expiresAt <= Date.now()) { setData(null); setLoginNeeded(true); return; }
+      setSessionExpiresAt(expiresAt);
       setData(result); setLoginNeeded(false);
     }).catch(failure => { if (failure.name !== 'AbortError') setError(failure.message); });
     return () => controller.abort();
-  }, [token, refresh]);
+  }, [refresh]);
+  useEffect(() => {
+    if (!sessionExpiresAt) return;
+    const timer = window.setTimeout(() => { pendingRead.current?.abort(); setData(null); setSessionExpiresAt(null); setLoginNeeded(true); setAccessKey(''); setError('La sesión venció. Volvé a ingresar.'); }, Math.max(0, sessionExpiresAt - Date.now()));
+    return () => window.clearTimeout(timer);
+  }, [sessionExpiresAt]);
+  const login = async event => {
+    event.preventDefault(); setBusy(true); setError('');
+    try {
+      const response = await fetch('/api/news/session', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: accessKey }) });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'No se pudo ingresar');
+      setLoginNeeded(false); setRefresh(value => value + 1);
+    } catch (failure) { setError(failure.message); }
+    finally { setAccessKey(''); setBusy(false); }
+  };
+  const logout = async () => {
+    try {
+      const response = await fetch('/api/news/session', { method: 'DELETE', credentials: 'same-origin' });
+      if (!response.ok) throw new Error('No se pudo cerrar la sesión. Volvé a intentar.');
+      endSession(); setError('');
+    } catch (failure) { setError(failure.message); }
+  };
   const act = async body => {
     setBusy(true); setError('');
     try {
-      const response = await fetch('/api/news/admin', { method: 'POST', headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: 'Bearer ' + token } : {}) }, body: JSON.stringify(body) });
+      const response = await fetch('/api/news/admin', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
       const result = await response.json();
-      if (!response.ok) throw new Error(result.error || 'No se pudo completar la operación');
+      if (!response.ok) { if (response.status === 401) endSession(); throw new Error(result.error || 'No se pudo completar la operación'); }
       setRefresh(value => value + 1);
     } catch (failure) { setError(failure.message); }
     finally { setBusy(false); }
@@ -77,9 +106,9 @@ export default function NewsEditorPage() {
   const rows = data?.articles.filter(row => filter === 'pending' ? !['published', 'archived'].includes(row.status) : row.status === filter) || [];
   const row = rows.find(item => item.id === selected) || rows[0];
   return <main className="news-editor">
-    <header className="news-editor-header"><div><Link to="/">ABM · Volver al sitio</Link><h1>Editor de noticias</h1><p>Búsqueda de temas y borradores propios para revisar antes de publicar.</p></div>{data && <div className="flex flex-wrap gap-2"><button disabled={busy} onClick={() => act({ action: 'scan' })}>{busy ? 'Procesando…' : 'Buscar novedades'}</button><button disabled={busy} onClick={() => { setError(''); setRefresh(value => value + 1); }}>Recargar bandeja</button></div>}</header>
+    <header className="news-editor-header"><div><Link to="/">ABM · Volver al sitio</Link><h1>Editor de noticias</h1><p>Búsqueda de temas y borradores propios para revisar antes de publicar.</p></div>{data && <div className="flex flex-wrap gap-2"><button disabled={busy} onClick={() => act({ action: 'scan' })}>{busy ? 'Procesando…' : 'Buscar novedades'}</button><button disabled={busy} onClick={() => { setError(''); setRefresh(value => value + 1); }}>Recargar bandeja</button>{!data.local && <button disabled={busy} onClick={logout}>Cerrar sesión</button>}</div>}</header>
     {error && <p role="alert" className="news-editor-error">{error}</p>}
-    {loginNeeded && <form className="news-editor-login" onSubmit={event => { event.preventDefault(); setError(''); setToken(accessKey); setRefresh(value => value + 1); }}><label>Clave privada del editor<input type="password" autoComplete="off" value={accessKey} onChange={event => setAccessKey(event.target.value)} /></label><button className="is-primary">Ingresar</button></form>}
+    {loginNeeded && <form className="news-editor-login" onSubmit={login}><label>Clave privada del editor<input type="password" required maxLength={512} autoComplete="current-password" value={accessKey} onChange={event => setAccessKey(event.target.value)} /></label><button disabled={busy} className="is-primary">{busy ? 'Ingresando…' : 'Ingresar'}</button></form>}
     {data && <><div className="news-editor-status">{data.local && <strong>Vista local · las publicaciones se guardan solo en esta PC.</strong>}<span>Última búsqueda: {data.scan ? date(data.scan.checkedAt) : 'Todavía no se realizó'}</span><span>{data.aiReady ? 'IA configurada' : 'Redacción manual disponible'}</span></div>
       {data.scan && <details className="mb-5 rounded-xl border border-primary-100 bg-white p-4"><summary className="cursor-pointer">Estado de las fuentes consultadas</summary><ul className="mt-3 grid gap-2 text-sm">{data.scan.sources.map(source => <li key={source.name}>{source.name}: {source.ok ? source.count + ' publicaciones detectadas' : source.error}</li>)}</ul></details>}
       <div className="news-editor-layout"><aside className="news-editor-list"><label>Mostrar<select value={filter} onChange={event => setFilter(event.target.value)}><option value="pending">Pendientes</option><option value="draft">Borradores</option><option value="published">Publicadas</option><option value="archived">Archivadas</option></select></label>{rows.map(item => <button key={item.id} className={row?.id === item.id ? 'is-selected' : ''} onClick={() => setSelected(item.id)}><small>{states[item.status]} · {item.sourceName}</small><strong>{item.article?.title || item.title}</strong><span>{item.category} · {date(item.sourceDate)}</span></button>)}{!rows.length && <p className="p-4">No hay notas en esta vista.</p>}</aside>{row ? <EditorDetail key={row.id + row.version} row={row} onAction={act} busy={busy} aiReady={data.aiReady} /> : <div className="news-editor-detail"><p>Buscá novedades o cargá los ejemplos editoriales.</p><button className="mt-4" onClick={() => act({ action: 'examples' })} disabled={busy}>Cargar tres ejemplos</button></div>}</div>

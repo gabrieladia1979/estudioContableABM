@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { analyticsAvailable, getAnalyticsConsent, setAnalyticsConsent, trackPageView } from '../data/analytics';
 
 export default function AnalyticsConsent() {
+  const { pathname } = useLocation();
   const [choice, setChoice] = useState('unavailable');
   useEffect(() => { if (analyticsAvailable) setChoice(getAnalyticsConsent()); }, []);
-  if (choice) return null;
+  if (choice || /^\/editor-noticias(?:\/|$)/.test(pathname)) return null;
 
   const choose = accepted => {
     setAnalyticsConsent(accepted);

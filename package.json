@@ -5,11 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node scripts/prerender.mjs",
+    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node scripts/prerender.mjs && node scripts/security-headers.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "news:scan": "node scripts/news-scan.mjs",
-    "test:news": "node --test server/news.test.mjs"
+    "test:news": "node --test server/news.test.mjs",
+    "test:security": "node --test server/security.test.mjs",
+    "test": "node --test server/*.test.mjs",
+    "audit:security": "npm audit --audit-level=low"
   },
   "dependencies": {
     "@netlify/blobs": "^11.1.6",
@@ -31,8 +34,8 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
-    "postcss": "^8.5.6",
+    "postcss": "^8.5.32",
     "tailwindcss": "^3.4.17",
-    "vite": "^7.0.3"
+    "vite": "^7.3.7"
   }
 }

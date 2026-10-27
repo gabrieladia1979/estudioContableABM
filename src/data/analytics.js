@@ -6,6 +6,9 @@ export const analyticsAvailable = Boolean(measurementId && /^G-[A-Z0-9]+$/.test(
 export const getAnalyticsConsent = () => window.localStorage.getItem(consentKey);
 
 export function startAnalytics() {
+  const privatePage = /^\/editor-noticias(?:\/|$)/.test(window.location.pathname);
+  if (analyticsAvailable) window['ga-disable-' + measurementId] = privatePage;
+  if (privatePage) return;
   if (!analyticsAvailable || active || getAnalyticsConsent() !== 'accepted') return;
   active = true;
   window.dataLayer = window.dataLayer || [];
@@ -32,7 +35,7 @@ export function setAnalyticsConsent(accepted) {
 }
 
 export function trackEvent(name, parameters = {}) {
-  if (active) window.gtag('event', name, parameters);
+  if (active && !/^\/editor-noticias(?:\/|$)/.test(window.location.pathname)) window.gtag('event', name, parameters);
 }
 
 export function trackPageView(pathname) {

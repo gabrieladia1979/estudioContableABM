@@ -1,8 +1,9 @@
-import { timingSafeEqual } from 'node:crypto';
 import { collectNews, officialEvidence } from './news-discovery.mjs';
 import { generateNewsDraft, validateArticle } from './news-ai.mjs';
 import { seedDrafts } from './news-seeds.mjs';
 import { createNewsStore } from './news-store.mjs';
+import { editorSession, enforceLimit, recordEditorEvent } from './editor-security.mjs';
+import { json, readJsonBody, RequestError } from './http-security.mjs';
 
 export async function addNewsExamples(store) {
   for (const draft of seedDrafts) await store.write('articles/' + draft.id, { ...draft, status: 'draft', score: 70, keywords: [], createdAt: new Date().toISOString(), generatedBy: 'Ejemplo editorial', reviewNotes: ['Revisar alcance, contenido y vigencia en la fuente antes de publicar.'] }, { onlyIfNew: true });
@@ -24,26 +25,45 @@ export const publishedArticle = row => ({
   sources: [{ title: row.verifiedSource.title, url: row.verifiedSource.sourceUrl, date: row.verifiedSource.sourceDate }],
 });
 
-export function authorizedNewsRequest(request, { local = false } = {}) {
-  const url = new URL(request.url);
-  if (request.headers.get('origin') && request.headers.get('origin') !== url.origin) return false;
-  if (request.headers.get('sec-fetch-site') === 'cross-site') return false;
-  if (local) return ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname);
-  const secret = process.env.NEWS_ADMIN_TOKEN;
-  if (!secret || secret.length < 32) return false;
-  const token = request.headers.get('authorization')?.replace(/^Bearer /, '') || '';
-  const left = Buffer.from(token);
-  const right = Buffer.from(secret);
-  return left.length === right.length && timingSafeEqual(left, right);
-}
-
-const json = (data, status = 200) => Response.json(data, { status, headers: { 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' } });
-
 export async function handleNewsRequest(request, { local = false, admin = false, store: suppliedStore } = {}) {
-  if (admin && !authorizedNewsRequest(request, { local })) return json({ error: 'Ingresá la clave del editor. En producción debe configurarse NEWS_ADMIN_TOKEN.' }, 401);
-  if (!['GET', ...(admin ? ['POST'] : [])].includes(request.method)) return json({ error: 'Método no permitido' }, 405);
+  if (!['GET', ...(admin ? ['POST'] : [])].includes(request.method)) return json({ error: 'Método no permitido' }, 405, { Allow: admin ? 'GET, POST' : 'GET' });
   try {
     const store = suppliedStore || await createNewsStore({ local });
+    const actor = admin ? await editorSession(request, store, { local }) : null;
+    if (admin && !actor) return json({ error: 'Ingresá al editor. La sesión no está activa o venció.' }, 401, { 'X-Robots-Tag': 'noindex, nofollow' });
+    let body;
+    if (admin && request.method === 'POST') {
+      await enforceLimit(store, 'admin-writes', 30, 60_000);
+      body = await readJsonBody(request);
+      if (body.action === 'generate') {
+        const configured = Number(process.env.NEWS_AI_DAILY_LIMIT || 20);
+        const dailyLimit = Number.isInteger(configured) && configured >= 1 && configured <= 1000 ? configured : 20;
+        await enforceLimit(store, 'ai-minute', 2, 60_000);
+        await enforceLimit(store, 'ai-day', dailyLimit, 24 * 60 * 60_000);
+      }
+      const action = ['scan', 'examples', 'verify', 'generate', 'save', 'publish', 'archive', 'unpublish'].includes(body.action) ? body.action : 'invalid';
+      const event = { actor: actor.actor, session: actor.id, action, articleId: typeof body.id === 'string' && /^[a-z0-9-]{1,80}$/.test(body.id) ? body.id : null };
+      await recordEditorEvent(store, { ...event, event: 'operation-started' });
+      const result = await handleAuthorizedNewsRequest(request, { local, admin, store, body });
+      await recordEditorEvent(store, { ...event, event: 'operation-finished', status: result.status });
+      result.headers.set('X-Robots-Tag', 'noindex, nofollow');
+      return result;
+    }
+    const result = await handleAuthorizedNewsRequest(request, { local, admin, store });
+    if (admin) {
+      result.headers.set('X-Robots-Tag', 'noindex, nofollow');
+      if (actor.expiresAt) result.headers.set('X-Editor-Session-Expires', String(actor.expiresAt));
+    }
+    return result;
+  } catch (error) {
+    if (error instanceof RequestError) return json({ error: error.message }, error.status, error.headers);
+    console.error('Newsroom security:', error.name);
+    return json({ error: 'No se pudo validar la solicitud. Volvé a intentar.' }, 503);
+  }
+}
+
+async function handleAuthorizedNewsRequest(request, { local, admin, store, body }) {
+  try {
     if (request.method === 'GET') {
       if (admin && local) await addNewsExamples(store);
       const rows = await store.articles();
@@ -52,10 +72,6 @@ export async function handleNewsRequest(request, { local = false, admin = false,
       const articles = await Promise.all(rows.sort((a, b) => (b.score || 0) - (a.score || 0)).map(async row => ({ ...row, version: (await store.read('articles/' + row.id)).etag })));
       return json({ articles, scan, local, aiReady: Boolean(process.env.OPENAI_API_KEY && process.env.NEWS_AI_MODEL) });
     }
-    const raw = await request.text();
-    if (raw.length > 30_000) return json({ error: 'La solicitud es demasiado grande' }, 413);
-    let body;
-    try { body = JSON.parse(raw); } catch { return json({ error: 'Solicitud inválida' }, 400); }
     if (body.action === 'scan') {
       const last = (await store.read('last-scan'))?.data;
       if (last && Date.now() - Date.parse(last.checkedAt) < 15 * 60_000) return json({ error: 'La última búsqueda fue hace menos de 15 minutos. Ya podés revisar sus resultados.' }, 429);

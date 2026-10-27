@@ -7,7 +7,7 @@ import { newsDevMiddleware } from './server/news-dev.mjs'
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const serverEnv = loadEnv(mode, process.cwd(), '');
-  for (const name of ['OPENAI_API_KEY', 'NEWS_AI_MODEL', 'NEWS_ADMIN_TOKEN']) {
+  for (const name of ['OPENAI_API_KEY', 'NEWS_AI_MODEL', 'NEWS_ADMIN_TOKEN', 'NEWS_ADMIN_TOKEN_EXPIRES_AT', 'NEWS_AI_DAILY_LIMIT']) {
     if (serverEnv[name] && !process.env[name]) process.env[name] = serverEnv[name];
   }
   return {

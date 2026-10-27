@@ -5,7 +5,8 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { collectNews, dateOnly, extractOfficial, fetchNewsText, parseFeed, safeNewsUrl, scoreNews } from './news-discovery.mjs';
 import { createLocalNewsStore } from './news-store.mjs';
-import { addNewsExamples, authorizedNewsRequest, handleNewsRequest, scanNews } from './news-service.mjs';
+import { addNewsExamples, handleNewsRequest, scanNews } from './news-service.mjs';
+import { editorSession } from './editor-security.mjs';
 import { generateNewsDraft, validateArticle } from './news-ai.mjs';
 
 const now = new Date('2026-10-26T18:00:00Z');
@@ -55,11 +56,11 @@ test('una fuente caída no borra resultados; se informa el fallo y se deduplican
   assert.equal(result.candidates.length, 1);
   assert.equal(result.sources[2].ok, false);
 });
-test('el editor exige clave larga en producción y rechaza solicitudes de otro origen', () => {
-  assert.equal(authorizedNewsRequest(request(), { local: false }), false);
-  assert.equal(authorizedNewsRequest(new Request('http://localhost:5173/api/news/admin', { headers: { Origin: 'https://otro-sitio.test' } }), { local: true }), false);
-  assert.equal(authorizedNewsRequest(request(), { local: true }), true);
-});
+test('el editor exige sesión en producción y rechaza solicitudes de otro origen', async () => withStore(async store => {
+  assert.equal(await editorSession(request(), store), null);
+  assert.equal(await editorSession(new Request('http://localhost:5173/api/news/admin', { headers: { Origin: 'https://otro-sitio.test' } }), store, { local: true }), null);
+  assert.equal((await editorSession(request(), store, { local: true })).actor, 'editor-local');
+}));
 test('las versiones previenen sobreescrituras concurrentes', async () => withStore(async store => {
   await store.write('articles/test', { title: 'A' });
   const previous = await store.read('articles/test');

@@ -1,5 +1,6 @@
 /api/market       /.netlify/functions/market  200
 /api/news/admin   /.netlify/functions/news-admin  200
+/api/news/session /.netlify/functions/news-session 200
 /api/news         /.netlify/functions/news    200
 /estudio          /estudio/index.html          200
 /servicios        /servicios/index.html        200
