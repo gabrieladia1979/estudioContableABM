@@ -1,12 +1,12 @@
 import { writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { createLocalNewsStore } from '../server/news-store.mjs';
+import { createNewsStore } from '../server/news-store.mjs';
 import { autoProcessNews, publishedArticle } from '../server/news-service.mjs';
 
 console.log('🤖 Iniciando automatización de noticias para ABM Estudio Contable...');
 console.log('📡 Consultando fuentes prioritarias: Blog del Contador, ARCA, Consejo CABA...');
 
-const store = createLocalNewsStore();
+const store = await createNewsStore({ local: true });
 const result = await autoProcessNews(store, { limit: 6, autoPublish: true });
 
 console.log(`\n✅ Proceso completado exitosamente a las ${result.checkedAt}`);
