@@ -2,9 +2,9 @@ import { autoProcessNews, scanNews } from '../../server/news-service.mjs';
 import { createNewsStore } from '../../server/news-store.mjs';
 
 export default async function handler() {
-  if (process.env.NEWS_SCAN_ENABLED !== 'true') return;
+  if (process.env.NEWS_SCAN_ENABLED === 'false') return;
   const store = await createNewsStore();
-  const autoPublish = process.env.NEWS_AUTO_PUBLISH === 'true';
+  const autoPublish = process.env.NEWS_AUTO_PUBLISH !== 'false';
   const result = autoPublish
     ? await autoProcessNews(store, { limit: 4, autoPublish: true })
     : await scanNews(store);
