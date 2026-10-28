@@ -106,12 +106,32 @@ export default function NewsEditorPage() {
   const rows = data?.articles.filter(row => filter === 'pending' ? !['published', 'archived'].includes(row.status) : row.status === filter) || [];
   const row = rows.find(item => item.id === selected) || rows[0];
   return <main className="news-editor">
-    <header className="news-editor-header"><div><Link to="/">ABM · Volver al sitio</Link><h1>Editor de noticias</h1><p>Búsqueda de temas y borradores propios para revisar antes de publicar.</p></div>{data && <div className="flex flex-wrap gap-2"><button disabled={busy} onClick={() => act({ action: 'scan' })}>{busy ? 'Procesando…' : 'Buscar novedades'}</button><button disabled={busy} onClick={() => { setError(''); setRefresh(value => value + 1); }}>Recargar bandeja</button>{!data.local && <button disabled={busy} onClick={logout}>Cerrar sesión</button>}</div>}</header>
+    <header className="news-editor-header">
+      <div>
+        <Link to="/">ABM · Volver al sitio</Link>
+        <h1>Editor de noticias</h1>
+        <p>Búsqueda de temas y redacción con IA para mantener actualizado el portal de noticias.</p>
+      </div>
+      {data && (
+        <div className="flex flex-wrap gap-2">
+          <button disabled={busy} className="is-primary" onClick={() => act({ action: 'auto', limit: 4, publish: true })}>
+            {busy ? 'Procesando…' : '⚡ Auto-publicar novedades'}
+          </button>
+          <button disabled={busy} onClick={() => act({ action: 'scan' })}>
+            {busy ? 'Buscando…' : 'Buscar temas'}
+          </button>
+          <button disabled={busy} onClick={() => { setError(''); setRefresh(value => value + 1); }}>
+            Recargar bandeja
+          </button>
+          {!data.local && <button disabled={busy} onClick={logout}>Cerrar sesión</button>}
+        </div>
+      )}
+    </header>
     {error && <p role="alert" className="news-editor-error">{error}</p>}
     {loginNeeded && <form className="news-editor-login" onSubmit={login}><label>Clave privada del editor<input type="password" required maxLength={512} autoComplete="current-password" value={accessKey} onChange={event => setAccessKey(event.target.value)} /></label><button disabled={busy} className="is-primary">{busy ? 'Ingresando…' : 'Ingresar'}</button></form>}
-    {data && <><div className="news-editor-status">{data.local && <strong>Vista local · las publicaciones se guardan solo en esta PC.</strong>}<span>Última búsqueda: {data.scan ? date(data.scan.checkedAt) : 'Todavía no se realizó'}</span><span>{data.aiReady ? 'IA configurada' : 'Redacción manual disponible'}</span></div>
+    {data && <><div className="news-editor-status">{data.local && <strong>Vista local · las publicaciones se guardan solo en esta PC.</strong>}<span>Última búsqueda: {data.scan ? date(data.scan.checkedAt) : 'Todavía no se realizó'}</span><span>{data.aiReady ? 'IA lista para redacción' : 'Redacción asistida / manual'}</span></div>
       {data.scan && <details className="mb-5 rounded-xl border border-primary-100 bg-white p-4"><summary className="cursor-pointer">Estado de las fuentes consultadas</summary><ul className="mt-3 grid gap-2 text-sm">{data.scan.sources.map(source => <li key={source.name}>{source.name}: {source.ok ? source.count + ' publicaciones detectadas' : source.error}</li>)}</ul></details>}
-      <div className="news-editor-layout"><aside className="news-editor-list"><label>Mostrar<select value={filter} onChange={event => setFilter(event.target.value)}><option value="pending">Pendientes</option><option value="draft">Borradores</option><option value="published">Publicadas</option><option value="archived">Archivadas</option></select></label>{rows.map(item => <button key={item.id} className={row?.id === item.id ? 'is-selected' : ''} onClick={() => setSelected(item.id)}><small>{states[item.status]} · {item.sourceName}</small><strong>{item.article?.title || item.title}</strong><span>{item.category} · {date(item.sourceDate)}</span></button>)}{!rows.length && <p className="p-4">No hay notas en esta vista.</p>}</aside>{row ? <EditorDetail key={row.id + row.version} row={row} onAction={act} busy={busy} aiReady={data.aiReady} /> : <div className="news-editor-detail"><p>Buscá novedades o cargá los ejemplos editoriales.</p><button className="mt-4" onClick={() => act({ action: 'examples' })} disabled={busy}>Cargar tres ejemplos</button></div>}</div>
+      <div className="news-editor-layout"><aside className="news-editor-list"><label>Mostrar<select value={filter} onChange={event => setFilter(event.target.value)}><option value="pending">Pendientes</option><option value="draft">Borradores</option><option value="published">Publicadas</option><option value="archived">Archivadas</option></select></label>{rows.map(item => <button key={item.id} className={row?.id === item.id ? 'is-selected' : ''} onClick={() => setSelected(item.id)}><small>{states[item.status]} · {item.sourceName}</small><strong>{item.article?.title || item.title}</strong><span>{item.category} · {date(item.sourceDate)}</span></button>)}{!rows.length && <p className="p-4">No hay notas en esta vista.</p>}</aside>{row ? <EditorDetail key={row.id + row.version} row={row} onAction={act} busy={busy} aiReady={data.aiReady} /> : <div className="news-editor-detail"><p>Buscá novedades o ejecutá la auto-publicación.</p><button className="mt-4" onClick={() => act({ action: 'examples' })} disabled={busy}>Cargar tres ejemplos</button></div>}</div>
     </>}
   </main>;
 }

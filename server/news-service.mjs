@@ -1,4 +1,4 @@
-import { collectNews, officialEvidence } from './news-discovery.mjs';
+import { collectNews, extractNewsEvidence, officialEvidence } from './news-discovery.mjs';
 import { generateNewsDraft, validateArticle } from './news-ai.mjs';
 import { seedDrafts } from './news-seeds.mjs';
 import { createNewsStore } from './news-store.mjs';
@@ -17,6 +17,57 @@ export async function scanNews(store, options = {}) {
   }
   await store.write('last-scan', { checkedAt: snapshot.checkedAt, sources: snapshot.sources, found: snapshot.candidates.length });
   return { checkedAt: snapshot.checkedAt, sources: snapshot.sources, found: snapshot.candidates.length };
+}
+
+export async function autoProcessNews(store, { limit = 4, autoPublish = false, sources, fetcher, now = new Date() } = {}) {
+  const snapshot = await collectNews({ sources, fetcher, now });
+  for (const candidate of snapshot.candidates) {
+    await store.write('articles/' + candidate.id, { ...candidate, status: 'candidate', createdAt: snapshot.checkedAt }, { onlyIfNew: true });
+  }
+  await store.write('last-scan', { checkedAt: snapshot.checkedAt, sources: snapshot.sources, found: snapshot.candidates.length });
+
+  // Prioritize top candidates (giving priority to Blog del Contador and ARCA)
+  const sorted = [...snapshot.candidates].sort((a, b) => {
+    const isPreferredA = a.sourceName?.includes('Blog') || a.sourceKind === 'official';
+    const isPreferredB = b.sourceName?.includes('Blog') || b.sourceKind === 'official';
+    if (isPreferredA && !isPreferredB) return -1;
+    if (!isPreferredA && isPreferredB) return 1;
+    return (b.score || 0) - (a.score || 0);
+  });
+
+  const selected = sorted.slice(0, limit);
+  const processed = [];
+
+  for (const candidate of selected) {
+    const key = 'articles/' + candidate.id;
+    const existing = await store.read(key);
+    if (existing?.data?.status === 'published') {
+      processed.push({ id: candidate.id, title: candidate.title, status: 'already-published' });
+      continue;
+    }
+
+    try {
+      const evidence = await extractNewsEvidence(candidate.sourceUrl, { fetcher, now });
+      const generated = await generateNewsDraft(candidate, evidence, { allowFallback: true });
+
+      const articleRow = {
+        ...candidate,
+        ...generated,
+        verifiedSource: evidence,
+        status: autoPublish ? 'published' : 'draft',
+        reviewedAt: now.toISOString(),
+        publishedAt: autoPublish ? (existing?.data?.publishedAt || now.toISOString()) : null,
+        updatedAt: now.toISOString(),
+      };
+
+      await store.write(key, articleRow);
+      processed.push({ id: candidate.id, title: generated.article.title, status: articleRow.status, source: candidate.sourceName });
+    } catch (err) {
+      console.error(`Auto-processing error for ${candidate.id}:`, err.message);
+    }
+  }
+
+  return { checkedAt: snapshot.checkedAt, processed, totalCandidates: snapshot.candidates.length };
 }
 
 export const publishedArticle = row => ({
@@ -41,7 +92,7 @@ export async function handleNewsRequest(request, { local = false, admin = false,
         await enforceLimit(store, 'ai-minute', 2, 60_000);
         await enforceLimit(store, 'ai-day', dailyLimit, 24 * 60 * 60_000);
       }
-      const action = ['scan', 'examples', 'verify', 'generate', 'save', 'publish', 'archive', 'unpublish'].includes(body.action) ? body.action : 'invalid';
+      const action = ['scan', 'examples', 'verify', 'generate', 'save', 'publish', 'archive', 'unpublish', 'auto'].includes(body.action) ? body.action : 'invalid';
       const event = { actor: actor.actor, session: actor.id, action, articleId: typeof body.id === 'string' && /^[a-z0-9-]{1,80}$/.test(body.id) ? body.id : null };
       await recordEditorEvent(store, { ...event, event: 'operation-started' });
       const result = await handleAuthorizedNewsRequest(request, { local, admin, store, body });
@@ -70,12 +121,17 @@ async function handleAuthorizedNewsRequest(request, { local, admin, store, body 
       const scan = (await store.read('last-scan'))?.data || null;
       if (!admin) return json({ articles: rows.filter(row => row.status === 'published' && row.verifiedSource && row.article).map(publishedArticle).sort((a, b) => b.publishedAt.localeCompare(a.publishedAt)), checkedAt: scan?.checkedAt || null });
       const articles = await Promise.all(rows.sort((a, b) => (b.score || 0) - (a.score || 0)).map(async row => ({ ...row, version: (await store.read('articles/' + row.id)).etag })));
-      return json({ articles, scan, local, aiReady: Boolean(process.env.OPENAI_API_KEY && process.env.NEWS_AI_MODEL) });
+      return json({ articles, scan, local, aiReady: Boolean((process.env.OPENAI_API_KEY && process.env.NEWS_AI_MODEL) || process.env.GEMINI_API_KEY) });
     }
     if (body.action === 'scan') {
       const last = (await store.read('last-scan'))?.data;
       if (last && Date.now() - Date.parse(last.checkedAt) < 15 * 60_000) return json({ error: 'La última búsqueda fue hace menos de 15 minutos. Ya podés revisar sus resultados.' }, 429);
       return json(await scanNews(store));
+    }
+    if (body.action === 'auto') {
+      const autoPublish = body.publish === true || process.env.NEWS_AUTO_PUBLISH === 'true';
+      const result = await autoProcessNews(store, { limit: body.limit || 4, autoPublish });
+      return json({ ok: true, ...result });
     }
     if (body.action === 'examples') { await addNewsExamples(store); return json({ ok: true }); }
     if (typeof body.id !== 'string' || !/^[a-z0-9-]{1,80}$/.test(body.id)) return json({ error: 'Nota inválida' }, 400);
@@ -87,13 +143,14 @@ async function handleAuthorizedNewsRequest(request, { local, admin, store, body 
     if (row.status === 'generating' && Date.now() - Date.parse(row.generationStartedAt) < 90_000) return json({ error: 'La nota está generándose. Volvé a consultar en un momento.' }, 409);
     if (body.action === 'verify') {
       if (row.status === 'published') return json({ error: 'Retirá la publicación antes de modificarla' }, 409);
-      const evidence = await officialEvidence(body.officialUrl || row.sourceUrl);
+      const evidence = await extractNewsEvidence(body.officialUrl || row.sourceUrl);
       row.verifiedSource = evidence;
       row.reviewNotes = [...(row.reviewNotes || []), 'Confirmar que esta fuente oficial corresponde al tema detectado.'];
     } else if (body.action === 'generate') {
       if (row.status === 'published') return json({ error: 'Retirá la publicación antes de generar otro borrador' }, 409);
       if (!row.verifiedSource) return json({ error: 'Primero vinculá y verificá una publicación oficial' }, 400);
-      if (!process.env.OPENAI_API_KEY || !process.env.NEWS_AI_MODEL) return json({ error: 'La redacción con IA requiere OPENAI_API_KEY y NEWS_AI_MODEL en el servidor. Podés editar los ejemplos manualmente.' }, 503);
+      const hasAi = Boolean((process.env.OPENAI_API_KEY && process.env.NEWS_AI_MODEL) || process.env.GEMINI_API_KEY);
+      if (!hasAi) return json({ error: 'La redacción con IA requiere OPENAI_API_KEY y NEWS_AI_MODEL en el servidor. Podés editar los ejemplos manualmente.' }, 503);
       const locked = await store.write(key, { ...row, status: 'generating', generationStartedAt: new Date().toISOString() }, { onlyIfMatch: previous.etag });
       if (!locked.modified) return json({ error: 'Otra operación está modificando esta nota' }, 409);
       const lockVersion = (await store.read(key)).etag;

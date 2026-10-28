@@ -106,6 +106,45 @@ export function extractOfficial(html, url, now = new Date()) {
   return { title: heading.slice(0, 240), sourceUrl: url, sourceDate, evidence };
 }
 
+export function extractArticleEvidence(html, url, now = new Date()) {
+  const $ = load(html);
+  $('script,style,nav,footer,aside,input,button,noscript').remove();
+  const rawHeading = $('meta[property="og:title"]').attr('content')
+    || $('#h3Titulo').first().text().trim()
+    || $('article h1, main h1, h1').first().text().trim()
+    || $('title').text().trim();
+  const heading = rawHeading ? rawHeading.replace(/\s*\/\s*Blog del Contador.*$/i, '').trim() : '';
+
+  const bodyText = $('body').text();
+  const dateMatch = bodyText.match(/(\d{1,2}\s+(?:de\s+)?(?:enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)\s+(?:de\s+)?\d{4}|\d{2}\/\d{2}\/\d{4})/i);
+  let parsedDate = null;
+  if (dateMatch) parsedDate = dateOnly(dateMatch[0], now);
+  const sourceDate = parsedDate
+    || dateOnly($('meta[property="article:published_time"]').attr('content') || $('time[datetime]').first().attr('datetime'), now)
+    || now.toISOString().slice(0, 10);
+
+  const paragraphs = $('article p, .entry-content p, .nota-cuerpo p, main p, p')
+    .map((_, node) => $(node).text().trim())
+    .get()
+    .filter(text => text.length > 50 && !/derechos reservados|iniciar sesi[oó]n|suscr[ií]bete|comentarios/i.test(text));
+
+  const evidence = paragraphs.join(' ').replace(/\s+/g, ' ').split(/\s+/).slice(0, 220).join(' ');
+  if (!heading || evidence.length < 60) throw new Error('No se pudo extraer evidencia suficiente del artículo');
+  return { title: heading.slice(0, 240), sourceUrl: url, sourceDate, evidence, paragraphs: paragraphs.slice(0, 6) };
+}
+
+export async function extractNewsEvidence(url, { hosts = allowedNewsHosts, fetcher = fetchNewsText, now = new Date() } = {}) {
+  const safe = safeNewsUrl(url, undefined, hosts);
+  if (!safe) throw new Error('Fuente no habilitada');
+  const hostname = new URL(safe).hostname;
+  const html = await fetcher(safe, { hosts });
+  if (officialHosts.has(hostname)) {
+    try { return extractOfficial(html, safe, now); }
+    catch { return extractArticleEvidence(html, safe, now); }
+  }
+  return extractArticleEvidence(html, safe, now);
+}
+
 export async function collectNews({ sources = newsSources, fetcher = fetchNewsText, now = new Date() } = {}) {
   const results = await Promise.allSettled(sources.map(async source => {
     const text = await fetcher(source.url);

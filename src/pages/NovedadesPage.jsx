@@ -1,4 +1,3 @@
-// src/pages/NovedadesPage.jsx
 import React from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -9,13 +8,16 @@ import PageHeading from '../components/layout/PageHeading';
 
 const NovedadesPage = () => {
   return (
-    <div>
+    <div className="min-h-screen bg-white">
       <Navbar />
       <main>
-          <PageHeading title="Noticias" description="Novedades oficiales y recursos útiles para mantenerte al día." />
-          <EditorialNewsSection />
-          <OfficialNewsSection />
-          <NewsSection />
+        <PageHeading
+          title="Novedades & Actualidad Contable"
+          description="Información clave sobre ARCA, normativas fiscales, vencimientos y finanzas, explicada para tu actividad."
+        />
+        <EditorialNewsSection />
+        <OfficialNewsSection />
+        <NewsSection />
       </main>
       <Footer />
     </div>

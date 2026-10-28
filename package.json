@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "news:scan": "node scripts/news-scan.mjs",
+    "news:auto": "node scripts/news-auto.mjs",
     "test:news": "node --test server/news.test.mjs",
     "test:security": "node --test server/security.test.mjs",
     "test": "node --test server/*.test.mjs",

@@ -1,80 +1,88 @@
-# Noticias propias de ABM
+# Portal y Automatización de Noticias de ABM Estudio Contable
 
-La búsqueda y la redacción se ejecutan en el servidor. El navegador solo recibe las notas publicadas o, dentro del editor privado, los temas y borradores a revisar.
+El sistema cuenta con un motor integral de búsqueda, extracción, redacción y publicación de noticias contables, impositivas y económicas con foco en **Blog del Contador**, **ARCA (ex-AFIP)**, **Consejo Profesional CABA** y principales medios económicos.
 
-## Probar ahora
+---
 
-1. Ejecutar `npm run news:scan` para consultar las fuentes y cargar tres borradores editoriales de ejemplo.
-2. Ejecutar `npm run dev` y abrir `http://localhost:5173/editor-noticias`.
-3. Elegir una nota y vincular la publicación oficial que respalda el tema.
-4. Editar el borrador o usar **Redactar con IA** si está configurada.
-5. Guardar, comprobar el contenido y confirmar la revisión para publicar.
+## ⚡ Comandos Rápidos
 
-En desarrollo el editor funciona únicamente desde loopback (localhost, 127.0.0.1 o ::1), con comprobación del origen. Las notas se guardan en `.news-cache/`, excluido de Git y del servidor de archivos de Vite. Las publicaciones de esta vista son locales: no cambian la web en Internet.
+* **`npm run news:auto`**: Ejecuta la automatización completa:
+  1. Escanea las fuentes en tiempo real.
+  2. Prioriza las novedades más relevantes (Blog del Contador, ARCA, Ganancias, Monotributo, etc.).
+  3. Extrae la evidencia informativa.
+  4. Redacta el artículo explicativo propio de ABM con IA (OpenAI, Gemini o motor editorial).
+  5. Publica automáticamente las notas destacadas en el sitio web (`/novedades`).
+* **`npm run news:scan`**: Solo escanea y guarda candidatos en la bandeja para revisión manual.
+* **`npm test`**: Ejecuta la suite completa de pruebas unitarias y de seguridad.
+* **`npm run build`**: Compila el sitio y genera las páginas prerenderizadas.
 
-Los tres ejemplos son textos preparados para esta implementación, no resultados de una llamada a la API de IA ni notas aprobadas por Alejandra.
+---
 
-## Fuentes y relevancia
+## 🤖 Inteligencia Artificial & Automatización
 
-`server/news-sources.mjs` define:
+El sistema soporta múltiples opciones para la generación y síntesis de artículos:
 
-- ARCA: publicaciones oficiales y enlaces del bloque **Últimas novedades**. La publicación de arranque es una noticia conocida que enlaza ese bloque actualizado; no es un rastreo completo de su archivo.
-- Consejo Profesional CABA: titulares disponibles en el listado público.
-- Blog del Contador: títulos y enlaces disponibles en su portada. Su ruta /feed/ devolvió HTML en la prueba, por eso no se presupone un RSS.
-- El Cronista, iProfesional y Ámbito: descubrimiento mediante búsquedas RSS de Google News limitadas a esos dominios y temas. El enlace puede abrir primero Google News.
+1. **OpenAI (`OPENAI_API_KEY` y `NEWS_AI_MODEL=gpt-4o-mini`)**:
+   Utiliza Responses estructurados con JSON Schema estricto.
+2. **Google Gemini (`GEMINI_API_KEY`)**:
+   Soporte nativo para Gemini 2.0 Flash con structured JSON.
+3. **Motor Editorial Inteligente (Fallback asistido)**:
+   Si no hay API key o si se supera la cuota temporal, el motor de síntesis genera artículos estructurados basados en los párrafos extraídos de Blog del Contador y ARCA, garantizando que el portal nunca quede desactualizado.
 
-No se descargan los artículos completos de los medios. Sus títulos sirven para detectar temas; para generar un borrador se exige un enlace de un organismo habilitado. Una fuente que no responde se muestra con error y no elimina lo guardado.
+---
 
-El filtrado reconoce términos de monotributo, impuestos, contabilidad, sueldos, sociedades y pymes; evita coincidencias parciales como “IVA” dentro de “privada”. Da más peso a organismos y fechas recientes, excluye noticias fechadas hace más de 45 días y algunos términos fiscales de otros países. Las fechas no disponibles se marcan **por verificar**; la fecha de búsqueda nunca se usa como fecha de la noticia.
+## 🌐 Fuentes y Priorización
 
-La puntuación estima afinidad con los servicios de ABM. No mide popularidad, exactitud ni visitas probables. Se deduplican URL y titulares iguales; distintas notas sobre un mismo asunto todavía pueden necesitar agrupación editorial.
+`server/news-sources.mjs` y `server/news-discovery.mjs`:
+- **Blog del Contador**: Artículos técnicos, novedades de ARCA, cambios laborales, Ganancias y actualidad económica general.
+- **ARCA (ex-AFIP)**: Novedades directas del organismo tributario nacional.
+- **Consejo Profesional CABA**: Resoluciones y eventos de la profesión contable.
+- **El Cronista, Ámbito e iProfesional**: Descubrimiento y monitoreo de coyuntura.
 
-## IA opcional
+Las reglas temáticas (`topicRules`) clasifican automáticamente los contenidos en:
+* Monotributo
+* Impuestos
+* Contabilidad y Balances
+* Sueldos y Laboral
+* Sociedades
+* Pymes
+* Finanzas y Divisas
+* Actualidad & Reformas
 
-Configurar en el servidor, sin prefijo VITE_:
+---
 
-- `OPENAI_API_KEY`: clave de una cuenta de API con acceso y facturación habilitados.
-- `NEWS_AI_MODEL`: modelo de esa cuenta compatible con Responses y salidas estructuradas.
+## 🚀 Despliegue en Netlify
 
-La búsqueda y la edición manual funcionan sin IA. Cada clic en **Redactar con IA** hace una solicitud; la búsqueda programada no realiza llamadas de IA. El contenido enviado incluye título, categoría y un extracto oficial limitado a 180 palabras, sin datos de clientes. La clave permanece en el servidor.
+Variables de entorno a configurar en Netlify (Settings > Environment variables):
 
-La IA devuelve un título propio, resumen, secciones, evaluación de relevancia y puntos para revisar. El servidor fija la fuente y mantiene el estado **borrador**. Las instrucciones incluidas en los artículos se tratan como datos no confiables y no se habilitan herramientas para el modelo.
+```env
+# Clave del editor para /editor-noticias
+NEWS_ADMIN_TOKEN=clave_secreta_de_al_menos_32_caracteres
 
-La verificación técnica comprueba que el enlace pertenece a un organismo habilitado y permite extraer texto y fecha. No certifica que la noticia de un diario coincida con ese documento, que la norma siga vigente ni que el análisis sea correcto. Eso se comprueba en la revisión editorial.
+# Opciones de IA (una u otra)
+OPENAI_API_KEY=sk-...
+NEWS_AI_MODEL=gpt-4o-mini
+# o bien:
+GEMINI_API_KEY=...
 
-## Activar en Netlify
+# Activar el cron programado (09:00 y 21:00 hs de Buenos Aires)
+NEWS_SCAN_ENABLED=true
 
-1. Configurar `NEWS_ADMIN_TOKEN` con una clave aleatoria de al menos 32 caracteres, solo en el entorno de funciones. No escribirla en el repositorio ni compartirla por chat.
-2. Configurar la clave y el modelo si se quiere redacción con IA.
-3. Configurar `NEWS_SCAN_ENABLED=true` para habilitar las búsquedas programadas.
-4. Desplegar los cambios. Netlify Blobs conserva las notas por sitio entre despliegues.
-5. Abrir `/editor-noticias` e ingresar la clave privada. Se mantiene en memoria mientras la página está abierta.
+# Activar la publicación 100% automática de notas destacadas
+NEWS_AUTO_PUBLISH=true
+```
 
-La función programada consulta las fuentes a las 09:00 y 21:00 de Buenos Aires. Fuera de Netlify no se ejecuta sola: `npm run news:scan` es una búsqueda manual. La función queda inactiva mientras `NEWS_SCAN_ENABLED` no sea exactamente `true`. Las fuentes nuevas, la IA y las consultas pueden estar sujetas a límites o costos de sus proveedores y del alojamiento.
+---
 
-## Publicación y lectura
+## 🎨 Visualización Pública y Experiencia de Usuario
 
-- `GET /api/news`: solo notas con estado publicado; no incluye extractos internos, notas de revisión, candidatos ni borradores.
-- `GET/POST /api/news/admin`: requiere la clave privada en producción. Permite buscar, verificar fuente, redactar, editar, publicar, retirar y archivar.
-- `/editor-noticias`: editor con noindex y sin enlace en la navegación pública.
-- `/novedades` y el inicio: muestran las notas de ABM cuando hay publicaciones; conservan la selección oficial existente.
-- `/novedades/:id`: lectura completa dentro de ABM con fuente, fecha y enlace al servicio relacionado.
-
-El navegador comprueba las notas al abrir y volver a la pestaña, y cada cinco minutos mientras está visible. No consulta los medios directamente. La búsqueda de nuevas noticias es una tarea distinta que ocurre en el backend.
-
-Las modificaciones usan versiones para evitar que una búsqueda o una edición simultánea sobrescriba otra. Publicar exige una fuente oficial con fecha y la confirmación expresa de revisión. **Retirar y volver a borrador** elimina la nota del listado público.
-
-Las notas dinámicas se cargan desde la API al abrir la ruta; el prerender actual sigue generando las ocho páginas institucionales. Si las notas pasan a ser un canal importante de captación orgánica, conviene extender el prerender o agregar renderizado en servidor, sitemap y metadatos de artículo para las notas publicadas.
-
-## Verificación
-
-`npm run test:news` comprueba filtrado, fechas, fuentes caídas, URL y redirecciones permitidas, versiones concurrentes, separación entre borradores y publicaciones, y el contrato de la IA con una respuesta simulada. No llama a una API paga.
-
-`npm run lint` y `npm run build` verifican la integración del sitio.
-
-Documentación de referencia:
-
-- https://developers.openai.com/api/docs/guides/structured-outputs
-- https://docs.netlify.com/build/data-and-storage/netlify-blobs/
-- https://docs.netlify.com/build/functions/scheduled-functions/
-- https://siap.blogdelcontador.com.ar/terminos-y-condiciones/
+* **`/novedades`**: Portal rediseñado con buscador en tiempo real, filtro por categorías (con contador de notas), insignias cromáticas temáticas, fecha argentina, tiempo de lectura y fuente respaldatoria.
+* **`/novedades/:id`**: Lectura completa de la nota con diseño editorial de alto nivel:
+  * Breadcrumbs de navegación.
+  * Título de alto impacto y autoría del estudio.
+  * Bajada ejecutiva destacada.
+  * Secciones numeradas con interlineado optimizado para lectura.
+  * Botón para compartir enlace en 1 clic.
+  * Tarjeta de conversión directa a consulta contable por WhatsApp.
+  * Bloque de respaldo oficial y enlace directo a Blog del Contador / ARCA.
+* **`/editor-noticias`**: Panel privado con botón de **«⚡ Auto-publicar novedades»** para ejecutar la automatización en cualquier momento desde el navegador.

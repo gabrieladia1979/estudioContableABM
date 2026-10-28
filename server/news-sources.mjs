@@ -25,4 +25,6 @@ export const topicRules = [
   { category: 'Sueldos', service: 'sueldos', words: ['sueldos', 'cargas sociales', 'recibo', 'casas particulares', 'empleador', 'laboral'], weight: 5 },
   { category: 'Sociedades', service: 'crear-sociedad', words: ['sociedad', 'sociedades', 'cooperativa', 'constitucion', 'igj'], weight: 5 },
   { category: 'Pymes', service: 'pymes', words: ['pyme', 'pymes', 'mipyme', 'financiamiento'], weight: 5 },
+  { category: 'Finanzas', service: 'asesoramiento-tributario', words: ['dolar', 'divisas', 'exterior', 'billetera', 'inflacion', 'bcra', 'financiero', 'tasas', 'blanqueo'], weight: 5 },
+  { category: 'Actualidad', service: 'asesoramiento-tributario', words: ['reforma', 'ley', 'decreto', 'reglamentacion', 'fal', 'rifl'], weight: 5 },
 ];
