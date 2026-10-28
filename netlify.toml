@@ -4,6 +4,7 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  NEWS_SCAN_ENABLED = "true"
 
 [functions]
   directory = "netlify/functions"

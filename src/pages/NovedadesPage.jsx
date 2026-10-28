@@ -1,21 +1,15 @@
 import React from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
-import NewsSection from '../components/sections/NewsSection';
 import EditorialNewsSection from '../components/sections/EditorialNewsSection';
-import PageHeading from '../components/layout/PageHeading';
 
 const NovedadesPage = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="news-page min-h-screen">
       <Navbar />
       <main>
-        <PageHeading
-          title="Noticias"
-          description="Actualidad de ARCA, Blog del Contador y novedades fiscales explicadas para tu actividad."
-        />
+        <header className="news-index-header"><div className="container mx-auto px-6"><p className="news-kicker">Inicio · Noticias</p><h1>Información de interés, <span>para tu actividad.</span></h1></div></header>
         <EditorialNewsSection />
-        <NewsSection />
       </main>
       <Footer />
     </div>

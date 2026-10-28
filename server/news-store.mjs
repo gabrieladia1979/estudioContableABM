@@ -1,6 +1,7 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { mkdir, readFile, readdir, rename, rm, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
+import { seedPublishedNews } from './news-bootstrap.mjs';
 
 const etagOf = text => createHash('sha256').update(text).digest('hex');
 export function createLocalNewsStore(directory = resolve('.news-cache')) {
@@ -43,10 +44,13 @@ export function createLocalNewsStore(directory = resolve('.news-cache')) {
 }
 
 export async function createNewsStore({ local = false } = {}) {
-  if (local) return localStore;
+  if (local) {
+    await seedPublishedNews(localStore);
+    return localStore;
+  }
   const { getStore } = await import('@netlify/blobs');
   const blobs = getStore({ name: 'abm-newsroom', consistency: 'strong' });
-  return {
+  const store = {
     read: key => blobs.getWithMetadata(key, { type: 'json' }),
     remove: key => blobs.delete(key),
     write: (key, data, conditions) => blobs.setJSON(key, data, conditions),
@@ -56,5 +60,7 @@ export async function createNewsStore({ local = false } = {}) {
       return rows.filter(Boolean);
     },
   };
+  await seedPublishedNews(store);
+  return store;
 }
 const localStore = createLocalNewsStore();

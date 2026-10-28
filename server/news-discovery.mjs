@@ -120,8 +120,7 @@ export function extractArticleEvidence(html, url, now = new Date()) {
   let parsedDate = null;
   if (dateMatch) parsedDate = dateOnly(dateMatch[0], now);
   const sourceDate = parsedDate
-    || dateOnly($('meta[property="article:published_time"]').attr('content') || $('time[datetime]').first().attr('datetime'), now)
-    || now.toISOString().slice(0, 10);
+    || dateOnly($('meta[property="article:published_time"]').attr('content') || $('time[datetime]').first().attr('datetime'), now);
 
   const paragraphs = $('article p, .entry-content p, .nota-cuerpo p, main p, p')
     .map((_, node) => $(node).text().trim())

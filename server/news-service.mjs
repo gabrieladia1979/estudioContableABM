@@ -1,4 +1,5 @@
-import { collectNews, extractNewsEvidence, officialEvidence } from './news-discovery.mjs';
+import { collectNews, extractNewsEvidence } from './news-discovery.mjs';
+import { processNewsAutomatically } from './news-automation.mjs';
 import { generateNewsDraft, validateArticle } from './news-ai.mjs';
 import { seedDrafts } from './news-seeds.mjs';
 import { createNewsStore } from './news-store.mjs';
@@ -19,56 +20,7 @@ export async function scanNews(store, options = {}) {
   return { checkedAt: snapshot.checkedAt, sources: snapshot.sources, found: snapshot.candidates.length };
 }
 
-export async function autoProcessNews(store, { limit = 4, autoPublish = false, sources, fetcher, now = new Date() } = {}) {
-  const snapshot = await collectNews({ sources, fetcher, now });
-  for (const candidate of snapshot.candidates) {
-    await store.write('articles/' + candidate.id, { ...candidate, status: 'candidate', createdAt: snapshot.checkedAt }, { onlyIfNew: true });
-  }
-  await store.write('last-scan', { checkedAt: snapshot.checkedAt, sources: snapshot.sources, found: snapshot.candidates.length });
-
-  // Prioritize top candidates (giving priority to Blog del Contador and ARCA)
-  const sorted = [...snapshot.candidates].sort((a, b) => {
-    const isPreferredA = a.sourceName?.includes('Blog') || a.sourceKind === 'official';
-    const isPreferredB = b.sourceName?.includes('Blog') || b.sourceKind === 'official';
-    if (isPreferredA && !isPreferredB) return -1;
-    if (!isPreferredA && isPreferredB) return 1;
-    return (b.score || 0) - (a.score || 0);
-  });
-
-  const selected = sorted.slice(0, limit);
-  const processed = [];
-
-  for (const candidate of selected) {
-    const key = 'articles/' + candidate.id;
-    const existing = await store.read(key);
-    if (existing?.data?.status === 'published') {
-      processed.push({ id: candidate.id, title: candidate.title, status: 'already-published' });
-      continue;
-    }
-
-    try {
-      const evidence = await extractNewsEvidence(candidate.sourceUrl, { fetcher, now });
-      const generated = await generateNewsDraft(candidate, evidence, { allowFallback: true });
-
-      const articleRow = {
-        ...candidate,
-        ...generated,
-        verifiedSource: evidence,
-        status: autoPublish ? 'published' : 'draft',
-        reviewedAt: now.toISOString(),
-        publishedAt: autoPublish ? (existing?.data?.publishedAt || now.toISOString()) : null,
-        updatedAt: now.toISOString(),
-      };
-
-      await store.write(key, articleRow);
-      processed.push({ id: candidate.id, title: generated.article.title, status: articleRow.status, source: candidate.sourceName });
-    } catch (err) {
-      console.error(`Auto-processing error for ${candidate.id}:`, err.message);
-    }
-  }
-
-  return { checkedAt: snapshot.checkedAt, processed, totalCandidates: snapshot.candidates.length };
-}
+export const autoProcessNews = processNewsAutomatically;
 
 export const publishedArticle = row => ({
   id: row.id, slug: row.id, ...validateArticle(row.article), category: row.category, service: row.service,
