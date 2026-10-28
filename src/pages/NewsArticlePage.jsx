@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
+import initialNews from '../data/publishedNews.json';
 
 const categoryBadges = {
   Monotributo: 'bg-emerald-50 text-emerald-800 border-emerald-200',
@@ -28,11 +29,12 @@ const categoryBadges = {
 
 export default function NewsArticlePage() {
   const { slug } = useParams();
-  const [result, setResult] = useState({ slug: null, article: null, loaded: false });
+  const initialFound = initialNews?.find((item) => item.slug === slug || item.id === slug) || null;
+  const [result, setResult] = useState({ slug, article: initialFound, loaded: Boolean(initialFound) });
   const [copied, setCopied] = useState(false);
 
-  const article = result.slug === slug ? result.article : null;
-  const loaded = result.slug === slug && result.loaded;
+  const article = result.slug === slug ? result.article : initialFound;
+  const loaded = (result.slug === slug && result.loaded) || Boolean(initialFound);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -42,7 +44,8 @@ export default function NewsArticlePage() {
         return response.json();
       })
       .then((data) => {
-        const found = data.articles?.find((item) => item.slug === slug || item.id === slug);
+        const found = data.articles?.find((item) => item.slug === slug || item.id === slug)
+          || initialNews?.find((item) => item.slug === slug || item.id === slug);
         setResult({ slug, article: found || null, loaded: true });
         if (found) {
           document.title = `${found.title} | ABM Estudio Contable`;
@@ -55,7 +58,10 @@ export default function NewsArticlePage() {
         }
       })
       .catch((error) => {
-        if (error.name !== 'AbortError') setResult({ slug, article: null, loaded: true });
+        if (error.name !== 'AbortError') {
+          const fallback = initialNews?.find((item) => item.slug === slug || item.id === slug) || null;
+          setResult({ slug, article: fallback, loaded: true });
+        }
       });
     return () => controller.abort();
   }, [slug]);

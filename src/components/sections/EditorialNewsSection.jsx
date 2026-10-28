@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, Clock, ArrowRight, Search, Newspaper, Sparkles, BookOpen } from 'lucide-react';
+import initialNews from '../../data/publishedNews.json';
 
 const categoryStyles = {
   Monotributo: 'bg-emerald-50 text-emerald-800 border-emerald-200',
@@ -32,7 +33,7 @@ const getReadingTime = (article) => {
 };
 
 const getSourceLabel = (article) => {
-  const source = article.sources?.[0]?.title || '';
+  const source = article.sources?.[0]?.title || article.sourceName || '';
   if (/blog\s*del\s*contador/i.test(source)) return 'Blog del Contador';
   if (/arca|afip/i.test(source)) return 'ARCA Oficial';
   if (/consejo/i.test(source)) return 'Consejo CABA';
@@ -40,11 +41,11 @@ const getSourceLabel = (article) => {
 };
 
 export default function EditorialNewsSection({ compact = false }) {
-  const [articles, setArticles] = useState([]);
+  // Inicializamos directamente con initialNews para garantizar disponibilidad inmediata
+  const [articles, setArticles] = useState(initialNews || []);
   const [selectedCategory, setSelectedCategory] = useState('Todas');
   const [searchQuery, setSearchQuery] = useState('');
   const [limit, setLimit] = useState(compact ? 3 : 9);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -53,10 +54,11 @@ export default function EditorialNewsSection({ compact = false }) {
       fetch('/api/news', { signal: controller.signal, cache: 'no-store' })
         .then((res) => (res.ok ? res.json() : null))
         .then((data) => {
-          if (data?.articles) setArticles(data.articles);
+          if (data?.articles && data.articles.length > 0) {
+            setArticles(data.articles);
+          }
         })
-        .catch(() => {})
-        .finally(() => setLoading(false));
+        .catch(() => {});
     };
 
     fetchArticles();
@@ -90,28 +92,24 @@ export default function EditorialNewsSection({ compact = false }) {
 
   const visibleArticles = filteredArticles.slice(0, compact ? 3 : limit);
 
-  if (!loading && articles.length === 0 && compact) {
-    return null;
-  }
-
   return (
-    <section className="bg-gradient-to-b from-white via-primary-50/20 to-white py-16 md:py-24" aria-labelledby="editorial-news-title">
+    <section className="bg-gradient-to-b from-white via-primary-50/15 to-white py-12 md:py-16" aria-labelledby="editorial-news-title">
       <div className="container mx-auto px-6">
-        {/* Section Header */}
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
-          <div className="max-w-2xl">
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-accent-200 bg-accent-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-accent-700">
-              <Sparkles size={14} className="text-accent-600" />
-              <span>Análisis & Actualidad ABM</span>
+        {/* En la home (compact = true) mostramos el encabezado de sección */}
+        {compact && (
+          <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
+            <div className="max-w-2xl">
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-accent-200 bg-accent-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-accent-700">
+                <Sparkles size={14} className="text-accent-600" />
+                <span>Actualidad Tributaria & Económica</span>
+              </div>
+              <h2 id="editorial-news-title" className="text-3xl font-extrabold tracking-tight text-primary-950 md:text-4xl">
+                Novedades que impactan en tu negocio.
+              </h2>
+              <p className="mt-3 text-lg leading-relaxed text-primary-700">
+                Explicaciones claras y recomendaciones prácticas basadas en las publicaciones de ARCA y Blog del Contador.
+              </p>
             </div>
-            <h2 id="editorial-news-title" className="text-3xl font-extrabold tracking-tight text-primary-950 md:text-4xl">
-              Novedades que impactan en tu negocio.
-            </h2>
-            <p className="mt-3 text-lg leading-relaxed text-primary-700">
-              Explicaciones claras, fechas clave y recomendaciones prácticas elaboradas por nuestro equipo contable e impositivo.
-            </p>
-          </div>
-          {compact && (
             <Link
               to="/novedades"
               className="inline-flex items-center gap-2 rounded-xl bg-primary-900 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-primary-800"
@@ -119,14 +117,14 @@ export default function EditorialNewsSection({ compact = false }) {
               <span>Ver todas las notas</span>
               <ArrowRight size={17} />
             </Link>
-          )}
-        </div>
+          </div>
+        )}
 
-        {/* Filter Bar (Only in full mode) */}
+        {/* En la página /novedades (compact = false) mostramos la barra de herramientas sin repetir encabezados gigantes */}
         {!compact && (
-          <div className="mb-10 space-y-4">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              {/* Category Pills */}
+          <div className="mb-8 space-y-4">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-primary-100 pb-6">
+              {/* Filtro por Categorías */}
               <div className="flex flex-wrap gap-2" role="group" aria-label="Filtrar por categoría">
                 {categories.map((cat) => {
                   const count = cat === 'Todas' ? articles.length : articles.filter((a) => a.category === cat).length;
@@ -155,12 +153,12 @@ export default function EditorialNewsSection({ compact = false }) {
                 })}
               </div>
 
-              {/* Search Box */}
+              {/* Buscador en tiempo real */}
               <div className="relative min-w-[240px] max-w-xs">
                 <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-primary-400" size={17} />
                 <input
                   type="text"
-                  placeholder="Buscar por tema..."
+                  placeholder="Buscar temas o palabras..."
                   value={searchQuery}
                   onChange={(e) => {
                     setSearchQuery(e.target.value);
@@ -173,22 +171,8 @@ export default function EditorialNewsSection({ compact = false }) {
           </div>
         )}
 
-        {/* Loading State */}
-        {loading && articles.length === 0 && (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="animate-pulse rounded-2xl border border-primary-100 bg-white p-7 shadow-sm">
-                <div className="h-4 w-24 rounded bg-primary-100 mb-4" />
-                <div className="h-6 w-5/6 rounded bg-primary-100 mb-3" />
-                <div className="h-16 w-full rounded bg-primary-50 mb-6" />
-                <div className="h-4 w-32 rounded bg-primary-100" />
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Empty State */}
-        {!loading && visibleArticles.length === 0 && (
+        {/* Sin resultados tras una búsqueda */}
+        {visibleArticles.length === 0 && (
           <div className="rounded-2xl border border-primary-200 bg-white p-12 text-center shadow-sm">
             <Newspaper size={44} className="mx-auto mb-4 text-primary-300" />
             <h3 className="text-xl font-bold text-primary-900">No encontramos notas que coincidan</h3>
@@ -205,7 +189,7 @@ export default function EditorialNewsSection({ compact = false }) {
           </div>
         )}
 
-        {/* News Cards Grid */}
+        {/* Rejilla de Tarjetas de Noticias */}
         <div className={`grid gap-6 md:grid-cols-2 ${compact ? 'lg:grid-cols-3' : 'lg:grid-cols-3'}`}>
           {visibleArticles.map((article) => {
             const badgeClass = getCategoryBadge(article.category);
@@ -219,7 +203,7 @@ export default function EditorialNewsSection({ compact = false }) {
                 className="group relative flex flex-col justify-between rounded-2xl border border-primary-100/90 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary-300 hover:shadow-xl"
               >
                 <div>
-                  {/* Top Badges */}
+                  {/* Categoría y Fuente */}
                   <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
                     <span className={`inline-flex items-center rounded-full border px-3 py-0.5 text-xs font-bold ${badgeClass}`}>
                       {article.category || 'Actualidad'}
@@ -230,7 +214,7 @@ export default function EditorialNewsSection({ compact = false }) {
                     </span>
                   </div>
 
-                  {/* Metadata Row */}
+                  {/* Metadatos: Fecha y Tiempo de lectura */}
                   <div className="mb-3 flex flex-wrap items-center gap-3 text-xs text-primary-500">
                     <span className="inline-flex items-center gap-1">
                       <Calendar size={13} className="text-primary-400" />
@@ -243,20 +227,20 @@ export default function EditorialNewsSection({ compact = false }) {
                     </span>
                   </div>
 
-                  {/* Title */}
+                  {/* Título de la Nota */}
                   <h3 className="text-xl font-bold leading-snug tracking-tight text-primary-950 transition-colors group-hover:text-accent-700">
                     <Link to={`/novedades/${article.slug || article.id}`} className="focus:outline-none">
                       {article.title}
                     </Link>
                   </h3>
 
-                  {/* Summary */}
+                  {/* Resumen */}
                   <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-primary-700">
                     {article.summary}
                   </p>
                 </div>
 
-                {/* Card Footer Link */}
+                {/* Enlace al análisis completo */}
                 <div className="mt-6 border-t border-primary-50 pt-4">
                   <Link
                     to={`/novedades/${article.slug || article.id}`}
@@ -271,7 +255,7 @@ export default function EditorialNewsSection({ compact = false }) {
           })}
         </div>
 
-        {/* Show More Button (Full mode) */}
+        {/* Botón Ver Más */}
         {!compact && filteredArticles.length > limit && (
           <div className="mt-12 text-center">
             <button
