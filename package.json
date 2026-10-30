@@ -13,13 +13,17 @@
     "test:news": "node --test server/news.test.mjs",
     "test:security": "node --test server/security.test.mjs",
     "test": "node --test server/*.test.mjs",
-    "audit:security": "npm audit --audit-level=low"
+    "audit:security": "npm audit --audit-level=low",
+    "outreach:search": "node scripts/outreach-search.mjs",
+    "outreach:preview": "node scripts/outreach-send.mjs --preview",
+    "outreach:send": "node scripts/outreach-send.mjs --send"
   },
   "dependencies": {
     "@netlify/blobs": "^11.1.6",
     "cheerio": "^1.2.0",
     "fast-xml-parser": "^5.11.2",
     "lucide-react": "^0.562.0",
+    "nodemailer": "^10.3.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",

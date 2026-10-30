@@ -6,6 +6,8 @@ import { autoProcessNews, publishedArticle } from '../server/news-service.mjs';
 console.log('🤖 Iniciando automatización de noticias para ABM Estudio Contable...');
 console.log('📡 Consultando fuentes prioritarias: Blog del Contador, ARCA, Consejo CABA...');
 
+process.env.NEWS_AUTO_PUBLISH_FALLBACK = process.env.NEWS_AUTO_PUBLISH_FALLBACK || 'true';
+
 const store = await createNewsStore({ local: true });
 const result = await autoProcessNews(store, { limit: 6, autoPublish: true });
 

@@ -28,3 +28,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+outreach/previews/
+outreach/campaign-log.json

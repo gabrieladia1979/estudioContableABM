@@ -1,0 +1,53 @@
+name: Sincronización Diaria de Noticias
+on:
+  schedule:
+    # 08:30 y 18:30 hs de Buenos Aires (11:30 y 21:30 UTC) todos los días
+    - cron: '30 11,21 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-news:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar escáner y automatización de noticias
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          NEWS_AI_MODEL: ${{ secrets.NEWS_AI_MODEL || 'gpt-4o-mini' }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          NEWS_AUTO_PUBLISH: 'true'
+          NEWS_AUTO_PUBLISH_FALLBACK: 'true'
+        run: npm run news:auto
+
+      - name: Verificar si hay noticias nuevas para publicar
+        id: git-check
+        run: |
+          git status --porcelain src/data/publishedNews.json .news-cache/
+          if [ -n "$(git status --porcelain src/data/publishedNews.json)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commitear y pushear nuevas noticias
+        if: steps.git-check.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/publishedNews.json .news-cache/
+          git commit -m "chore(news): sincronización automática diaria de noticias [skip ci]"
+          git push

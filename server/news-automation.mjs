@@ -28,8 +28,9 @@ export async function processNewsAutomatically(store, { limit = 4, autoPublish =
       const configured = Number(process.env.NEWS_AI_DAILY_LIMIT || 20);
       await enforceLimit(store, 'ai-day', Number.isInteger(configured) && configured >= 1 && configured <= 1000 ? configured : 20, 24 * 60 * 60_000);
       const generated = await draftGenerator(candidate, evidence, { allowFallback: true });
-      // Una síntesis de emergencia requiere edición; no se presenta como revisión humana.
-      const publish = autoPublish && generated.model !== 'ABM Editorial Engine' && generated.relevance >= 75;
+      // Una síntesis de emergencia requiere edición; se publica automáticamente solo si NEWS_AUTO_PUBLISH_FALLBACK=true o con modelo IA.
+      const allowFallbackPublish = process.env.NEWS_AUTO_PUBLISH_FALLBACK === 'true';
+      const publish = autoPublish && (generated.model !== 'ABM Editorial Engine' || allowFallbackPublish) && generated.relevance >= 75;
       const row = {
         ...previous.data, ...generated, verifiedSource: evidence,
         status: publish ? 'published' : 'draft', publishedAt: publish ? now.toISOString() : null,

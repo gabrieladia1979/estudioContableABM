@@ -3,6 +3,9 @@ import { createNewsStore } from '../../server/news-store.mjs';
 
 export default async function handler() {
   if (process.env.NEWS_SCAN_ENABLED === 'false') return;
+  if (process.env.NEWS_AUTO_PUBLISH_FALLBACK !== 'false') {
+    process.env.NEWS_AUTO_PUBLISH_FALLBACK = 'true';
+  }
   const store = await createNewsStore();
   const autoPublish = process.env.NEWS_AUTO_PUBLISH !== 'false';
   const result = autoPublish

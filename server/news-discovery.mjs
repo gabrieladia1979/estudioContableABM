@@ -43,10 +43,28 @@ export async function fetchNewsText(url, { fetcher = fetch, hosts = allowedNewsH
   throw new Error('Demasiadas redirecciones');
 }
 
+const SPANISH_MONTHS = {
+  enero: '01', febrero: '02', marzo: '03', abril: '04', mayo: '05', junio: '06',
+  julio: '07', agosto: '08', septiembre: '09', setiembre: '09', octubre: '10', noviembre: '11', diciembre: '12',
+};
+
 export function dateOnly(value, now = new Date()) {
   if (!value) return null;
-  const match = String(value).match(/(\d{2})\/(\d{2})\/(\d{4})/);
-  const date = new Date(match ? match[3] + '-' + match[2] + '-' + match[1] : value);
+  const str = String(value).trim();
+  const slashMatch = str.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if (slashMatch) {
+    const date = new Date(`${slashMatch[3]}-${slashMatch[2].padStart(2, '0')}-${slashMatch[1].padStart(2, '0')}`);
+    return Number.isNaN(+date) || date > now ? null : date.toISOString().slice(0, 10);
+  }
+  const spanishMatch = str.match(/(\d{1,2})\s+(?:de\s+)?([a-z]+)\s+(?:de\s+)?(\d{4})/i);
+  if (spanishMatch) {
+    const month = SPANISH_MONTHS[spanishMatch[2].toLowerCase()];
+    if (month) {
+      const date = new Date(`${spanishMatch[3]}-${month}-${spanishMatch[1].padStart(2, '0')}`);
+      return Number.isNaN(+date) || date > now ? null : date.toISOString().slice(0, 10);
+    }
+  }
+  const date = new Date(str);
   return Number.isNaN(+date) || date > now ? null : date.toISOString().slice(0, 10);
 }
 
@@ -119,8 +137,18 @@ export function extractArticleEvidence(html, url, now = new Date()) {
   const dateMatch = bodyText.match(/(\d{1,2}\s+(?:de\s+)?(?:enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)\s+(?:de\s+)?\d{4}|\d{2}\/\d{2}\/\d{4})/i);
   let parsedDate = null;
   if (dateMatch) parsedDate = dateOnly(dateMatch[0], now);
+  let ldDate = null;
+  $('script[type="application/ld+json"]').each((_, el) => {
+    try {
+      const data = JSON.parse($(el).text());
+      const pub = data.datePublished || data.dateModified || data['@graph']?.find(g => g.datePublished)?.datePublished;
+      if (pub && !ldDate) ldDate = dateOnly(pub, now);
+    } catch {}
+  });
+
   const sourceDate = parsedDate
-    || dateOnly($('meta[property="article:published_time"]').attr('content') || $('time[datetime]').first().attr('datetime'), now);
+    || dateOnly($('meta[property="article:published_time"]').attr('content') || $('time[datetime]').first().attr('datetime'), now)
+    || ldDate;
 
   const paragraphs = $('article p, .entry-content p, .nota-cuerpo p, main p, p')
     .map((_, node) => $(node).text().trim())

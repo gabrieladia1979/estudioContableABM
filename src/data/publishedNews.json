@@ -1,5 +1,69 @@
 [
   {
+    "id": "4096f92b7a463c0e116ceb47",
+    "slug": "4096f92b7a463c0e116ceb47",
+    "title": "Prórroga del plazo de presentación de ganancias para personas humanas",
+    "summary": "Análisis de las novedades recientes en materia de impuestos: principales aspectos comunicados y consideraciones clave para contribuyentes y empresas.",
+    "sections": [
+      {
+        "heading": "Qué se informó oficialmente",
+        "text": "De acuerdo a lo informado en la publicación de referencia (Prórroga del plazo de presentación de ganancias para personas humanas), se dieron a conocer modificaciones y pautas operativas vinculadas con impuestos. El reporte destaca: La Agencia de Recaudación y Control Aduanero (ARCA) extendió el plazo para la presentación de las declaraciones juradas del impuesto a las ganancias para las personas humanas. Lo hizo a través de la Resolución General 5918/2026, publicada en el Boletín Oficial. De esta manera, el organismo otorgó más tiempo a los contribuyentes para cumplir con los trámites correspondientes al ejercicio fiscal 2025. La decisión se tomó a partir del diálogo perman."
+      },
+      {
+        "heading": "A quiénes alcanza esta novedad",
+        "text": "Esta novedad resulta de particular interés para monotributistas, personas humanas con actividad económica y pymes que deban evaluar su encuadre y vigencia de las nuevas disposiciones normativas."
+      },
+      {
+        "heading": "Recomendaciones prácticas del estudio",
+        "text": "Desde ABM Estudio Contable recomendamos revisar los comprobantes y estados de cuenta en las plataformas oficiales, planificar las presentaciones con antelación y solicitar asesoramiento ante cualquier duda respecto al impacto particular en su actividad."
+      }
+    ],
+    "category": "Impuestos",
+    "service": "asesoramiento-tributario",
+    "publishedAt": "2026-10-30T15:31:38.407Z",
+    "reviewedAt": null,
+    "author": "ABM Estudio Contable",
+    "sources": [
+      {
+        "title": "Prórroga del plazo de presentación de ganancias para personas humanas",
+        "url": "https://servicioscf.arca.gob.ar/publico/sitio/contenido/novedad/ver.aspx?id=5987",
+        "date": "2026-10-30"
+      }
+    ]
+  },
+  {
+    "id": "e6574718a32f099269efd38f",
+    "slug": "e6574718a32f099269efd38f",
+    "title": "Recategorización de oficio Monotributo: nuevo procedimiento simplificado para manifestar disconformidad",
+    "summary": "Análisis de las novedades recientes en materia de monotributo: principales aspectos comunicados y consideraciones clave para contribuyentes y empresas.",
+    "sections": [
+      {
+        "heading": "Qué se informó oficialmente",
+        "text": "De acuerdo a lo informado en la publicación de referencia (Recategorización de oficio Monotributo: nuevo procedimiento simplificado para manifestar disconformidad), se dieron a conocer modificaciones y pautas operativas vinculadas con monotributo. El reporte destaca: La medida se enmarca en el esquema de fiscalización digital del Régimen Simplificado, que cruza datos de facturación y cobros electrónicos conforme la Ley 24.977 y la Resolución General 4614/2019, y busca canalizar de forma más ágil los planteos vinculados a movimientos informados por plataformas de pago. La Agencia de Recaudación y Control Aduanero habilitó un nuevo procedimiento simplificado para que los monotributistas puedan manifestar su dis."
+      },
+      {
+        "heading": "A quiénes alcanza esta novedad",
+        "text": "Esta novedad resulta de particular interés para monotributistas, personas humanas con actividad económica y pymes que deban evaluar su encuadre y vigencia de las nuevas disposiciones normativas."
+      },
+      {
+        "heading": "Recomendaciones prácticas del estudio",
+        "text": "Desde ABM Estudio Contable recomendamos revisar los comprobantes y estados de cuenta en las plataformas oficiales, planificar las presentaciones con antelación y solicitar asesoramiento ante cualquier duda respecto al impacto particular en su actividad."
+      }
+    ],
+    "category": "Monotributo",
+    "service": "monotributo",
+    "publishedAt": "2026-10-30T15:31:07.738Z",
+    "reviewedAt": null,
+    "author": "ABM Estudio Contable",
+    "sources": [
+      {
+        "title": "Recategorización de oficio Monotributo: nuevo procedimiento simplificado para manifestar disconformidad",
+        "url": "https://blogdelcontador.com.ar/news-46463-recategorizacion-de-oficio-monotributo-nuevo-procedimiento-simplificado-para-manifestar-disconformidad",
+        "date": "2026-10-30"
+      }
+    ]
+  },
+  {
     "id": "arca-habilito-el-plan-de-ganancias-2025-",
     "slug": "arca-habilito-el-plan-de-ganancias-2025-",
     "title": "ARCA habilitó el plan de Ganancias 2025: por qué su adhesión puede resultar clave para el régimen simplificado",
