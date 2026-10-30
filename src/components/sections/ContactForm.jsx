@@ -39,8 +39,8 @@ const ContactForm = () => {
 
   return (
     <section id="consulta" className="contact-page-section" aria-label="Formas de contacto">
-      <div className="container mx-auto px-6">
-        <div className="contact-page-layout mx-auto grid max-w-6xl lg:grid-cols-[minmax(0,1.3fr)_minmax(280px,0.7fr)]">
+      <div className="contact-page-shell">
+        <div className="contact-page-layout grid lg:grid-cols-[minmax(0,1.4fr)_minmax(340px,0.6fr)]">
           <div className="contact-form-panel min-w-0">
             <h2 className="mb-3 text-3xl font-semibold tracking-tight text-primary-900 md:text-4xl">Tu consulta</h2>
             <p className="mb-8 max-w-xl leading-relaxed text-gray-600">Dejanos algunos datos para entender tu situación. Prepararemos el mensaje en WhatsApp para que puedas revisarlo antes de enviarlo.</p>

@@ -1,6 +1,6 @@
 {
  "url": "http://127.0.0.1:5173/contacto",
- "at": "2026-10-30T11:38:31.668Z",
+ "at": "2026-10-30T12:20:53.710Z",
  "allow": [],
  "viewports": [
   {
@@ -9,9 +9,9 @@
    "load": "load",
    "screens": 3,
    "filled": [
-    0.87,
-    0.93,
-    0.95
+    0.86,
+    0.85,
+    0.93
    ],
    "motion": {
     "elements": 1,
@@ -27,7 +27,7 @@
      "h": 900
     },
     "page": {
-     "height": 1946,
+     "height": 1936,
      "screens": 2.2,
      "words": 391,
      "img": 2,
@@ -115,8 +115,8 @@
       "mono": false,
       "align": "left",
       "position": "left",
-      "widthRatio": 0.52,
-      "top": 469,
+      "widthRatio": 0.63,
+      "top": 464,
       "tag": "h2",
       "kind": "heading"
      },
@@ -124,27 +124,27 @@
       "text": "Por otros medios",
       "words": 3,
       "chars": 16,
-      "lines": 2,
-      "size": 43.2,
-      "vw": 3,
+      "lines": 1,
+      "size": 33.1,
+      "vw": 2.3,
       "font": "Inter",
       "weight": 600,
       "tracking": 0,
-      "leading": 0.83,
+      "leading": 1.09,
       "upper": false,
       "italic": false,
       "mono": false,
       "align": "left",
       "position": "right",
-      "widthRatio": 0.23,
-      "top": 503,
+      "widthRatio": 0.24,
+      "top": 464,
       "tag": "h2",
       "kind": "heading"
      }
     ],
     "headingSummary": {
      "count": 3,
-     "maxLines": 2,
+     "maxLines": 1,
      "over2Lines": 0,
      "statements": 0,
      "centered": 0,
@@ -176,10 +176,11 @@
       16,
       18,
       19,
+      33,
       43,
       76
      ],
-     "sizeCount": 12,
+     "sizeCount": 13,
      "notLoaded": [],
      "body": {
       "font": "Inter",
@@ -187,7 +188,7 @@
       "leading": 1.63,
       "weight": 400,
       "tracking": 0,
-      "contrast": 6.4
+      "contrast": 6.8
      },
      "measureChars": 72,
      "max": {
@@ -233,17 +234,17 @@
      "dark": false,
      "sectionBgs": [
       {
-       "color": "#e2edf4",
+       "color": "#eef4f7",
        "top": 364,
        "hsl": {
-        "h": 203,
-        "s": 0.45,
-        "l": 0.92
+        "h": 200,
+        "s": 0.36,
+        "l": 0.95
        }
       },
       {
        "color": "#102a43",
-       "top": 1535,
+       "top": 1525,
        "hsl": {
         "h": 209,
         "s": 0.61,
@@ -310,9 +311,9 @@
      "hairlines": 4,
      "hairlineSamples": [
       "section.page-heading 1440px",
-      "div.contact-submit.mt-2 745px",
+      "div.contact-submit.mt-2 903px",
       "div.site-footer-bottom 1232px",
-      "div.h-px.bg-white/15 333px rule"
+      "div.h-px.bg-white/15 352px rule"
      ],
      "outlinedBoxes": 1,
      "dashed": 0,
@@ -342,10 +343,10 @@
      "w": 1440,
      "h": 900
     },
-    "pageH": 1946,
+    "pageH": 1936,
     "margins": {
-     "left": 104,
-     "right": 69
+     "left": 32,
+     "right": 55
     },
     "sections": [
      {
@@ -371,19 +372,19 @@
       "sel": "main",
       "tag": "main",
       "top": 143,
-      "height": 1392,
+      "height": 1382,
       "words": 118,
       "media": 0,
-      "middle": 98,
+      "middle": 12,
       "heading": {
        "text": "Contacto",
        "size": 76,
        "tag": "h1"
       },
-      "left": 104,
-      "right": 142,
-      "textLeft": 104,
-      "textRight": 142,
+      "left": 32,
+      "right": 55,
+      "textLeft": 32,
+      "textRight": 55,
       "fullBleed": false,
       "footer": false,
       "hero": true,
@@ -393,7 +394,7 @@
      {
       "sel": "footer.site-footer",
       "tag": "footer",
-      "top": 1535,
+      "top": 1525,
       "height": 411,
       "words": 70,
       "media": 0,
@@ -426,12 +427,16 @@
     "edgeText": [],
     "edges": [
      {
-      "x": 104,
-      "n": 4
+      "x": 32,
+      "n": 3
      },
      {
-      "x": 969,
+      "x": 1056,
       "n": 2
+     },
+     {
+      "x": 104,
+      "n": 1
      }
     ],
     "leftBlocks": 6,
@@ -457,7 +462,7 @@
    "screens": 3,
    "filled": [
     0.76,
-    0.86,
+    0.9,
     1
    ],
    "motion": {
@@ -474,7 +479,7 @@
      "h": 1024
     },
     "page": {
-     "height": 2680,
+     "height": 2668,
      "screens": 2.6,
      "words": 384,
      "img": 2,
@@ -562,7 +567,7 @@
       "mono": false,
       "align": "left",
       "position": "center",
-      "widthRatio": 0.94,
+      "widthRatio": 0.92,
       "top": 377,
       "tag": "h2",
       "kind": "heading"
@@ -572,19 +577,19 @@
       "words": 3,
       "chars": 16,
       "lines": 1,
-      "size": 32,
-      "vw": 4.2,
+      "size": 26,
+      "vw": 3.4,
       "font": "Inter",
       "weight": 600,
       "tracking": 0,
-      "leading": 1.13,
+      "leading": 1.38,
       "upper": false,
       "italic": false,
       "mono": false,
       "align": "left",
       "position": "center",
-      "widthRatio": 0.85,
-      "top": 1416,
+      "widthRatio": 0.92,
+      "top": 1436,
       "tag": "h2",
       "kind": "heading"
      }
@@ -623,10 +628,11 @@
       16,
       17,
       18,
+      26,
       32,
       48
      ],
-     "sizeCount": 12,
+     "sizeCount": 13,
      "notLoaded": [],
      "body": {
       "font": "Inter",
@@ -634,7 +640,7 @@
       "leading": 1.63,
       "weight": 400,
       "tracking": 0,
-      "contrast": 6.4
+      "contrast": 6.8
      },
      "measureChars": 72,
      "max": {
@@ -680,26 +686,17 @@
      "dark": false,
      "sectionBgs": [
       {
-       "color": "#e2edf4",
+       "color": "#eef4f7",
        "top": 312,
        "hsl": {
-        "h": 203,
-        "s": 0.45,
-        "l": 0.92
-       }
-      },
-      {
-       "color": "#d0e2ed",
-       "top": 1384,
-       "hsl": {
-        "h": 203,
-        "s": 0.45,
-        "l": 0.87
+        "h": 200,
+        "s": 0.36,
+        "l": 0.95
        }
       },
       {
        "color": "#102a43",
-       "top": 2038,
+       "top": 2026,
        "hsl": {
         "h": 209,
         "s": 0.61,
@@ -764,9 +761,9 @@
      "hairlines": 4,
      "hairlineSamples": [
       "section.page-heading 768px",
-      "div.contact-submit.mt-2 720px",
+      "div.contact-submit.mt-2 704px",
       "div.site-footer-bottom 720px",
-      "div.h-px.bg-white/15 656px rule"
+      "div.h-px.bg-white/15 704px rule"
      ],
      "outlinedBoxes": 1,
      "dashed": 0,
@@ -796,7 +793,7 @@
      "w": 768,
      "h": 1024
     },
-    "pageH": 2680,
+    "pageH": 2668,
     "margins": {
      "left": 24,
      "right": 24
@@ -848,7 +845,7 @@
       "sel": "section#consulta.contact-page-section",
       "tag": "section",
       "top": 312,
-      "height": 1726,
+      "height": 1714,
       "words": 105,
       "media": 0,
       "middle": 0,
@@ -857,10 +854,10 @@
        "size": 32,
        "tag": "h2"
       },
-      "left": 24,
-      "right": 24,
-      "textLeft": 24,
-      "textRight": 56,
+      "left": 32,
+      "right": 32,
+      "textLeft": 32,
+      "textRight": 80,
       "fullBleed": false,
       "footer": false,
       "hero": true,
@@ -870,7 +867,7 @@
      {
       "sel": "footer.site-footer",
       "tag": "footer",
-      "top": 2038,
+      "top": 2026,
       "height": 642,
       "words": 70,
       "media": 0,
@@ -904,11 +901,7 @@
     "edges": [
      {
       "x": 24,
-      "n": 4
-     },
-     {
-      "x": 56,
-      "n": 2
+      "n": 6
      }
     ],
     "leftBlocks": 6,
@@ -930,7 +923,7 @@
    "filled": [
     0.82,
     0.75,
-    0.98,
+    0.95,
     1
    ],
    "motion": {
@@ -947,8 +940,8 @@
      "h": 844
     },
     "page": {
-     "height": 3358,
-     "screens": 4,
+     "height": 3326,
+     "screens": 3.9,
      "words": 384,
      "img": 2,
      "video": 0,
@@ -1035,7 +1028,7 @@
       "mono": false,
       "align": "left",
       "position": "center",
-      "widthRatio": 0.88,
+      "widthRatio": 0.9,
       "top": 399,
       "tag": "h2",
       "kind": "heading"
@@ -1045,8 +1038,8 @@
       "words": 3,
       "chars": 16,
       "lines": 1,
-      "size": 32,
-      "vw": 8.2,
+      "size": 26,
+      "vw": 6.7,
       "font": "Inter",
       "weight": 600,
       "tracking": 0,
@@ -1056,8 +1049,8 @@
       "mono": false,
       "align": "left",
       "position": "center",
-      "widthRatio": 0.74,
-      "top": 1607,
+      "widthRatio": 0.9,
+      "top": 1634,
       "tag": "h2",
       "kind": "heading"
      }
@@ -1095,10 +1088,11 @@
       16,
       17,
       18,
+      26,
       32,
       43
      ],
-     "sizeCount": 11,
+     "sizeCount": 12,
      "notLoaded": [],
      "body": {
       "font": "Inter",
@@ -1106,9 +1100,9 @@
       "leading": 1.63,
       "weight": 400,
       "tracking": 0,
-      "contrast": 6.4
+      "contrast": 6.8
      },
-     "measureChars": 43,
+     "measureChars": 44,
      "max": {
       "size": 43,
       "vw": 11,
@@ -1152,26 +1146,17 @@
      "dark": false,
      "sectionBgs": [
       {
-       "color": "#e2edf4",
+       "color": "#eef4f7",
        "top": 349,
        "hsl": {
-        "h": 203,
-        "s": 0.45,
-        "l": 0.92
-       }
-      },
-      {
-       "color": "#d0e2ed",
-       "top": 1581,
-       "hsl": {
-        "h": 203,
-        "s": 0.45,
-        "l": 0.87
+        "h": 200,
+        "s": 0.36,
+        "l": 0.95
        }
       },
       {
        "color": "#102a43",
-       "top": 2284,
+       "top": 2251,
        "hsl": {
         "h": 209,
         "s": 0.61,
@@ -1236,9 +1221,9 @@
      "hairlines": 4,
      "hairlineSamples": [
       "section.page-heading 390px",
-      "div.contact-submit.mt-2 342px",
+      "div.contact-submit.mt-2 350px",
       "div.site-footer-bottom 342px",
-      "div.h-px.bg-white/15 290px rule"
+      "div.h-px.bg-white/15 350px rule"
      ],
      "outlinedBoxes": 1,
      "dashed": 0,
@@ -1268,10 +1253,10 @@
      "w": 390,
      "h": 844
     },
-    "pageH": 3358,
+    "pageH": 3326,
     "margins": {
-     "left": 24,
-     "right": 24
+     "left": 20,
+     "right": 20
     },
     "sections": [
      {
@@ -1281,7 +1266,7 @@
       "height": 120,
       "words": 18,
       "media": 0,
-      "middle": 9,
+      "middle": 10,
       "heading": null,
       "left": 10,
       "right": 0,
@@ -1320,7 +1305,7 @@
       "sel": "section#consulta.contact-page-section",
       "tag": "section",
       "top": 349,
-      "height": 1935,
+      "height": 1902,
       "words": 105,
       "media": 0,
       "middle": 0,
@@ -1329,10 +1314,10 @@
        "size": 32,
        "tag": "h2"
       },
-      "left": 24,
-      "right": 24,
-      "textLeft": 24,
-      "textRight": 33,
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 21,
       "fullBleed": false,
       "footer": false,
       "hero": true,
@@ -1342,7 +1327,7 @@
      {
       "sel": "footer.site-footer",
       "tag": "footer",
-      "top": 2284,
+      "top": 2251,
       "height": 1075,
       "words": 70,
       "media": 0,
@@ -1375,12 +1360,8 @@
     "edgeText": [],
     "edges": [
      {
-      "x": 24,
-      "n": 4
-     },
-     {
-      "x": 50,
-      "n": 2
+      "x": 20,
+      "n": 6
      }
     ],
     "leftBlocks": 6,
@@ -1433,7 +1414,7 @@
    "level": "FAIL",
    "id": "hairline",
    "width": 1440,
-   "message": "4 thin rule(s)/divider line(s): section.page-heading 1440px | div.contact-submit.mt-2 745px | div.site-footer-bottom 1232px | div.h-px.bg-white/15 333px rule",
+   "message": "4 thin rule(s)/divider line(s): section.page-heading 1440px | div.contact-submit.mt-2 903px | div.site-footer-bottom 1232px | div.h-px.bg-white/15 352px rule",
    "fix": "Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.",
    "alsoAt": [
     768,
@@ -1455,7 +1436,7 @@
    "level": "WARN",
    "id": "size-count",
    "width": 1440,
-   "message": "12 different font sizes (9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 43, 76).",
+   "message": "13 different font sizes (9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 33, 43, 76).",
    "fix": "A page needs about five: display, heading, lead, body, small.",
    "alsoAt": [
     768,
@@ -1466,7 +1447,7 @@
    "level": "WARN",
    "id": "grey-body",
    "width": 1440,
-   "message": "The running text is a soft grey on its ground (6.4:1).",
+   "message": "The running text is a soft grey on its ground (6.8:1).",
    "fix": "Set body copy in the full ink (7:1 or more). Keep the muted ink for secondary notes; pages read thin and unfinished when everything is grey.",
    "alsoAt": [
     768,
@@ -1513,7 +1494,7 @@
    "level": "WARN",
    "id": "off-centre",
    "width": 1440,
-   "message": "The margins differ: 104px on the left, 69px on the right, at 1440px.",
+   "message": "The margins differ: 32px on the left, 55px on the right, at 1440px.",
    "fix": "Put the navigation and the content on one pair of margins; check for padding on one side only, a scrollbar gutter, or a header on another inset than the page."
   },
   {
