@@ -7,7 +7,7 @@ const ContactoPage = () => (
   <div>
     <Navbar />
     <main>
-      <PageHeading title="Contacto" description="Contanos qué necesitás resolver y empecemos a conversar." />
+      <PageHeading title="Contacto" description="Contanos qué necesitás resolver. Podés preparar tu mensaje o contactarnos directamente." action={{ href: '#consulta', label: 'Preparar mi consulta' }} />
       <ContactForm />
     </main>
     <Footer />

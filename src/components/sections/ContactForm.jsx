@@ -38,13 +38,12 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="bg-[#f4f7fa] py-14 md:py-20">
+    <section id="consulta" className="contact-page-section py-12 md:py-20" aria-label="Formas de contacto">
       <div className="container mx-auto px-6">
-        <div className="mx-auto grid max-w-6xl overflow-hidden rounded-3xl bg-white shadow-xl lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="contact-form-panel min-w-0 p-7 md:p-10 lg:p-12">
-            <p className="mb-3 text-sm font-bold uppercase tracking-[0.17em] text-accent-700">Escribinos</p>
-            <h2 className="mb-3 text-3xl font-bold text-primary-900">Contanos qué necesitás</h2>
-            <p className="mb-8 leading-relaxed text-gray-600">Completá tu consulta y abriremos WhatsApp con el mensaje preparado para enviarlo al estudio.</p>
+        <div className="contact-page-layout mx-auto grid max-w-6xl lg:grid-cols-[minmax(0,1.28fr)_minmax(300px,0.72fr)]">
+          <div className="contact-form-panel min-w-0 bg-white p-6 md:p-10 lg:p-12">
+            <h2 className="mb-3 text-3xl font-semibold tracking-tight text-primary-900 md:text-4xl">Empecemos por tu situación</h2>
+            <p className="mb-8 max-w-xl leading-relaxed text-gray-600">Respondé unas preguntas para que podamos entender tu consulta. Al continuar, se abrirá WhatsApp con el mensaje listo para revisar y enviar.</p>
 
             <form ref={formRef} onSubmit={handleSubmit} className="contact-form-fields grid min-w-0 gap-5">
               <div className="grid gap-5 sm:grid-cols-2">
@@ -57,18 +56,19 @@ const ContactForm = () => {
               <label className="grid gap-2 text-sm font-semibold text-primary-900">¿Tenés un vencimiento cercano?<select name="deadline" defaultValue="No lo sé" className="rounded-lg border border-primary-200 bg-white px-4 py-3 font-normal outline-none transition focus:border-accent-500 focus:ring-2 focus:ring-accent-100"><option>No lo sé</option><option>Sí, dentro de los próximos 7 días</option><option>Sí, más adelante</option><option>No</option></select></label>
               {topic === 'Intimación o requerimiento de ARCA' && <label className="grid gap-2 text-sm font-semibold text-primary-900">Fecha indicada en el aviso (si figura)<input name="deadline_date" type="date" className="rounded-lg border border-primary-200 bg-white px-4 py-3 font-normal outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-100" /></label>}
               <label className="grid gap-2 text-sm font-semibold text-primary-900">Tu mensaje<textarea name="message" required minLength={10} maxLength={2000} rows={5} className="resize-y rounded-lg border border-primary-200 bg-white px-4 py-3 font-normal leading-relaxed outline-none transition placeholder:text-gray-400 focus:border-accent-500 focus:ring-2 focus:ring-accent-100" placeholder={topic === 'Intimación o requerimiento de ARCA' ? 'Indicá qué tipo de aviso recibiste y qué te piden, sin copiar datos sensibles' : topic === 'Monotributo' ? 'Contanos qué actividad realizás o pensás iniciar y qué necesitás resolver' : 'Contanos brevemente tu actividad y qué necesitás resolver'} /></label>
-              <button type="submit" className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent-500 px-6 py-4 font-bold text-white transition hover:bg-accent-600"><WhatsAppIcon size={19} /> Continuar por WhatsApp</button>
-              <p className="text-xs text-gray-600">WhatsApp abrirá el mensaje preparado. Revisalo y tocá Enviar para completar la consulta.</p>
-              <p className="text-xs leading-relaxed text-gray-500">Los datos que completes se incluirán en el mensaje. No envíes claves fiscales, contraseñas ni documentación sensible.</p>
+              <div className="contact-submit mt-2 border-t border-primary-100 pt-6">
+                <button type="submit" className="contact-submit-button inline-flex w-full items-center justify-center gap-2 rounded-lg bg-accent-700 px-6 py-4 font-bold text-white hover:bg-accent-800 sm:w-auto"><WhatsAppIcon size={19} /> Preparar mensaje en WhatsApp</button>
+                <p className="mt-3 text-sm leading-relaxed text-gray-600">Podrás revisar el mensaje antes de enviarlo.</p>
+              </div>
+              <p className="text-xs leading-relaxed text-gray-600">No incluyas claves fiscales, contraseñas ni documentación sensible.</p>
             </form>
           </div>
 
-          <aside className="bg-primary-900 p-7 text-white md:p-10 lg:p-12">
-            <p className="mb-3 text-sm font-bold uppercase tracking-[0.17em] text-accent-200">ABM Estudio Contable</p>
-            <h2 className="mb-4 text-2xl font-bold">También podés contactarnos directamente</h2>
-            <p className="mb-9 leading-relaxed text-primary-100">Si preferís, escribinos por WhatsApp o comunicate con el estudio por teléfono o correo.</p>
+          <aside className="contact-direct bg-primary-900 p-7 text-white md:p-10 lg:p-12">
+            <h2 className="mb-4 text-2xl font-semibold leading-tight md:text-3xl">¿Preferís escribirnos directamente?</h2>
+            <p className="mb-9 leading-relaxed text-primary-100">Elegí el canal que te resulte más cómodo. Atendemos desde Parque Patricios, CABA.</p>
             <div className="space-y-6">
-              <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 rounded-xl border border-white/15 bg-white/5 p-4 transition hover:bg-white/10"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#25D366] text-white"><WhatsAppIcon size={22} /></span><span><strong className="block">WhatsApp</strong><span className="text-sm text-primary-100">+54 11 6817 2147</span></span></a>
+              <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="contact-direct-whatsapp flex items-center gap-4 rounded-lg border border-white/30 p-4 hover:bg-white/10"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#25D366] text-white"><WhatsAppIcon size={22} /></span><span><strong className="block">Abrir WhatsApp</strong><span className="text-sm text-primary-100">{phoneDisplay}</span></span></a>
               <a href={phoneHref} className="flex items-center gap-4 text-white transition hover:text-accent-200"><Phone className="shrink-0 text-accent-300" size={20} /><span><strong className="block">Teléfono</strong><span className="text-sm text-primary-100">{phoneDisplay}</span></span></a>
               <a href={`mailto:${email}`} className="flex items-center gap-4 break-all text-white transition hover:text-accent-200"><Mail className="shrink-0 text-accent-300" size={20} /><span><strong className="block">Correo</strong><span className="text-sm text-primary-100">{email}</span></span></a>
               <div className="h-px bg-white/15" />
