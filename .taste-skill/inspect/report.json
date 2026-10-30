@@ -1,6 +1,6 @@
 {
  "url": "http://127.0.0.1:5173/contacto",
- "at": "2026-10-30T11:27:51.702Z",
+ "at": "2026-10-30T11:34:33.518Z",
  "allow": [],
  "viewports": [
   {
@@ -9,9 +9,9 @@
    "load": "load",
    "screens": 3,
    "filled": [
-    0.82,
-    0.78,
-    0.84
+    1,
+    0.84,
+    0.95
    ],
    "motion": {
     "elements": 1,
@@ -27,9 +27,9 @@
      "h": 900
     },
     "page": {
-     "height": 1947,
-     "screens": 2.2,
-     "words": 407,
+     "height": 2220,
+     "screens": 2.5,
+     "words": 399,
      "img": 2,
      "video": 0,
      "canvas": 0,
@@ -50,59 +50,59 @@
      "videosNoPoster": 0
     },
     "hero": {
-     "text": "Hablemos",
+     "text": "Hablemos.",
      "words": 1,
-     "chars": 8,
+     "chars": 9,
      "lines": 1,
-     "size": 76,
-     "vw": 5.3,
+     "size": 187.2,
+     "vw": 13,
      "font": "Georgia",
      "weight": 400,
-     "tracking": -0.045,
-     "leading": 1.04,
+     "tracking": -0.075,
+     "leading": 0.9,
      "upper": false,
      "italic": false,
      "mono": false,
      "align": "left",
-     "position": "left",
-     "widthRatio": 0.53,
+     "position": "center",
+     "widthRatio": 0.86,
      "top": 273,
      "tag": "h1",
      "kind": "heading"
     },
     "h1": {
-     "text": "Hablemos",
+     "text": "Hablemos.",
      "words": 1,
      "lines": 1,
-     "size": 76,
+     "size": 187.2,
      "font": "Georgia"
     },
     "headings": [
      {
-      "text": "Hablemos",
+      "text": "Hablemos.",
       "words": 1,
-      "chars": 8,
+      "chars": 9,
       "lines": 1,
-      "size": 76,
-      "vw": 5.3,
+      "size": 187.2,
+      "vw": 13,
       "font": "Georgia",
       "weight": 400,
-      "tracking": -0.045,
-      "leading": 1.04,
+      "tracking": -0.075,
+      "leading": 0.9,
       "upper": false,
       "italic": false,
       "mono": false,
       "align": "left",
-      "position": "left",
-      "widthRatio": 0.53,
+      "position": "center",
+      "widthRatio": 0.86,
       "top": 273,
       "tag": "h1",
       "kind": "heading"
      },
      {
-      "text": "Empecemos por tu situación",
-      "words": 4,
-      "chars": 26,
+      "text": "Tu consulta",
+      "words": 2,
+      "chars": 11,
       "lines": 1,
       "size": 36,
       "vw": 2.5,
@@ -115,16 +115,16 @@
       "mono": false,
       "align": "left",
       "position": "left",
-      "widthRatio": 0.45,
-      "top": 535,
+      "widthRatio": 0.47,
+      "top": 821,
       "tag": "h2",
       "kind": "heading"
      },
      {
-      "text": "¿Preferís escribirnos directamente?",
+      "text": "Por otros medios",
       "words": 3,
-      "chars": 35,
-      "lines": 2,
+      "chars": 16,
+      "lines": 1,
       "size": 30,
       "vw": 2.1,
       "font": "Inter",
@@ -136,19 +136,19 @@
       "mono": false,
       "align": "left",
       "position": "right",
-      "widthRatio": 0.22,
-      "top": 535,
+      "widthRatio": 0.26,
+      "top": 825,
       "tag": "h2",
       "kind": "heading"
      }
     ],
     "headingSummary": {
      "count": 3,
-     "maxLines": 2,
+     "maxLines": 1,
      "over2Lines": 0,
      "statements": 0,
      "centered": 0,
-     "medianWords": 4,
+     "medianWords": 3,
      "mixedFontHeadings": 0
     },
     "type": {
@@ -176,11 +176,12 @@
       16,
       18,
       19,
+      25,
       30,
       36,
-      76
+      187
      ],
-     "sizeCount": 13,
+     "sizeCount": 14,
      "notLoaded": [],
      "body": {
       "font": "Inter",
@@ -188,12 +189,12 @@
       "leading": 1.63,
       "weight": 400,
       "tracking": 0,
-      "contrast": 7.6
+      "contrast": 7
      },
      "measureChars": 72,
      "max": {
-      "size": 76,
-      "vw": 5.3,
+      "size": 187.2,
+      "vw": 13,
       "font": "Georgia",
       "text": "Hablemos"
      },
@@ -201,28 +202,16 @@
      "monoProseShare": 0,
      "monoFamilies": [],
      "monoSamples": [],
-     "microLabels": 2,
-     "microLabelShare": 0.014,
+     "microLabels": 1,
+     "microLabelShare": 0.005,
      "microSamples": [
-      "Cotizaciones",
-      "ABM Estudio Contable"
+      "Cotizaciones"
      ],
-     "upperShare": 0.06,
+     "upperShare": 0.05,
      "centerShare": 0.01,
-     "smallText": 37
+     "smallText": 36
     },
-    "eyebrows": [
-     {
-      "text": "ABM Estudio Contable",
-      "above": "Hablemos",
-      "upper": true,
-      "tracked": true,
-      "mono": false,
-      "pill": false,
-      "size": 12,
-      "top": 236
-     }
-    ],
+    "eyebrows": [],
     "numbered": [],
     "color": {
      "bodyBg": "#ffffff",
@@ -234,30 +223,21 @@
      "dark": false,
      "sectionBgs": [
       {
-       "color": "#edf2f5",
-       "top": 407,
-       "hsl": {
-        "h": 203,
-        "s": 0.29,
-        "l": 0.95
-       }
-      },
-      {
-       "color": "#ffffff",
-       "top": 487,
-       "hsl": {
-        "h": 0,
-        "s": 0,
-        "l": 1
-       }
-      },
-      {
        "color": "#102a43",
-       "top": 487,
+       "top": 143,
        "hsl": {
         "h": 209,
         "s": 0.61,
         "l": 0.16
+       }
+      },
+      {
+       "color": "#f4f7fa",
+       "top": 706,
+       "hsl": {
+        "h": 210,
+        "s": 0.37,
+        "l": 0.97
        }
       }
      ],
@@ -272,7 +252,7 @@
       },
       {
        "color": "#aecad8",
-       "share": 0.12
+       "share": 0.13
       },
       {
        "color": "#ffffff",
@@ -284,20 +264,20 @@
       }
      ],
      "button": {
-      "bg": "#8c2803",
+      "bg": "#ffffff",
       "hsl": {
-       "h": 16,
-       "s": 0.96,
-       "l": 0.28
+       "h": 0,
+       "s": 0,
+       "l": 1
       },
-      "fg": "#ffffff"
+      "fg": "#102a43"
      },
      "lowContrast": []
     },
     "buttons": {
      "count": 4,
      "inHero": 2,
-     "radius": 6,
+     "radius": 9,
      "height": 52,
      "withShadow": 0,
      "withGradient": 0,
@@ -312,23 +292,20 @@
      "shadowStatic": 0,
      "shadowOverlay": 1,
      "shadowSamples": [],
-     "gradients": 1,
+     "gradients": 0,
      "scrims": 0,
-     "gradientSamples": [
-      "section.page-heading → radial-gradient(at 0px 0px, rgb(217, 232, 240) 0px, rgba(0, 0, 0, 0) 66%), none"
-     ],
+     "gradientSamples": [],
      "gradientText": 0,
-     "hairlines": 4,
+     "hairlines": 3,
      "hairlineSamples": [
-      "section.page-heading 1440px",
-      "div.contact-submit.mt-2 641px",
+      "div.contact-submit.mt-2 683px",
       "div.site-footer-bottom 1232px",
-      "div.h-px.bg-white/15 319px rule"
+      "div.h-px.bg-white/15 368px rule"
      ],
      "outlinedBoxes": 1,
      "dashed": 0,
      "blurred": 0,
-     "roundedBoxes": 2,
+     "roundedBoxes": 1,
      "boxRadius": 8,
      "squareMedia": 0,
      "roundedMedia": 0,
@@ -353,7 +330,7 @@
      "w": 1440,
      "h": 900
     },
-    "pageH": 1947,
+    "pageH": 2220,
     "margins": {
      "left": 104,
      "right": 69
@@ -379,32 +356,55 @@
       "pinned": true
      },
      {
-      "sel": "main",
-      "tag": "main",
+      "sel": "section.contact-hero",
+      "tag": "section",
       "top": 143,
-      "height": 1393,
-      "words": 133,
+      "height": 563,
+      "words": 20,
       "media": 0,
-      "middle": 96,
+      "middle": 280,
       "heading": {
        "text": "Hablemos",
-       "size": 76,
+       "size": 187,
        "tag": "h1"
       },
       "left": 104,
-      "right": 138,
+      "right": 164,
       "textLeft": 104,
-      "textRight": 138,
+      "textRight": 164,
       "fullBleed": false,
       "footer": false,
       "hero": true,
-      "continues": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#consulta.contact-page-section",
+      "tag": "section",
+      "top": 706,
+      "height": 1103,
+      "words": 105,
+      "media": 0,
+      "middle": 101,
+      "heading": {
+       "text": "Tu consulta",
+       "size": 36,
+       "tag": "h2"
+      },
+      "left": 144,
+      "right": 183,
+      "textLeft": 144,
+      "textRight": 183,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
       "pinned": false
      },
      {
       "sel": "footer.site-footer",
       "tag": "footer",
-      "top": 1536,
+      "top": 1809,
       "height": 411,
       "words": 70,
       "media": 0,
@@ -428,8 +428,8 @@
     "gaps": [],
     "h1s": [
      {
-      "text": "Hablemos",
-      "size": 76,
+      "text": "Hablemos.",
+      "size": 187,
       "top": 273,
       "firstScreen": true
      }
@@ -437,20 +437,16 @@
     "edgeText": [],
     "edges": [
      {
-      "x": 192,
-      "n": 2
-     },
-     {
-      "x": 929,
-      "n": 2
-     },
-     {
       "x": 104,
-      "n": 1
+      "n": 2
      },
      {
-      "x": 947,
-      "n": 1
+      "x": 144,
+      "n": 2
+     },
+     {
+      "x": 928,
+      "n": 2
      }
     ],
     "leftBlocks": 6,
@@ -458,12 +454,12 @@
     "stage": false,
     "explains": true,
     "slivers": [],
-    "voidShare": 0.13,
+    "voidShare": 0.22,
     "voidBox": {
-     "x": 0,
-     "y": 360,
-     "w": 1440,
-     "h": 120
+     "x": 840,
+     "y": 120,
+     "w": 600,
+     "h": 480
     }
    },
    "app": null,
@@ -475,8 +471,8 @@
    "load": "load",
    "screens": 3,
    "filled": [
-    0.52,
-    0.88,
+    0.8,
+    0.83,
     1
    ],
    "motion": {
@@ -493,9 +489,9 @@
      "h": 1024
     },
     "page": {
-     "height": 2737,
-     "screens": 2.7,
-     "words": 400,
+     "height": 2830,
+     "screens": 2.8,
+     "words": 392,
      "img": 2,
      "video": 0,
      "canvas": 0,
@@ -516,59 +512,59 @@
      "videosNoPoster": 0
     },
     "hero": {
-     "text": "Hablemos",
+     "text": "Hablemos.",
      "words": 1,
-     "chars": 8,
+     "chars": 9,
      "lines": 1,
-     "size": 48,
-     "vw": 6.3,
+     "size": 99.8,
+     "vw": 13,
      "font": "Georgia",
      "weight": 400,
-     "tracking": -0.045,
-     "leading": 1.04,
+     "tracking": -0.075,
+     "leading": 0.9,
      "upper": false,
      "italic": false,
      "mono": false,
      "align": "left",
-     "position": "left",
-     "widthRatio": 0.33,
-     "top": 242,
+     "position": "center",
+     "widthRatio": 0.94,
+     "top": 190,
      "tag": "h1",
      "kind": "heading"
     },
     "h1": {
-     "text": "Hablemos",
+     "text": "Hablemos.",
      "words": 1,
      "lines": 1,
-     "size": 48,
+     "size": 99.8,
      "font": "Georgia"
     },
     "headings": [
      {
-      "text": "Hablemos",
+      "text": "Hablemos.",
       "words": 1,
-      "chars": 8,
+      "chars": 9,
       "lines": 1,
-      "size": 48,
-      "vw": 6.3,
+      "size": 99.8,
+      "vw": 13,
       "font": "Georgia",
       "weight": 400,
-      "tracking": -0.045,
-      "leading": 1.04,
+      "tracking": -0.075,
+      "leading": 0.9,
       "upper": false,
       "italic": false,
       "mono": false,
       "align": "left",
-      "position": "left",
-      "widthRatio": 0.33,
-      "top": 242,
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 190,
       "tag": "h1",
       "kind": "heading"
      },
      {
-      "text": "Empecemos por tu situación",
-      "words": 4,
-      "chars": 26,
+      "text": "Tu consulta",
+      "words": 2,
+      "chars": 11,
       "lines": 1,
       "size": 36,
       "vw": 4.7,
@@ -581,15 +577,15 @@
       "mono": false,
       "align": "left",
       "position": "center",
-      "widthRatio": 0.83,
-      "top": 467,
+      "widthRatio": 0.94,
+      "top": 625,
       "tag": "h2",
       "kind": "heading"
      },
      {
-      "text": "¿Preferís escribirnos directamente?",
+      "text": "Por otros medios",
       "words": 3,
-      "chars": 35,
+      "chars": 16,
       "lines": 1,
       "size": 30,
       "vw": 3.9,
@@ -602,8 +598,8 @@
       "mono": false,
       "align": "left",
       "position": "center",
-      "widthRatio": 0.83,
-      "top": 1424,
+      "widthRatio": 0.94,
+      "top": 1597,
       "tag": "h2",
       "kind": "heading"
      }
@@ -614,7 +610,7 @@
      "over2Lines": 0,
      "statements": 0,
      "centered": 0,
-     "medianWords": 4,
+     "medianWords": 3,
      "mixedFontHeadings": 0
     },
     "type": {
@@ -641,24 +637,25 @@
       16,
       17,
       18,
+      19,
       30,
       36,
-      48
+      100
      ],
-     "sizeCount": 12,
+     "sizeCount": 13,
      "notLoaded": [],
      "body": {
       "font": "Inter",
       "size": 16,
-      "leading": 1.55,
+      "leading": 1.63,
       "weight": 400,
       "tracking": 0,
-      "contrast": null
+      "contrast": 7
      },
      "measureChars": 72,
      "max": {
-      "size": 48,
-      "vw": 6.3,
+      "size": 99.8,
+      "vw": 13,
       "font": "Georgia",
       "text": "Hablemos"
      },
@@ -666,28 +663,16 @@
      "monoProseShare": 0,
      "monoFamilies": [],
      "monoSamples": [],
-     "microLabels": 2,
-     "microLabelShare": 0.014,
+     "microLabels": 1,
+     "microLabelShare": 0.006,
      "microSamples": [
-      "Cotizaciones",
-      "ABM Estudio Contable"
+      "Cotizaciones"
      ],
-     "upperShare": 0.06,
+     "upperShare": 0.05,
      "centerShare": 0.01,
-     "smallText": 37
+     "smallText": 36
     },
-    "eyebrows": [
-     {
-      "text": "ABM Estudio Contable",
-      "above": "Hablemos",
-      "upper": true,
-      "tracked": true,
-      "mono": false,
-      "pill": false,
-      "size": 12,
-      "top": 205
-     }
-    ],
+    "eyebrows": [],
     "numbered": [],
     "color": {
      "bodyBg": "#ffffff",
@@ -699,37 +684,28 @@
      "dark": false,
      "sectionBgs": [
       {
-       "color": "#edf2f5",
-       "top": 347,
-       "hsl": {
-        "h": 203,
-        "s": 0.29,
-        "l": 0.95
-       }
-      },
-      {
-       "color": "#ffffff",
-       "top": 427,
-       "hsl": {
-        "h": 0,
-        "s": 0,
-        "l": 1
-       }
-      },
-      {
        "color": "#102a43",
-       "top": 1380,
+       "top": 120,
        "hsl": {
         "h": 209,
         "s": 0.61,
         "l": 0.16
+       }
+      },
+      {
+       "color": "#f4f7fa",
+       "top": 560,
+       "hsl": {
+        "h": 210,
+        "s": 0.37,
+        "l": 0.97
        }
       }
      ],
      "textColors": [
       {
        "color": "#e7f1f6",
-       "share": 0.24
+       "share": 0.25
       },
       {
        "color": "#d7e6f0",
@@ -744,26 +720,26 @@
        "share": 0.11
       },
       {
-       "color": "#ffffff",
+       "color": "#48647d",
        "share": 0.1
       }
      ],
      "button": {
-      "bg": "#8c2803",
+      "bg": "#ffffff",
       "hsl": {
-       "h": 16,
-       "s": 0.96,
-       "l": 0.28
+       "h": 0,
+       "s": 0,
+       "l": 1
       },
-      "fg": "#ffffff"
+      "fg": "#102a43"
      },
      "lowContrast": []
     },
     "buttons": {
      "count": 3,
      "inHero": 1,
-     "radius": 6,
-     "height": 46,
+     "radius": 0,
+     "height": 52,
      "withShadow": 0,
      "withGradient": 0,
      "mono": 0,
@@ -776,23 +752,21 @@
      "shadowStatic": 0,
      "shadowOverlay": 1,
      "shadowSamples": [],
-     "gradients": 1,
+     "gradients": 0,
      "scrims": 0,
-     "gradientSamples": [
-      "section.page-heading → radial-gradient(at 0px 0px, rgb(217, 232, 240) 0px, rgba(0, 0, 0, 0) 66%), none"
-     ],
+     "gradientSamples": [],
      "gradientText": 0,
      "hairlines": 4,
      "hairlineSamples": [
-      "section.page-heading 768px",
-      "div.contact-submit.mt-2 640px",
+      "div.contact-submit.mt-2 720px",
+      "aside.contact-direct 720px",
       "div.site-footer-bottom 720px",
-      "div.h-px.bg-white/15 640px rule"
+      "div.h-px.bg-white/15 720px rule"
      ],
      "outlinedBoxes": 1,
      "dashed": 0,
      "blurred": 0,
-     "roundedBoxes": 2,
+     "roundedBoxes": 1,
      "boxRadius": 8,
      "squareMedia": 0,
      "roundedMedia": 0,
@@ -817,7 +791,7 @@
      "w": 768,
      "h": 1024
     },
-    "pageH": 2737,
+    "pageH": 2830,
     "margins": {
      "left": 24,
      "right": 24
@@ -843,22 +817,22 @@
       "pinned": true
      },
      {
-      "sel": "section.page-heading",
+      "sel": "section.contact-hero",
       "tag": "section",
       "top": 120,
-      "height": 227,
+      "height": 440,
       "words": 20,
       "media": 0,
-      "middle": 98,
+      "middle": 96,
       "heading": {
        "text": "Hablemos",
-       "size": 48,
+       "size": 100,
        "tag": "h1"
       },
       "left": 24,
-      "right": 40,
+      "right": 84,
       "textLeft": 24,
-      "textRight": 40,
+      "textRight": 84,
       "fullBleed": false,
       "footer": false,
       "hero": true,
@@ -866,32 +840,32 @@
       "pinned": false
      },
      {
-      "sel": "section#consulta.contact-page-section.py-12",
+      "sel": "section#consulta.contact-page-section",
       "tag": "section",
-      "top": 347,
-      "height": 1748,
-      "words": 113,
+      "top": 560,
+      "height": 1627,
+      "words": 105,
       "media": 0,
       "middle": 0,
       "heading": {
-       "text": "Empecemos por tu situación",
+       "text": "Tu consulta",
        "size": 36,
        "tag": "h2"
       },
-      "left": 64,
-      "right": 64,
-      "textLeft": 64,
-      "textRight": 116,
+      "left": 24,
+      "right": 24,
+      "textLeft": 24,
+      "textRight": 88,
       "fullBleed": false,
       "footer": false,
-      "hero": true,
+      "hero": false,
       "continues": true,
       "pinned": false
      },
      {
       "sel": "footer.site-footer",
       "tag": "footer",
-      "top": 2095,
+      "top": 2187,
       "height": 642,
       "words": 70,
       "media": 0,
@@ -915,31 +889,23 @@
     "gaps": [],
     "h1s": [
      {
-      "text": "Hablemos",
-      "size": 48,
-      "top": 242,
+      "text": "Hablemos.",
+      "size": 100,
+      "top": 190,
       "firstScreen": true
      }
     ],
     "edgeText": [],
     "edges": [
      {
-      "x": 64,
-      "n": 4
-     },
-     {
       "x": 24,
-      "n": 1
-     },
-     {
-      "x": 355,
-      "n": 1
+      "n": 6
      }
     ],
     "leftBlocks": 6,
     "bodySize": 16,
     "stage": false,
-    "explains": false,
+    "explains": true,
     "slivers": [],
     "voidShare": 0,
     "voidBox": null
@@ -953,9 +919,9 @@
    "load": "load",
    "screens": 5,
    "filled": [
-    0.77,
-    0.49,
-    1,
+    0.94,
+    0.69,
+    0.97,
     1,
     1
    ],
@@ -973,9 +939,9 @@
      "h": 844
     },
     "page": {
-     "height": 3420,
-     "screens": 4.1,
-     "words": 400,
+     "height": 3400,
+     "screens": 4,
+     "words": 392,
      "img": 2,
      "video": 0,
      "canvas": 0,
@@ -996,60 +962,60 @@
      "videosNoPoster": 0
     },
     "hero": {
-     "text": "Hablemos",
+     "text": "Hablemos.",
      "words": 1,
-     "chars": 8,
+     "chars": 9,
      "lines": 1,
-     "size": 43,
-     "vw": 11,
+     "size": 70.2,
+     "vw": 18,
      "font": "Georgia",
      "weight": 400,
-     "tracking": -0.045,
-     "leading": 1.04,
+     "tracking": -0.075,
+     "leading": 0.9,
      "upper": false,
      "italic": false,
      "mono": false,
      "align": "left",
      "position": "center",
      "widthRatio": 0.88,
-     "top": 188,
+     "top": 200,
      "tag": "h1",
      "kind": "heading"
     },
     "h1": {
-     "text": "Hablemos",
+     "text": "Hablemos.",
      "words": 1,
      "lines": 1,
-     "size": 43,
+     "size": 70.2,
      "font": "Georgia"
     },
     "headings": [
      {
-      "text": "Hablemos",
+      "text": "Hablemos.",
       "words": 1,
-      "chars": 8,
+      "chars": 9,
       "lines": 1,
-      "size": 43,
-      "vw": 11,
+      "size": 70.2,
+      "vw": 18,
       "font": "Georgia",
       "weight": 400,
-      "tracking": -0.045,
-      "leading": 1.04,
+      "tracking": -0.075,
+      "leading": 0.9,
       "upper": false,
       "italic": false,
       "mono": false,
       "align": "left",
       "position": "center",
       "widthRatio": 0.88,
-      "top": 188,
+      "top": 200,
       "tag": "h1",
       "kind": "heading"
      },
      {
-      "text": "Empecemos por tu situación",
-      "words": 4,
-      "chars": 26,
-      "lines": 2,
+      "text": "Tu consulta",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
       "size": 30,
       "vw": 7.7,
       "font": "Inter",
@@ -1061,16 +1027,16 @@
       "mono": false,
       "align": "left",
       "position": "center",
-      "widthRatio": 0.75,
-      "top": 515,
+      "widthRatio": 0.88,
+      "top": 578,
       "tag": "h2",
       "kind": "heading"
      },
      {
-      "text": "¿Preferís escribirnos directamente?",
+      "text": "Por otros medios",
       "words": 3,
-      "chars": 35,
-      "lines": 2,
+      "chars": 16,
+      "lines": 1,
       "size": 24,
       "vw": 6.2,
       "font": "Inter",
@@ -1082,19 +1048,19 @@
       "mono": false,
       "align": "left",
       "position": "center",
-      "widthRatio": 0.73,
-      "top": 1668,
+      "widthRatio": 0.88,
+      "top": 1705,
       "tag": "h2",
       "kind": "heading"
      }
     ],
     "headingSummary": {
      "count": 3,
-     "maxLines": 2,
+     "maxLines": 1,
      "over2Lines": 0,
      "statements": 0,
      "centered": 0,
-     "medianWords": 4,
+     "medianWords": 3,
      "mixedFontHeadings": 0
     },
     "type": {
@@ -1121,24 +1087,25 @@
       16,
       17,
       18,
+      19,
       24,
       30,
-      43
+      70
      ],
-     "sizeCount": 12,
+     "sizeCount": 13,
      "notLoaded": [],
      "body": {
       "font": "Inter",
       "size": 16,
-      "leading": 1.55,
+      "leading": 1.63,
       "weight": 400,
       "tracking": 0,
-      "contrast": null
+      "contrast": 7
      },
-     "measureChars": 37,
+     "measureChars": 43,
      "max": {
-      "size": 43,
-      "vw": 11,
+      "size": 70.2,
+      "vw": 18,
       "font": "Georgia",
       "text": "Hablemos"
      },
@@ -1146,28 +1113,16 @@
      "monoProseShare": 0,
      "monoFamilies": [],
      "monoSamples": [],
-     "microLabels": 2,
-     "microLabelShare": 0.014,
+     "microLabels": 1,
+     "microLabelShare": 0.006,
      "microSamples": [
-      "Cotizaciones",
-      "ABM Estudio Contable"
+      "Cotizaciones"
      ],
-     "upperShare": 0.06,
+     "upperShare": 0.05,
      "centerShare": 0.01,
-     "smallText": 37
+     "smallText": 36
     },
-    "eyebrows": [
-     {
-      "text": "ABM Estudio Contable",
-      "above": "Hablemos",
-      "upper": true,
-      "tracked": true,
-      "mono": false,
-      "pill": false,
-      "size": 10,
-      "top": 158
-     }
-    ],
+    "eyebrows": [],
     "numbered": [],
     "color": {
      "bodyBg": "#ffffff",
@@ -1179,46 +1134,28 @@
      "dark": false,
      "sectionBgs": [
       {
-       "color": "#f7f9fc",
-       "top": 120,
-       "hsl": {
-        "h": 216,
-        "s": 0.45,
-        "l": 0.98
-       }
-      },
-      {
-       "color": "#edf2f5",
-       "top": 443,
-       "hsl": {
-        "h": 203,
-        "s": 0.29,
-        "l": 0.95
-       }
-      },
-      {
-       "color": "#ffffff",
-       "top": 491,
-       "hsl": {
-        "h": 0,
-        "s": 0,
-        "l": 1
-       }
-      },
-      {
        "color": "#102a43",
-       "top": 1636,
+       "top": 120,
        "hsl": {
         "h": 209,
         "s": 0.61,
         "l": 0.16
+       }
+      },
+      {
+       "color": "#f4f7fa",
+       "top": 523,
+       "hsl": {
+        "h": 210,
+        "s": 0.37,
+        "l": 0.97
        }
       }
      ],
      "textColors": [
       {
        "color": "#e7f1f6",
-       "share": 0.24
+       "share": 0.25
       },
       {
        "color": "#d7e6f0",
@@ -1233,26 +1170,26 @@
        "share": 0.11
       },
       {
-       "color": "#ffffff",
+       "color": "#48647d",
        "share": 0.1
       }
      ],
      "button": {
-      "bg": "#8c2803",
+      "bg": "#ffffff",
       "hsl": {
-       "h": 16,
-       "s": 0.96,
-       "l": 0.28
+       "h": 0,
+       "s": 0,
+       "l": 1
       },
-      "fg": "#ffffff"
+      "fg": "#102a43"
      },
      "lowContrast": []
     },
     "buttons": {
      "count": 3,
      "inHero": 1,
-     "radius": 6,
-     "height": 46,
+     "radius": 0,
+     "height": 52,
      "withShadow": 0,
      "withGradient": 0,
      "mono": 0,
@@ -1265,23 +1202,21 @@
      "shadowStatic": 0,
      "shadowOverlay": 1,
      "shadowSamples": [],
-     "gradients": 1,
+     "gradients": 0,
      "scrims": 0,
-     "gradientSamples": [
-      "section.page-heading → radial-gradient(at 0px 0px, rgb(217, 232, 240) 0px, rgba(0, 0, 0, 0) 66%), none"
-     ],
+     "gradientSamples": [],
      "gradientText": 0,
      "hairlines": 4,
      "hairlineSamples": [
-      "section.page-heading 390px",
-      "div.contact-submit.mt-2 294px",
+      "div.contact-submit.mt-2 342px",
+      "aside.contact-direct 342px",
       "div.site-footer-bottom 342px",
-      "div.h-px.bg-white/15 286px rule"
+      "div.h-px.bg-white/15 342px rule"
      ],
      "outlinedBoxes": 1,
      "dashed": 0,
      "blurred": 0,
-     "roundedBoxes": 3,
+     "roundedBoxes": 1,
      "boxRadius": 8,
      "squareMedia": 0,
      "roundedMedia": 0,
@@ -1306,7 +1241,7 @@
      "w": 390,
      "h": 844
     },
-    "pageH": 3420,
+    "pageH": 3400,
     "margins": {
      "left": 24,
      "right": 24
@@ -1332,22 +1267,22 @@
       "pinned": true
      },
      {
-      "sel": "section.page-heading",
+      "sel": "section.contact-hero",
       "tag": "section",
       "top": 120,
-      "height": 323,
+      "height": 403,
       "words": 20,
       "media": 0,
       "middle": 0,
       "heading": {
        "text": "Hablemos",
-       "size": 43,
+       "size": 70,
        "tag": "h1"
       },
       "left": 24,
-      "right": 42,
+      "right": 29,
       "textLeft": 24,
-      "textRight": 42,
+      "textRight": 29,
       "fullBleed": false,
       "footer": false,
       "hero": true,
@@ -1355,22 +1290,22 @@
       "pinned": false
      },
      {
-      "sel": "section#consulta.contact-page-section.py-12",
+      "sel": "section#consulta.contact-page-section",
       "tag": "section",
-      "top": 443,
-      "height": 1903,
-      "words": 113,
+      "top": 523,
+      "height": 1802,
+      "words": 105,
       "media": 0,
       "middle": 0,
       "heading": {
-       "text": "Empecemos por tu situación",
+       "text": "Tu consulta",
        "size": 30,
        "tag": "h2"
       },
-      "left": 48,
-      "right": 48,
-      "textLeft": 48,
-      "textRight": 51,
+      "left": 24,
+      "right": 24,
+      "textLeft": 24,
+      "textRight": 32,
       "fullBleed": false,
       "footer": false,
       "hero": false,
@@ -1380,7 +1315,7 @@
      {
       "sel": "footer.site-footer",
       "tag": "footer",
-      "top": 2345,
+      "top": 2325,
       "height": 1075,
       "words": 70,
       "media": 0,
@@ -1404,27 +1339,23 @@
     "gaps": [],
     "h1s": [
      {
-      "text": "Hablemos",
-      "size": 43,
-      "top": 188,
+      "text": "Hablemos.",
+      "size": 70,
+      "top": 200,
       "firstScreen": true
      }
     ],
     "edgeText": [],
     "edges": [
      {
-      "x": 45,
-      "n": 5
-     },
-     {
       "x": 24,
-      "n": 1
+      "n": 6
      }
     ],
     "leftBlocks": 6,
     "bodySize": 16,
     "stage": false,
-    "explains": false,
+    "explains": true,
     "slivers": [],
     "voidShare": 0,
     "voidBox": null
@@ -1435,33 +1366,11 @@
  ],
  "findings": [
   {
-   "level": "FAIL",
-   "id": "eyebrow",
-   "width": 1440,
-   "message": "1 eyebrow/kicker label(s) above headings: \"ABM Estudio Contable\" above \"Hablemos\"",
-   "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence.",
-   "alsoAt": [
-    768,
-    390
-   ]
-  },
-  {
    "level": "WARN",
    "id": "micro-label",
    "width": 1440,
-   "message": "2 tiny uppercase letter-spaced label(s): \"Cotizaciones\", \"ABM Estudio Contable\"",
+   "message": "1 tiny uppercase letter-spaced label(s): \"Cotizaciones\"",
    "fix": "Prefer sentence case at body size.",
-   "alsoAt": [
-    768,
-    390
-   ]
-  },
-  {
-   "level": "FAIL",
-   "id": "gradient",
-   "width": 1440,
-   "message": "1 gradient fill(s): section.page-heading → radial-gradient(at 0px 0px, rgb(217, 232, 240) 0px, rgba(0, 0, 0, 0) 66%), none",
-   "fix": "Use a flat colour or a real image. The only gradient allowed by default is a neutral scrim over a photo for legibility.",
    "alsoAt": [
     768,
     390
@@ -1471,7 +1380,7 @@
    "level": "FAIL",
    "id": "hairline",
    "width": 1440,
-   "message": "4 thin rule(s)/divider line(s): section.page-heading 1440px | div.contact-submit.mt-2 641px | div.site-footer-bottom 1232px | div.h-px.bg-white/15 319px rule",
+   "message": "3 thin rule(s)/divider line(s): div.contact-submit.mt-2 683px | div.site-footer-bottom 1232px | div.h-px.bg-white/15 368px rule",
    "fix": "Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.",
    "alsoAt": [
     768,
@@ -1493,7 +1402,7 @@
    "level": "WARN",
    "id": "size-count",
    "width": 1440,
-   "message": "13 different font sizes (9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 30, 36, 76).",
+   "message": "14 different font sizes (9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 25, 30, 36, 187).",
    "fix": "A page needs about five: display, heading, lead, body, small.",
    "alsoAt": [
     768,
@@ -1518,7 +1427,7 @@
    "level": "FAIL",
    "id": "small-text",
    "width": 1440,
-   "message": "37 text blocks under 13px.",
+   "message": "36 text blocks under 13px.",
    "fix": "Nothing meant to be read goes below 13px.",
    "alsoAt": [
     768,
@@ -1549,16 +1458,6 @@
    "width": 1440,
    "message": "Only 1 element(s) moved while the page loaded and scrolled.",
    "fix": "Build the motion layer (SKILL.md step 9, references/motion.md): the signature move, an entrance for the parts of every section, feedback on every control, and one moving picture. Transform and opacity only, with a reduced-motion fallback."
-  },
-  {
-   "level": "WARN",
-   "id": "name-only-title",
-   "width": 768,
-   "message": "The h1 is a bare name (\"Hablemos\") and nothing else on the first screen says what this is.",
-   "fix": "Keep the name if it leads, and give the line under it (18px or more) the plain words: what it is, for whom, where or when. In the study of 97 Sites of the Day, first screens that named nothing lost usability and content points.",
-   "alsoAt": [
-    390
-   ]
   }
  ],
  "images": [

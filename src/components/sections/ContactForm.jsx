@@ -38,12 +38,12 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="consulta" className="contact-page-section py-12 md:py-20" aria-label="Formas de contacto">
+    <section id="consulta" className="contact-page-section" aria-label="Formas de contacto">
       <div className="container mx-auto px-6">
-        <div className="contact-page-layout mx-auto grid max-w-6xl lg:grid-cols-[minmax(0,1.28fr)_minmax(300px,0.72fr)]">
-          <div className="contact-form-panel min-w-0 bg-white p-6 md:p-10 lg:p-12">
-            <h2 className="mb-3 text-3xl font-semibold tracking-tight text-primary-900 md:text-4xl">Empecemos por tu situación</h2>
-            <p className="mb-8 max-w-xl leading-relaxed text-gray-600">Respondé unas preguntas para que podamos entender tu consulta. Al continuar, se abrirá WhatsApp con el mensaje listo para revisar y enviar.</p>
+        <div className="contact-page-layout mx-auto grid max-w-6xl lg:grid-cols-[minmax(0,1.3fr)_minmax(280px,0.7fr)]">
+          <div className="contact-form-panel min-w-0">
+            <h2 className="mb-3 text-3xl font-semibold tracking-tight text-primary-900 md:text-4xl">Tu consulta</h2>
+            <p className="mb-8 max-w-xl leading-relaxed text-gray-600">Dejanos algunos datos para entender tu situación. Prepararemos el mensaje en WhatsApp para que puedas revisarlo antes de enviarlo.</p>
 
             <form ref={formRef} onSubmit={handleSubmit} className="contact-form-fields grid min-w-0 gap-5">
               <div className="grid gap-5 sm:grid-cols-2">
@@ -64,9 +64,9 @@ const ContactForm = () => {
             </form>
           </div>
 
-          <aside className="contact-direct bg-primary-900 p-7 text-white md:p-10 lg:p-12">
-            <h2 className="mb-4 text-2xl font-semibold leading-tight md:text-3xl">¿Preferís escribirnos directamente?</h2>
-            <p className="mb-9 leading-relaxed text-primary-100">Elegí el canal que te resulte más cómodo. Atendemos desde Parque Patricios, CABA.</p>
+          <aside className="contact-direct">
+            <h2 className="mb-4 text-2xl font-semibold leading-tight md:text-3xl">Por otros medios</h2>
+            <p className="mb-9 leading-relaxed">También podés contactarnos directamente. Atendemos desde Parque Patricios, CABA.</p>
             <div className="space-y-6">
               <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="contact-direct-whatsapp flex items-center gap-4 rounded-lg border border-white/30 p-4 hover:bg-white/10"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#25D366] text-white"><WhatsAppIcon size={22} /></span><span><strong className="block">Abrir WhatsApp</strong><span className="text-sm text-primary-100">{phoneDisplay}</span></span></a>
               <a href={phoneHref} className="flex items-center gap-4 text-white transition hover:text-accent-200"><Phone className="shrink-0 text-accent-300" size={20} /><span><strong className="block">Teléfono</strong><span className="text-sm text-primary-100">{phoneDisplay}</span></span></a>

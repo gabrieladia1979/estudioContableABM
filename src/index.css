@@ -202,6 +202,29 @@ section[id] {
 @media (max-width: 1023px) { .contact-direct { border-top: 4px solid #a33005; } }
 @media (hover: hover) and (pointer: fine) { .contact-submit-button:hover,.contact-direct-whatsapp:hover { transform: translateY(-1px); } }
 @media (prefers-reduced-motion: reduce) { .contact-submit-button,.contact-direct-whatsapp { transition: none; } }
+.contact-hero { min-height: 440px; padding: clamp(70px,9vw,135px) 0 55px; background: #102a43; color: #fff; }
+.contact-hero h1 { margin: 0; font-family: Georgia,'Times New Roman',serif; font-size: clamp(86px,13vw,190px); font-weight: 400; line-height: .9; letter-spacing: -.075em; }
+.contact-hero h1 span { color: #ed9a68; }
+.contact-hero-bottom { display: flex; align-items: end; justify-content: space-between; gap: 35px; margin-top: clamp(55px,8vw,105px); }
+.contact-hero-bottom p { max-width: 590px; margin: 0; font-size: clamp(19px,2vw,25px); line-height: 1.4; }
+.contact-hero-bottom a { display: inline-flex; align-items: center; justify-content: space-between; gap: 28px; flex: none; min-height: 52px; padding: 13px 20px; background: #fff; color: #102a43; font-weight: 700; }
+.contact-hero-bottom a:hover { background: #dfeaf0; }
+.contact-hero-bottom a:focus-visible { outline: 2px solid #ed9a68; outline-offset: 4px; }
+.contact-page-section { padding: clamp(65px,8vw,115px) 0; background: #f4f7fa; }
+.contact-page-layout { gap: clamp(45px,7vw,105px); background: transparent; }
+.contact-form-panel { padding: 0; }
+.contact-direct { padding: 4px 0 0; color: #102a43; }
+.contact-direct p,.contact-direct .text-primary-100 { color: #48647d; }
+.contact-direct a { color: #102a43; }
+.contact-direct a:hover { color: #8c2803; }
+.contact-direct svg { color: #8c2803; }
+.contact-direct-whatsapp { border-color: #b8cbd9; background: #fff; }
+.contact-direct-whatsapp:hover { background: #e6eef3; }
+.contact-direct-whatsapp svg { color: #fff; }
+.contact-direct .h-px { background: #cbd9e2; }
+.contact-form-fields input,.contact-form-fields select,.contact-form-fields textarea { border-radius: 2px; }
+@media (max-width: 1023px) { .contact-direct { border-top: 0; padding-top: 45px; border-top: 1px solid #cbd9e2; } }
+@media (max-width: 640px) { .contact-hero { min-height: 0; padding: 80px 0 45px; } .contact-hero h1 { font-size: clamp(70px,18vw,100px); } .contact-hero-bottom { align-items: stretch; flex-direction: column; gap: 28px; margin-top: 55px; } .contact-hero-bottom a { align-self: flex-start; } .contact-page-section { padding: 55px 0 75px; } }
 @media (prefers-reduced-motion: reduce) { .service-feature-card,.service-explorer-nav-link { transition: none; } .service-feature-card:hover { transform: none; } }
 .studio-presentation { position: relative; isolation: isolate; padding: 56px 0 80px; color: #102a43; background: radial-gradient(ellipse at 12% 18%,#dceef9 0,transparent 46%),radial-gradient(ellipse at 95% 78%,#dfebf2 0,transparent 43%),#f7f9fc; }
 .studio-presentation::before { position: absolute; inset: 0; z-index: -1; pointer-events: none; content: ''; opacity: var(--studio-pointer-opacity,0); background: radial-gradient(520px circle at var(--studio-pointer-x,50%) var(--studio-pointer-y,30%),#9ac6e13d,transparent 75%); transition: opacity 350ms ease; }
