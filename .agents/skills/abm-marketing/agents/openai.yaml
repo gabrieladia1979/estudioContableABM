@@ -1,0 +1,4 @@
+interface:
+  display_name: "Marketing ABM"
+  short_description: "Captación y contenido para ABM Estudio Contable"
+  default_prompt: "Usá $abm-marketing para preparar las acciones de captación de ABM de esta semana, con contenido para Instagram y la web."

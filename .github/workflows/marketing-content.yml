@@ -1,0 +1,51 @@
+name: Generación Semanal de Campañas de Marketing
+on:
+  schedule:
+    # Todos los lunes a las 08:00 hs de Buenos Aires (11:00 UTC)
+    - cron: '0 11 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-marketing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Generar contenidos y piezas de marketing de la semana
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          NEWS_AI_MODEL: ${{ secrets.NEWS_AI_MODEL || 'gpt-4o-mini' }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node scripts/marketing-auto.mjs
+
+      - name: Verificar si se generaron nuevas campañas
+        id: git-check
+        run: |
+          git status --porcelain marketing/
+          if [ -n "$(git status --porcelain marketing/)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commitear y persistir campaña semanal
+        if: steps.git-check.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add marketing/
+          git commit -m "chore(marketing): generación automática de campaña semanal [skip ci]"
+          git push

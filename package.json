@@ -16,7 +16,8 @@
     "audit:security": "npm audit --audit-level=low",
     "outreach:search": "node scripts/outreach-search.mjs",
     "outreach:preview": "node scripts/outreach-send.mjs --preview",
-    "outreach:send": "node scripts/outreach-send.mjs --send"
+    "outreach:send": "node scripts/outreach-send.mjs --send",
+    "marketing:auto": "node scripts/marketing-auto.mjs"
   },
   "dependencies": {
     "@netlify/blobs": "^11.1.6",

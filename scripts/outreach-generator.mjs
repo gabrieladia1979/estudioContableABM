@@ -1,19 +1,23 @@
+import { email, phoneDisplay, phoneHref, whatsappLink } from '../src/data/contact.js';
+
+const escapeHtml = value => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
+
 export function buildEmail(prospect) {
   const { empresa, barrio, rubro, angulo } = prospect;
 
   let angleParagraph = '';
   switch (angulo) {
     case 'sueldos_laboral':
-      angleParagraph = `Sabemos que para una empresa de <strong>${rubro}</strong> con personal en planta o taller, la correcta liquidación de sueldos (Libro de Sueldos Digital, F. 931 de ARCA, sindicatos y convenios) es fundamental para evitar multas y contingencias laborales costosas.`;
+      angleParagraph = `Si su actividad de ${rubro} requiere apoyo en sueldos y cargas sociales, podemos conversar sobre las tareas y el alcance del acompañamiento que necesitan.`;
       break;
     case 'ingresos_brutos_iva':
-      angleParagraph = `Para empresas y distribuidoras de <strong>${rubro}</strong>, el impacto de Ingresos Brutos (Convenio Multilateral, regímenes de retención y percepción de AGIP/ARBA) y el IVA mensual requieren un control estricto para no inmovilizar capital de trabajo.`;
+      angleParagraph = `Para una actividad de ${rubro}, podemos conversar sobre la organización de la información contable y las obligaciones impositivas que correspondan según su situación.`;
       break;
     case 'distrito_tech':
-      angleParagraph = `Estando en el polo tecnológico y zona sur, trabajamos con empresas de <strong>${rubro}</strong> acompañándolas en el encuadre fiscal ante ARCA, facturación de servicios, régimen de monotributo/sociedades y orden administrativo.`;
+      angleParagraph = `Si su actividad de ${rubro} necesita orientación sobre facturación, organización contable o su estructura de funcionamiento, podemos revisar qué acompañamiento corresponde al proyecto.`;
       break;
     default:
-      angleParagraph = `Acompañamos a pymes y negocios locales de <strong>${rubro}</strong> en la gestión integral de sus obligaciones fiscales ante ARCA y AGIP, armado de balances y planificación impositiva para que puedan enfocarse 100% en su actividad.`;
+      angleParagraph = `Ofrecemos asesoramiento contable e impositivo para negocios de ${rubro}. Podemos conversar sobre qué tareas necesitan ordenar o delegar y definir el alcance del servicio.`;
   }
 
   const subject = `Servicios contables e impositivos para ${empresa} · ABM Estudio Contable`;
@@ -43,36 +47,36 @@ export function buildEmail(prospect) {
       <div class="logo-sub">Asesoramiento Tributario · Sueldos · Balances · Parque Patricios, CABA</div>
     </div>
 
-    <p>Estimado equipo de <strong>${empresa}</strong>,</p>
+    <p>Estimado equipo de <strong>${escapeHtml(empresa)}</strong>,</p>
 
-    <p>Les escribimos desde <strong>ABM Estudio Contable</strong>. Nuestro estudio está ubicado físicamente en <strong>Parque Patricios</strong>, muy cerca de ustedes en ${barrio}.</p>
+    <p>Les escribimos desde <strong>ABM Estudio Contable</strong>, en <strong>Parque Patricios, CABA</strong>. Conocimos su actividad en ${escapeHtml(barrio)} y queremos presentarles nuestros servicios.</p>
 
     <div class="highlight">
-      ${angleParagraph}
+      ${escapeHtml(angleParagraph)}
     </div>
 
-    <p>Brindamos atención personalizada directa con la titular del estudio (<strong>Cra. Alejandra Mayta</strong>), lo que permite tener respuestas ágiles y seguimiento continuo sin la burocracia de las grandes consultoras:</p>
+    <p>Las consultas iniciales las recibe <strong>Alejandra Mayta</strong>, contadora y administradora de empresas, titular del estudio. El alcance del trabajo se conversa según cada caso:</p>
 
     <p style="margin-left: 12px;">
       • <strong>Liquidación de Sueldos y Cargas Sociales:</strong> F. 931, Libro de Sueldos Digital, paritarias y altas/bajas de personal.<br>
       • <strong>Impuestos Nacionales y Provinciales:</strong> ARCA (Ganancias, IVA), AGIP y Convenio Multilateral.<br>
       • <strong>Estados Contables y Balances:</strong> Certificaciones ante el Consejo Profesional de Ciencias Económicas.<br>
-      • <strong>Atención cercana y presencial:</strong> Reuniones en su empresa o en nuestras oficinas de Parque Patricios.
+      • <strong>Atención directa:</strong> Coordinamos una conversación para conocer su actividad y lo que necesitan resolver.
     </p>
 
     <div class="cta-box">
-      <p style="margin-bottom: 12px;">Si les interesa tener una <strong>reunión breve de diagnóstico sin cargo</strong> para revisar cómo están trabajando hoy sus obligaciones contables o laborales, quedamos a disposición:</p>
-      <a href="https://wa.me/5491138430796?text=Hola%20Alejandra,%20te%20contacto%20desde%20${encodeURIComponent(empresa)}%20para%20conversar%20sobre%20servicios%20contables" class="button">Escribirnos por WhatsApp</a>
+      <p style="margin-bottom: 12px;">Si necesitan apoyo contable o impositivo, pueden escribirnos para conversar sobre su situación y definir qué servicio corresponde:</p>
+      <a href="${escapeHtml(whatsappLink('Hola, quisiera consultar por servicios contables para ' + empresa + '.'))}" class="button">Escribirnos por WhatsApp</a>
     </div>
 
     <p style="margin-top: 24px; font-size: 14px; color: #48647d;">
-      También pueden conocer más de nuestra trayectoria y portal de novedades en <a href="https://estudiocontableabm.com.ar" style="color: #8c2803; text-decoration: underline;">estudiocontableabm.com.ar</a>.
+      También pueden conocer los servicios y la forma de trabajo del estudio en <a href="https://estudiocontableabm.com.ar" style="color: #8c2803; text-decoration: underline;">estudiocontableabm.com.ar</a>.
     </p>
 
     <div class="footer">
       <strong>ABM Estudio Contable</strong> · Parque Patricios, CABA<br>
-      Teléfono / WhatsApp: <a href="tel:+5491138430796">+54 9 11 3843-0796</a> · Email: <a href="mailto:contacto@estudiocontableabm.com.ar">contacto@estudiocontableabm.com.ar</a><br>
-      <em>Enviamos esta comunicación a ${prospect.email} por considerarla de interés profesional para empresas de la zona. Si no desean recibir más novedades, respondan a este correo con la palabra "Baja".</em>
+      Teléfono / WhatsApp: <a href="${phoneHref}">${phoneDisplay}</a> · Email: <a href="mailto:${email}">${email}</a><br>
+      <em>Si no desean recibir más comunicaciones, respondan a este correo con la palabra "Baja".</em>
     </div>
   </div>
 </body>
@@ -83,20 +87,20 @@ Servicios contables, impositivos y laborales para empresas locales
 
 Estimado equipo de ${empresa},
 
-Les escribimos desde ABM Estudio Contable. Estamos ubicados físicamente en Parque Patricios, muy cerca de ustedes en ${barrio}.
+Les escribimos desde ABM Estudio Contable, en Parque Patricios, CABA. Conocimos su actividad en ${barrio} y queremos presentarles nuestros servicios.
 
-${angleParagraph.replace(/<\/?strong>/g, '')}
+${angleParagraph}
 
 Brindamos atención personalizada directa con la titular del estudio (Cra. Alejandra Mayta):
 - Liquidación de Sueldos y Cargas Sociales (F. 931, Libro de Sueldos Digital, sindicatos).
 - Impuestos Nacionales y Provinciales (ARCA, AGIP, Convenio Multilateral).
 - Balances y Estados Contables (Consejo Profesional CABA).
-- Atención presencial y cercana en la zona.
+- Atención directa para conversar sobre su actividad y definir el alcance.
 
-Si les interesa tener una breve reunión de diagnóstico sin cargo para revisar cómo están trabajando hoy, pueden contactarnos directamente:
-- WhatsApp / Teléfono: +54 9 11 3843-0796
+Si necesitan apoyo contable o impositivo, pueden escribirnos para conversar sobre su situación:
+- WhatsApp / Teléfono: ${phoneDisplay}
 - Sitio Web: https://estudiocontableabm.com.ar
-- Email: contacto@estudiocontableabm.com.ar
+- Email: ${email}
 
 Saludos cordiales,
 Cra. Alejandra Mayta

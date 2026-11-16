@@ -26,4 +26,12 @@ export default defineConfig([
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },
+  {
+    files: ['outreach/google-apps-script-gmail.js'],
+    languageOptions: {
+      sourceType: 'script',
+      parserOptions: { sourceType: 'script' },
+      globals: { SpreadsheetApp: 'readonly', GmailApp: 'readonly', Logger: 'readonly', Utilities: 'readonly', ScriptApp: 'readonly' },
+    },
+  },
 ])

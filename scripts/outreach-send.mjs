@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import nodemailer from 'nodemailer';
 import { buildEmail } from './outreach-generator.mjs';
+import { email as contactEmail } from '../src/data/contact.js';
 
 const prospectsPath = resolve('outreach/prospects.json');
 const logPath = resolve('outreach/campaign-log.json');
@@ -26,17 +26,17 @@ async function saveJson(path, data) {
 
 async function main() {
   const args = process.argv.slice(2);
-  const isSend = args.includes('--send');
-  const isPreview = args.includes('--preview') || !isSend;
-  
-  const limitArg = args.find(a => a.startsWith('--limit='))?.split('=')[1];
+  const isSend = args.includes('--send') || process.env.OUTREACH_MODE === 'send';
+  const isPreview = (args.includes('--preview') || process.env.OUTREACH_MODE === 'preview') || (!isSend && !process.env.OUTREACH_MODE);
+
+  const limitArg = args.find(a => a.startsWith('--limit='))?.split('=')[1] || process.env.OUTREACH_LIMIT;
   const limit = Math.max(1, Math.min(50, Number(limitArg) || 5));
 
-  const delayArg = args.find(a => a.startsWith('--delay='))?.split('=')[1];
+  const delayArg = args.find(a => a.startsWith('--delay='))?.split('=')[1] || process.env.OUTREACH_DELAY;
   const delaySec = Math.max(1, Number(delayArg) || 12);
 
-  const barrioArg = args.find(a => a.startsWith('--barrio='))?.split('=')[1]?.toLowerCase();
-  const idArg = args.find(a => a.startsWith('--id='))?.split('=')[1]?.toUpperCase();
+  const barrioArg = (args.find(a => a.startsWith('--barrio='))?.split('=')[1] || process.env.OUTREACH_BARRIO || '')?.toLowerCase();
+  const idArg = (args.find(a => a.startsWith('--id='))?.split('=')[1] || process.env.OUTREACH_ID || '')?.toUpperCase();
 
   const prospects = await loadJson(prospectsPath, []);
   if (!prospects.length) {
@@ -87,7 +87,7 @@ async function main() {
     }
 
     console.log('\n💡 Para enviar realmente estos correos:');
-    console.log('  1. Configurá tu remitente SMTP en .env.local (o variables de entorno):');
+    console.log('  1. Configurá tu remitente SMTP en .env.local (o en GitHub Actions Secrets):');
     console.log('     SMTP_HOST=smtp.gmail.com');
     console.log('     SMTP_PORT=465');
     console.log('     SMTP_USER=tu_correo@gmail.com');
@@ -111,14 +111,25 @@ async function main() {
 
   if (!smtpHost || !smtpUser || !smtpPass) {
     console.error('❌ Falta configurar las variables SMTP para enviar correos reales.');
-    console.error('Configurá en .env.local o en la terminal:');
-    console.error('  SMTP_HOST=smtp.gmail.com');
-    console.error('  SMTP_PORT=465');
-    console.error('  SMTP_USER=tu_correo@gmail.com');
-    console.error('  SMTP_PASS=tu_contraseña_de_aplicacion');
-    console.error('  SMTP_FROM="Alejandra Mayta · ABM Estudio Contable <tu_correo@gmail.com>"');
+    if (process.env.CI || process.env.GITHUB_ACTIONS) {
+      console.error('En GitHub Actions, configurá los siguientes Secrets en Settings > Secrets and variables > Actions:');
+      console.error('  - SMTP_HOST: smtp.gmail.com');
+      console.error('  - SMTP_PORT: 465');
+      console.error('  - SMTP_USER: tu_correo@gmail.com');
+      console.error('  - SMTP_PASS: (contraseña de aplicación generada en tu cuenta de Google)');
+      console.error('  - SMTP_FROM: "Alejandra Mayta · ABM Estudio Contable <tu_correo@gmail.com>"');
+    } else {
+      console.error('Configurá en .env.local o en la terminal:');
+      console.error('  SMTP_HOST=smtp.gmail.com');
+      console.error('  SMTP_PORT=465');
+      console.error('  SMTP_USER=tu_correo@gmail.com');
+      console.error('  SMTP_PASS=tu_contraseña_de_aplicacion');
+      console.error('  SMTP_FROM="Alejandra Mayta · ABM Estudio Contable <tu_correo@gmail.com>"');
+    }
     process.exit(1);
   }
+
+  const { default: nodemailer } = await import('nodemailer');
 
   const transporter = nodemailer.createTransport({
     host: smtpHost,
@@ -142,7 +153,7 @@ async function main() {
       const info = await transporter.sendMail({
         from: smtpFrom,
         to: p.email,
-        replyTo: process.env.REPLY_TO || 'contacto@estudiocontableabm.com.ar',
+        replyTo: process.env.REPLY_TO || contactEmail,
         subject,
         text,
         html,

@@ -1,0 +1,92 @@
+name: Campaña de Outreach y Prospección Local
+on:
+  schedule:
+    # Lunes a viernes a las 10:00 hs de Buenos Aires (13:00 UTC)
+    - cron: '0 13 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Modo de ejecución'
+        required: true
+        default: 'send'
+        type: choice
+        options:
+          - send
+          - preview
+      limit:
+        description: 'Cantidad máxima de correos a procesar'
+        required: true
+        default: '5'
+      delay:
+        description: 'Segundos de pausa anti-spam entre envíos'
+        required: true
+        default: '15'
+      barrio:
+        description: 'Filtrar por barrio (ej: boedo, parque patricios, barracas, pompeya - dejar vacío para todos)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  run-outreach:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Verificar configuración SMTP si es envío real
+        id: check-smtp
+        run: |
+          MODE="${{ github.event.inputs.mode || 'send' }}"
+          if [ "$MODE" = "send" ] && [ -z "${{ secrets.SMTP_USER }}" ]; then
+            echo "⚠️ ADVERTENCIA: La variable secreta SMTP_USER no está configurada en GitHub Secrets."
+            echo "Para habilitar el envío real en la nube, agregá SMTP_USER y SMTP_PASS en Settings > Secrets and variables > Actions."
+            echo "Ejecutando en modo PREVIEW para verificar el flujo sin errores..."
+            echo "fallback_preview=true" >> $GITHUB_OUTPUT
+          else
+            echo "fallback_preview=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Ejecutar motor de prospección
+        env:
+          OUTREACH_MODE: ${{ steps.check-smtp.outputs.fallback_preview == 'true' && 'preview' || (github.event.inputs.mode || 'send') }}
+          OUTREACH_LIMIT: ${{ github.event.inputs.limit || '5' }}
+          OUTREACH_DELAY: ${{ github.event.inputs.delay || '15' }}
+          OUTREACH_BARRIO: ${{ github.event.inputs.barrio || '' }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST || 'smtp.gmail.com' }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT || '465' }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          SMTP_FROM: ${{ secrets.SMTP_FROM }}
+          REPLY_TO: ${{ secrets.REPLY_TO || 'abm.estudio.contable.00@gmail.com' }}
+        run: node scripts/outreach-send.mjs
+
+      - name: Verificar si hay cambios en los registros de envío
+        id: git-check
+        run: |
+          git status --porcelain outreach/prospects.json outreach/campaign-log.json
+          if [ -n "$(git status --porcelain outreach/prospects.json outreach/campaign-log.json)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commitear y persistir registros de envío
+        if: steps.git-check.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add outreach/prospects.json outreach/campaign-log.json
+          git commit -m "chore(outreach): actualización de estado de prospección [skip ci]"
+          git push
