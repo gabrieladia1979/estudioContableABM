@@ -56,13 +56,16 @@ Creamos dos nuevos workflows automáticos gratuitos en GitHub Actions:
    - **O a demanda:** Podés entrar desde tu celular o cualquier navegador a GitHub > pestaña **Actions** > **Campaña de Outreach y Prospección Local** > **Run workflow** y elegir cuántos correos enviar (por ejemplo, 5 correos con 15 segundos de pausa).
    - **Persistencia:** Al terminar la tanda, el bot de GitHub actualiza `outreach/prospects.json` y `outreach/campaign-log.json`, guardando el registro de los que ya recibieron el correo para no repetir nunca a la misma empresa.
 
-2. **`.github/workflows/marketing-content.yml` (Generación de contenidos para redes)**:
-   - **Cuándo corre:** Todos los lunes a las 08:00 AM hora argentina.
-   - **Qué hace:** Analiza las últimas novedades fiscales de la web, define un tema para cada uno de los 3 públicos (Monotributo, PyMEs, Sociedades), redacta los copys listos para Instagram con WhatsApp directo y los guarda en `marketing/campanas/semana-<fecha>.md`.
-   - Podés abrir ese archivo los lunes y tenés los 3 textos de la semana listos para copiar y pegar.
+2. **`.github/workflows/news-sync.yml` + `npm run instagram:auto` (Noticias + Kits de Instagram diarios)**:
+   - **Cuándo corre:** Todos los días a las **08:30 y 18:30 hs** hora argentina (o manualmente desde GitHub Actions).
+   - **Qué hace:** Escanea y publica las noticias nuevas en `src/data/publishedNews.json` y, acto seguido, convierte automáticamente las novedades reales en **carruseles de 5 placas para Instagram, epígrafe limpio, historia con enlace UTM, texto alternativo y respuesta rápida DM**.
+   - **Dónde copiarlos fácil:**
+     - En GitHub (PC o celular): abriendo [`marketing/instagram/PARA_COPIAR.md`](../marketing/instagram/PARA_COPIAR.md), donde cada bloque tiene botón nativo de copiar.
+     - En la web privada del estudio (`/editor-noticias`): en la pestaña **📸 Instagram · Para copiar**, con botones de copia en 1 clic y descarga de placas PNG (`1080 × 1350`).
 
-3. **`.github/workflows/news-sync.yml` (Novedades fiscales en la web)**:
-   - Sigue corriendo todos los días a las 08:30 y 18:30 hs.
+3. **`.github/workflows/marketing-content.yml` (Campaña semanal por los 3 públicos)**:
+   - **Cuándo corre:** Todos los lunes a las 08:00 AM hora argentina.
+   - **Qué hace:** Toma los kits generados a partir de las novedades reales y arma una selección semanal cubriendo **Monotributo**, **PyMEs / Sueldos / Impuestos** y **Sociedades**, guardándola en `marketing/campanas/semana-<fecha>.md` (sin repetir plantillas fijas aunque no haya clave de IA configurada).
 
 ---
 
@@ -87,6 +90,6 @@ Para que GitHub Actions pueda enviar los correos por vos, solo necesitás cargar
 | --- | --- | --- | --- |
 | **Envío de correos a empresas (Sheets)** | Servidores de Google | **NO** | Menú "📮 ABM Marketing" en tu Google Sheet |
 | **Envío de correos por GitHub** | Servidores de GitHub | **NO** | Pestaña Actions en GitHub (o cron automático) |
-| **Generación de copys para Instagram** | GitHub Actions | **NO** | Se genera cada lunes en `marketing/campanas/` |
+| **Generación de copys para Instagram** | GitHub Actions | **NO** | En `marketing/instagram/PARA_COPIAR.md`, `marketing/campanas/` y `/editor-noticias` |
 | **Publicación de noticias en la web** | GitHub Actions | **NO** | Automático 2 veces al día (08:30 y 18:30 hs) |
 | **Diseño gráfico en Canva** | Web de Canva | **NO** | Diseñar con las referencias oficiales de ABM |

@@ -18,25 +18,49 @@ export function validateArticle(article) {
   return { title: article.title.trim(), summary: article.summary.trim(), sections: article.sections.map(({ heading, text }) => ({ heading: heading.trim(), text: text.trim() })) };
 }
 
+function truncateCleanly(text, maxLength = 520) {
+  const clean = String(text || '').replace(/\s+/g, ' ').trim();
+  if (clean.length <= maxLength) return clean;
+  const slice = clean.slice(0, maxLength);
+  const lastSentenceEnd = Math.max(slice.lastIndexOf('. '), slice.lastIndexOf('! '), slice.lastIndexOf('? '));
+  if (lastSentenceEnd >= 120) return slice.slice(0, lastSentenceEnd + 1).trim();
+  const lastSpace = slice.lastIndexOf(' ');
+  const trimmed = (lastSpace > 80 ? slice.slice(0, lastSpace) : slice).replace(/[,;:\s]+$/, '');
+  return trimmed.endsWith('.') ? trimmed : `${trimmed}…`;
+}
+
+const EDITORIAL_AUDIENCE_BY_CATEGORY = {
+  Monotributo: 'Resulta relevante para monotributistas, profesionales independientes y prestadores de servicios que necesiten verificar su categoría, facturación o encuadre vigente.',
+  Impuestos: 'Resulta de interés para personas humanas, responsables inscriptos y pymes que deban evaluar el impacto en sus declaraciones juradas, regímenes de información o vencimientos.',
+  Sueldos: 'Resulta aplicable a empleadores, pymes, comercios y responsables de liquidación de haberes que deban revisar recibos, cargas sociales o documentación laboral.',
+  Pymes: 'Resulta de particular utilidad para micro, pequeñas y medianas empresas y comercios que necesiten evaluar requisitos, certificaciones vigentes o facilidades disponibles.',
+  Sociedades: 'Resulta relevante para sociedades constituidas, cooperativas y proyectos societarios que deban analizar trámites registrales, encuadre fiscal o presentaciones periódicas.',
+  Contabilidad: 'Resulta de interés para empresas y entidades que deban organizar sus registros contables, balances o certificaciones ante organismos y terceros.',
+  Finanzas: 'Resulta útil para contribuyentes, profesionales y pymes que operan con billeteras, cobranzas o movimientos financieros alcanzados por regímenes informativos.',
+  Actualidad: 'Resulta de interés para empleadores, pymes y contribuyentes que necesiten seguir la reglamentación vigente y confirmar cuándo aplica cada cambio.',
+};
+
 export function synthesizeEditorialDraft(candidate, evidence) {
   const rawTitle = (candidate?.title || evidence?.title || 'Novedades impositivas y previsionales').trim();
-  const title = (rawTitle.length > 175 ? rawTitle.slice(0, 172) + '…' : rawTitle).replace(/\s+/g, ' ');
+  const title = (rawTitle.length > 175 ? truncateCleanly(rawTitle, 172) : rawTitle).replace(/\s+/g, ' ');
   const category = candidate?.category || 'Impuestos';
   const evidenceText = (evidence?.evidence || evidence?.title || '').trim();
-  
+  const excerpt = truncateCleanly(evidenceText, 520);
+
   const summary = (
     evidenceText.length > 40
-      ? `Análisis de las novedades recientes en materia de ${category.toLowerCase()}: principales aspectos comunicados y consideraciones clave para contribuyentes y empresas.`
+      ? `Novedades en materia de ${category.toLowerCase()}: qué informó la fuente de referencia y qué aspectos revisar según tu actividad.`
       : `Actualización normativa y operativa sobre ${category.toLowerCase()}. Qué aspectos revisar para mantener las obligaciones al día.`
   ).slice(0, 500);
 
   const section1Text = evidenceText.length > 60
-    ? `De acuerdo a lo informado en la publicación de referencia (${evidence?.title || candidate?.sourceName || 'fuente oficial'}), se dieron a conocer modificaciones y pautas operativas vinculadas con ${category.toLowerCase()}. El reporte destaca: ${evidenceText.slice(0, 450)}.`
-    : `Se han publicado precisiones acerca de los procedimientos y vencimientos aplicables al área de ${category.toLowerCase()}, con impacto directo en la actividad diaria de contribuyentes y responsables.`;
+    ? `De acuerdo con la publicación de referencia (${evidence?.title || candidate?.sourceName || 'fuente oficial'}), se informaron novedades vinculadas con ${category.toLowerCase()}: ${excerpt}`
+    : `Se publicaron precisiones acerca de los procedimientos y vencimientos aplicables al área de ${category.toLowerCase()}, con impacto operativo para contribuyentes y responsables.`;
 
-  const section2Text = `Esta novedad resulta de particular interés para monotributistas, personas humanas con actividad económica y pymes que deban evaluar su encuadre y vigencia de las nuevas disposiciones normativas.`;
+  const section2Text = EDITORIAL_AUDIENCE_BY_CATEGORY[category]
+    || 'Resulta de interés para monotributistas, personas humanas con actividad económica y pymes que deban confirmar el alcance y la vigencia de estas disposiciones.';
 
-  const section3Text = `Desde ABM Estudio Contable recomendamos revisar los comprobantes y estados de cuenta en las plataformas oficiales, planificar las presentaciones con antelación y solicitar asesoramiento ante cualquier duda respecto al impacto particular en su actividad.`;
+  const section3Text = `Conviene reunir la documentación del período, verificar el estado en las plataformas oficiales y consultar con el estudio antes del próximo vencimiento para evaluar cómo impacta en tu caso particular.`;
 
   const rawArticle = {
     title: title.length < 12 ? `${title} · Actualidad ABM` : title,

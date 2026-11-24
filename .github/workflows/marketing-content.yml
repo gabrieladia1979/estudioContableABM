@@ -24,28 +24,28 @@ jobs:
       - name: Instalar dependencias
         run: npm ci
 
-      - name: Generar contenidos y piezas de marketing de la semana
+      - name: Generar contenidos, campaña semanal y kits de Instagram
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           NEWS_AI_MODEL: ${{ secrets.NEWS_AI_MODEL || 'gpt-4o-mini' }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node scripts/marketing-auto.mjs
 
-      - name: Verificar si se generaron nuevas campañas
+      - name: Verificar si se generaron nuevas campañas o kits
         id: git-check
         run: |
-          git status --porcelain marketing/
-          if [ -n "$(git status --porcelain marketing/)" ]; then
+          git status --porcelain marketing/ src/data/instagramKits.json
+          if [ -n "$(git status --porcelain marketing/ src/data/instagramKits.json)" ]; then
             echo "has_changes=true" >> $GITHUB_OUTPUT
           else
             echo "has_changes=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Commitear y persistir campaña semanal
+      - name: Commitear y persistir campaña semanal y kits
         if: steps.git-check.outputs.has_changes == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add marketing/
-          git commit -m "chore(marketing): generación automática de campaña semanal [skip ci]"
+          git add marketing/ src/data/instagramKits.json
+          git commit -m "chore(marketing): actualización de campaña semanal y kits de Instagram [skip ci]"
           git push

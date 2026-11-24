@@ -37,20 +37,27 @@ jobs:
           NEWS_AUTO_PUBLISH_FALLBACK: 'true'
         run: npm run news:auto
 
-      - name: Verificar si hay noticias nuevas para publicar
+      - name: Generar kits de Instagram listos para copiar en base a las noticias
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          NEWS_AI_MODEL: ${{ secrets.NEWS_AI_MODEL || 'gpt-4o-mini' }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: npm run instagram:auto
+
+      - name: Verificar si hay noticias o kits de Instagram nuevos
         id: git-check
         run: |
-          if [ -n "$(git status --porcelain -- src/data/publishedNews.json)" ]; then
+          if [ -n "$(git status --porcelain -- src/data/publishedNews.json src/data/instagramKits.json marketing/instagram/PARA_COPIAR.md)" ]; then
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
           else
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Commitear y pushear nuevas noticias
+      - name: Commitear y pushear noticias y kits de Instagram
         if: steps.git-check.outputs.has_changes == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -- src/data/publishedNews.json
-          git commit -m "chore(news): sincronización automática diaria de noticias"
+          git add -- src/data/publishedNews.json src/data/instagramKits.json marketing/instagram/PARA_COPIAR.md
+          git commit -m "chore(news): sincronización automática de noticias y kits de Instagram"
           git push

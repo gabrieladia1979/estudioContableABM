@@ -42,6 +42,22 @@
 .news-editor-error { margin-bottom: 20px; border: 1px solid #dcb8a8; border-radius: 8px; padding: 15px; background: #fff2ed; color: #7a2609; }
 .news-editor-login { display: grid; gap: 15px; max-width: 450px; padding: 25px; background: #fff; }
 @media (max-width: 850px) { .news-editor-layout { grid-template-columns: 1fr; } .news-editor-list { position: static; max-height: 320px; } }
+.news-editor-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+.ig-profile-card { margin-bottom: 22px; border: 1px solid #d6e2ec; border-radius: 12px; padding: 14px 18px; background: #fff; }
+.ig-profile-card summary { cursor: pointer; font-weight: 700; color: #102a43; font-size: 14px; }
+.ig-profile-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top: 14px; }
+.ig-top-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 16px; }
+.ig-top-actions button, .ig-copy-box-head button { display: inline-flex; align-items: center; gap: 6px; }
+.ig-palette-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; font-size: 13px; color: #48647d; }
+.ig-palette-bar button { padding: 6px 12px; font-size: 12px; }
+.ig-slides-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.ig-extras-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.ig-copy-box { border: 1px solid #d6e2ec; border-radius: 10px; padding: 14px; background: #f8fbfd; display: grid; gap: 10px; align-content: start; }
+.ig-copy-box-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.ig-copy-box-head strong { font-size: 13px; color: #102a43; }
+.ig-copy-box-head button { padding: 6px 10px; font-size: 12px; }
+.ig-copy-btn-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.ig-copy-box pre { margin: 0; white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size: 13px; line-height: 1.5; color: #1f3a52; background: #fff; border: 1px solid #e2ecf4; border-radius: 8px; padding: 11px; }
 
 :root {
   font-family: 'Inter', sans-serif;

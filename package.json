@@ -17,7 +17,8 @@
     "outreach:search": "node scripts/outreach-search.mjs",
     "outreach:preview": "node scripts/outreach-send.mjs --preview",
     "outreach:send": "node scripts/outreach-send.mjs --send",
-    "marketing:auto": "node scripts/marketing-auto.mjs"
+    "marketing:auto": "node scripts/marketing-auto.mjs",
+    "instagram:auto": "node scripts/instagram-auto.mjs"
   },
   "dependencies": {
     "@netlify/blobs": "^11.1.6",
