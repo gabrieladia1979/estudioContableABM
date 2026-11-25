@@ -1,13 +1,12 @@
 # 📸 Kits de Instagram listos para copiar · ABM Estudio Contable
 
-> **Última actualización automática:** 24/11/2026 (22:04 UTC)  
+> **Última actualización automática:** 25/11/2026 (04:24 UTC)  
 > **Cuenta:** @abm.estudiocontable · **WhatsApp:** +54 11 6817 2147 · **Web:** https://estudiocontableabm.com.ar  
 > **Cómo usar este archivo:** Abrilo desde GitHub (en PC o celular) y tocá el ícono **Copiar** arriba a la derecha de cada bloque para pasarlo directo a Canva o Instagram.
 
 ---
-
 ## 1. ARCA habilitó la Declaración Jurada Simplificada: paso a paso para el nuevo Formulario 2711
-- **Categoría:** Impuestos · **Publicada en la web:** 21/11/2026 · **Fuente:** Blog del Contador (20/11/2026)
+- **Categoría:** Impuestos · **Publicada en la web:** 20/11/2026 · **Fuente:** Blog del Contador (20/11/2026)
 - **Nota web:** https://estudiocontableabm.com.ar/novedades/b92f22f393fee0b11048a1c4
 - **Generado por:** ABM Instagram Kit
 
@@ -37,7 +36,7 @@ Puntos clave de la novedad
 
 La Agencia de Recaudación y Control Aduanero (ARCA) dio un paso clave en la simplificación tributaria al habilitar formalmente la Declaración Jurada Simplificada dentro del portal integrado de Ganancias.
 
-Referencia: Resolución General 5863/2026 · Formulario 2711.
+Referencia: Formulario 2711.
 ```
 
 **Placa 4 — Qué revisar**
@@ -557,11 +556,9 @@ Hola, gracias por tu mensaje. Contanos cuál es tu condición frente a ARCA y qu
 ```
 
 ---
-
 ## 📌 Bonus · 3 Posts Fijados recomendados para el inicio de tu perfil
 
 > Publicá estos tres carruseles y fijálos arriba de la grilla (`... > Fijar en tu perfil`) para que todo visitante nuevo entienda qué hace ABM y cómo consultar.
-
 ### 1. Post Fijado 1 · Conocé ABM Estudio Contable y cómo trabajamos
 - **Enlace de apoyo:** https://estudiocontableabm.com.ar/estudio
 
