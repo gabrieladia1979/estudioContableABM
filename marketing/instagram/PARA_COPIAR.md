@@ -1,6 +1,6 @@
 # 📸 Kits de Instagram listos para copiar · ABM Estudio Contable
 
-> **Última actualización automática:** 25/11/2026 (20:33 UTC)  
+> **Última actualización automática:** 26/11/2026 (03:41 UTC)  
 > **Cuenta:** @abm.estudiocontable · **WhatsApp:** +54 11 6817 2147 · **Web:** https://estudiocontableabm.com.ar  
 > **Cómo usar este archivo:** Abrilo desde GitHub (en PC o celular) y tocá el ícono **Copiar** arriba a la derecha de cada bloque para pasarlo directo a Canva o Instagram.
 
