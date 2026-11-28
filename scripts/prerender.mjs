@@ -6,11 +6,17 @@ const outputDir = resolve('dist');
 const serverDir = resolve('dist-ssr');
 const template = await readFile(join(outputDir, 'index.html'), 'utf8');
 const { render, pageInfo } = await import(pathToFileURL(join(serverDir, 'entry-server.js')).href);
+const publishedNews = JSON.parse(await readFile(resolve('src/data/publishedNews.json'), 'utf8'));
 const origin = 'https://estudiocontableabm.com.ar';
 
 const escapeHtml = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+const articleInfo = Object.fromEntries(publishedNews.map(article => [
+  `/novedades/${encodeURIComponent(article.slug)}`,
+  [`${article.title} | ABM Estudio Contable`, article.summary],
+]));
+const prerenderInfo = { ...pageInfo, ...articleInfo };
 
-for (const [pathname, [title, description]] of Object.entries(pageInfo)) {
+for (const [pathname, [title, description]] of Object.entries(prerenderInfo)) {
   const url = `${origin}${pathname}`;
   let html = template.replace('<div id="root"></div>', `<div id="root" data-rendered-path="${escapeHtml(pathname)}">${render(pathname)}</div>`);
   if (html === template) throw new Error('No se encontró el contenedor de React en el HTML generado');
@@ -29,4 +35,7 @@ for (const [pathname, [title, description]] of Object.entries(pageInfo)) {
   await writeFile(join(pageDir, 'index.html'), html, 'utf8');
 }
 
-console.log(`Se generaron ${Object.keys(pageInfo).length} páginas HTML.`);
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${Object.keys(prerenderInfo).map(pathname => `  <url><loc>${escapeHtml(`${origin}${pathname}`)}</loc></url>`).join('\n')}\n</urlset>\n`;
+await writeFile(join(outputDir, 'sitemap.xml'), sitemap, 'utf8');
+
+console.log(`Se generaron ${Object.keys(prerenderInfo).length} páginas HTML.`);
