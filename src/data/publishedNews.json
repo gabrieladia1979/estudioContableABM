@@ -1,5 +1,37 @@
 [
   {
+    "id": "0ad76ffc19e328803eb19421",
+    "slug": "0ad76ffc19e328803eb19421",
+    "title": "La UIF reglamentó el nuevo régimen de Inocencia Fiscal",
+    "summary": "Novedades en materia de impuestos: qué informó la fuente de referencia y qué aspectos revisar según tu actividad.",
+    "sections": [
+      {
+        "heading": "Qué se informó oficialmente",
+        "text": "De acuerdo con la publicación de referencia (La UIF reglamentó el nuevo régimen de Inocencia Fiscal | Consejo Profesional de Ciencias Económicas de la Ciudad Autónoma de Buenos Aires), se informaron novedades vinculadas con impuestos: La Unidad de Información Financiera (UIF), mediante la Resolución N° 144/2026 publicada en su sitio web, establece un régimen específico de Antecedente Favorable y de Debida Diligencia Simplificada Especial, que los sujetos obligados deberán aplicar respecto de las personas humanas o sucesiones indivisas adheridas al Régimen de Declaración Jurada Simplificada del Impuesto a las Ganancias para determinadas operaciones de ingreso de fondos y/o activos al sistema financiero formal.La resolución alcanza a todos los…"
+      },
+      {
+        "heading": "A quiénes alcanza esta novedad",
+        "text": "Resulta de interés para personas humanas, responsables inscriptos y pymes que deban evaluar el impacto en sus declaraciones juradas, regímenes de información o vencimientos."
+      },
+      {
+        "heading": "Recomendaciones prácticas del estudio",
+        "text": "Conviene reunir la documentación del período, verificar el estado en las plataformas oficiales y consultar con el estudio antes del próximo vencimiento para evaluar cómo impacta en tu caso particular."
+      }
+    ],
+    "category": "Impuestos",
+    "service": "asesoramiento-tributario",
+    "publishedAt": "2026-11-28T03:24:36.937Z",
+    "reviewedAt": null,
+    "author": "ABM Estudio Contable",
+    "sources": [
+      {
+        "title": "La UIF reglamentó el nuevo régimen de Inocencia Fiscal | Consejo Profesional de Ciencias Económicas de la Ciudad Autónoma de Buenos Aires",
+        "url": "https://www.consejo.org.ar/noticias/2026/la-uif-reglamento-el-nuevo-regimen-de-inocencia-fiscal",
+        "date": "2026-11-02"
+      }
+    ]
+  },
+  {
     "id": "b92f22f393fee0b11048a1c4",
     "slug": "b92f22f393fee0b11048a1c4",
     "title": "ARCA habilitó la Declaración Jurada Simplificada: paso a paso para el nuevo Formulario 2711",

@@ -1,11 +1,103 @@
 # 📸 Kits de Instagram listos para copiar · ABM Estudio Contable
 
-> **Última actualización automática:** 27/11/2026 (20:07 UTC)  
+> **Última actualización automática:** 28/11/2026 (03:24 UTC)  
 > **Cuenta:** @abm.estudiocontable · **WhatsApp:** +54 11 6817 2147 · **Web:** https://estudiocontableabm.com.ar  
 > **Cómo usar este archivo:** Abrilo desde GitHub (en PC o celular) y tocá el ícono **Copiar** arriba a la derecha de cada bloque para pasarlo directo a Canva o Instagram.
 
 ---
-## 1. ARCA habilitó la Declaración Jurada Simplificada: paso a paso para el nuevo Formulario 2711
+## 1. La UIF reglamentó el nuevo régimen de Inocencia Fiscal
+- **Categoría:** Impuestos · **Publicada en la web:** 28/11/2026 · **Fuente:** Consejo Profesional CABA (02/11/2026)
+- **Nota web:** https://estudiocontableabm.com.ar/novedades/0ad76ffc19e328803eb19421
+- **Generado por:** ABM Instagram Kit
+
+### Carrusel de 5 placas (para Canva · 1080 × 1350)
+
+**Placa 1 — Guía ARCA**
+```text
+La UIF reglamentó el nuevo régimen de Inocencia Fiscal
+
+Novedad en impuestos: qué tenés que saber y qué revisar.
+
+Deslizá para ver qué revisar →
+```
+
+**Placa 2 — Alcance**
+```text
+¿A quiénes alcanza?
+
+Resulta de interés para personas humanas, responsables inscriptos y pymes que deban evaluar el impacto en sus declaraciones juradas, regímenes de información o vencimientos.
+
+Área: Impuestos
+```
+
+**Placa 3 — Qué cambió**
+```text
+Puntos clave de la novedad
+
+De acuerdo con la publicación de referencia (La UIF reglamentó el nuevo régimen de Inocencia Fiscal | Consejo Profesional de Ciencias Económicas de la Ciudad Autónoma de Buenos Aires), se informaron novedades vinculadas con impuestos: La Unidad de Información Financiera (UIF), mediante la…
+
+Fuente: Consejo Profesional CABA (02/11/2026).
+```
+
+**Placa 4 — Qué revisar**
+```text
+3 pasos antes de consultar
+
+1. Confirmá si el régimen o formulario alcanza a tu inscripción actual en ARCA.
+2. Reuní tus comprobantes, presentaciones anteriores y notificaciones recibidas.
+3. Chequeá las fechas de vigencia o adhesión antes del próximo vencimiento.
+
+No compartas clave fiscal por DM.
+```
+
+**Placa 5 — ABM Estudio Contable**
+```text
+¿Querés revisar tu caso?
+
+Atención directa con la Cra. Alejandra Mayta.
+Escribinos por DM o por WhatsApp al +54 11 6817 2147.
+
+Guardá este post · @abm.estudiocontable
+```
+
+### Epígrafe completo (listo para pegar en Instagram)
+```text
+La UIF reglamentó el nuevo régimen de Inocencia Fiscal
+
+De acuerdo con la publicación de referencia (La UIF reglamentó el nuevo régimen de Inocencia Fiscal | Consejo Profesional de Ciencias Económicas de la Ciudad Autónoma de Buenos Aires), se informaron novedades vinculadas con impuestos: La Unidad de Información Financiera (UIF), mediante la…
+
+¿A quién le sirve? Resulta de interés para personas humanas, responsables inscriptos y pymes que deban evaluar el impacto en sus declaraciones juradas, regímenes de información o vencimientos.
+
+Si querés revisar cómo se aplica a tu actividad, escribinos por DM o por WhatsApp al +54 11 6817 2147. Atención directa de la Cra. Alejandra Mayta en CABA.
+Podés leer la nota completa desde el enlace de nuestra biografía o pedirnos el link por mensaje.
+
+Fuente consultada: Consejo Profesional CABA (02/11/2026). Nota informativa general; cada situación se evalúa en consulta.
+
+#ImpuestosArgentina #ARCA #AsesoramientoFiscal #EstudioContable #ABMEstudioContable #ParquePatricios
+```
+
+### Historia (Story) + Enlace con UTM
+```text
+📌 La UIF reglamentó el nuevo régimen de Inocencia Fiscal
+Novedad en impuestos: qué tenés que saber y qué revisar.
+
+Leé la nota completa en nuestra web 👇
+
+Sticker de enlace ("Leer nota en ABM"):
+https://estudiocontableabm.com.ar/novedades/0ad76ffc19e328803eb19421?utm_source=instagram&utm_medium=story&utm_campaign=novedades_abm&utm_content=noticia_0ad76ffc19
+```
+
+### Texto alternativo (Accesibilidad) y Respuesta rápida DM
+```text
+ALT: Carrusel de 5 placas de ABM Estudio Contable sobre "La UIF reglamentó el nuevo régimen de Inocencia Fiscal": alcance para resulta de interés para personas humanas, responsables inscriptos y pymes que deban evaluar el impacto en sus declaraciones juradas, regímenes de información o vencimientos, resumen de la novedad, checklist de revisión y contacto directo.
+
+Respuesta rápida DM/WhatsApp:
+Hola, gracias por tu mensaje. Contanos cuál es tu condición frente a ARCA y qué presentación o comunicación necesitás revisar para evaluar tu caso.
+```
+
+---
+
+## 2. ARCA habilitó la Declaración Jurada Simplificada: paso a paso para el nuevo Formulario 2711
 - **Categoría:** Impuestos · **Publicada en la web:** 20/11/2026 · **Fuente:** Blog del Contador (20/11/2026)
 - **Nota web:** https://estudiocontableabm.com.ar/novedades/b92f22f393fee0b11048a1c4
 - **Generado por:** ABM Instagram Kit
@@ -97,7 +189,7 @@ Hola, gracias por tu mensaje. Contanos cuál es tu condición frente a ARCA y qu
 
 ---
 
-## 2. Casas particulares: ¿Cómo hago el recibo de sueldo?
+## 3. Casas particulares: ¿Cómo hago el recibo de sueldo?
 - **Categoría:** Sueldos · **Publicada en la web:** 18/11/2026 · **Fuente:** ARCA (17/11/2026)
 - **Nota web:** https://estudiocontableabm.com.ar/novedades/ea09e9fd49858c8bac3eae92
 - **Generado por:** ABM Instagram Kit
@@ -189,7 +281,7 @@ Hola, gracias por escribir a ABM. Contanos cuántas personas tenés registradas 
 
 ---
 
-## 3. RIFL: reglamentan la reducción de contribuciones patronales para nuevas contrataciones hasta 2027
+## 4. RIFL: reglamentan la reducción de contribuciones patronales para nuevas contrataciones hasta 2027
 - **Categoría:** Actualidad · **Publicada en la web:** 17/11/2026 · **Fuente:** Blog del Contador (17/11/2026)
 - **Nota web:** https://estudiocontableabm.com.ar/novedades/14fbefb30b55eb8545707ecd
 - **Generado por:** ABM Instagram Kit
@@ -281,7 +373,7 @@ Hola, gracias por tu consulta. Contanos el rubro de tu actividad o empresa y qu�
 
 ---
 
-## 4. Nuevo recibo de sueldo: el dato obligatorio que quedó afuera y las dudas que deberá aclarar el Gobierno
+## 5. Nuevo recibo de sueldo: el dato obligatorio que quedó afuera y las dudas que deberá aclarar el Gobierno
 - **Categoría:** Sueldos · **Publicada en la web:** 17/11/2026 · **Fuente:** Blog del Contador (17/11/2026)
 - **Nota web:** https://estudiocontableabm.com.ar/novedades/be2689a43c511117e89a8d33
 - **Generado por:** ABM Instagram Kit
@@ -373,7 +465,7 @@ Hola, gracias por escribir a ABM. Contanos cuántas personas tenés registradas 
 
 ---
 
-## 5. El Gobierno reglamentó el nuevo recibo de sueldo: qué datos deberán incluir las empresas
+## 6. El Gobierno reglamentó el nuevo recibo de sueldo: qué datos deberán incluir las empresas
 - **Categoría:** Sueldos · **Publicada en la web:** 17/11/2026 · **Fuente:** Blog del Contador (17/11/2026)
 - **Nota web:** https://estudiocontableabm.com.ar/novedades/e35a5016b7ba26512de2365e
 - **Generado por:** ABM Instagram Kit
@@ -461,98 +553,6 @@ ALT: Carrusel de 5 placas de ABM Estudio Contable sobre "El Gobierno reglamentó
 
 Respuesta rápida DM/WhatsApp:
 Hola, gracias por escribir a ABM. Contanos cuántas personas tenés registradas o qué duda tenés sobre recibos y liquidaciones para orientarte.
-```
-
----
-
-## 6. Declaración Jurada Simplificada de Ganancias: cómo funciona el nuevo sistema reglamentado por ARCA
-- **Categoría:** Impuestos · **Publicada en la web:** 16/11/2026 · **Fuente:** Blog del Contador (16/11/2026)
-- **Nota web:** https://estudiocontableabm.com.ar/novedades/48f8797259079748e66d76b0
-- **Generado por:** ABM Instagram Kit
-
-### Carrusel de 5 placas (para Canva · 1080 × 1350)
-
-**Placa 1 — Guía ARCA**
-```text
-Declaración Jurada Simplificada de Ganancias
-
-Cómo funciona el nuevo sistema reglamentado por ARCA
-
-Deslizá para ver qué revisar →
-```
-
-**Placa 2 — Alcance**
-```text
-¿A quiénes alcanza?
-
-Contribuyentes, responsables inscriptos, personas humanas y pymes.
-
-Área: Impuestos
-```
-
-**Placa 3 — Qué cambió**
-```text
-Puntos clave de la novedad
-
-El Poder Ejecutivo Nacional oficializó el Decreto 93/2026, mediante el cual se reglamenta el Régimen de Declaración Jurada Simplificada del Impuesto a las Ganancias previsto en la Ley 27.799, mientras que la Agencia de Recaudación y Control Aduanero aprobó su instrumentación operativa a través de…
-
-Referencia: Resolución General 5820/2026 · Decreto 93/2026 · Ley 27.799.
-```
-
-**Placa 4 — Qué revisar**
-```text
-3 pasos antes de consultar
-
-1. Confirmá si el régimen o formulario alcanza a tu inscripción actual en ARCA.
-2. Reuní tus comprobantes, presentaciones anteriores y notificaciones recibidas.
-3. Chequeá las fechas de vigencia o adhesión antes del próximo vencimiento.
-
-No compartas clave fiscal por DM.
-```
-
-**Placa 5 — ABM Estudio Contable**
-```text
-¿Querés revisar tu caso?
-
-Atención directa con la Cra. Alejandra Mayta.
-Escribinos por DM o por WhatsApp al +54 11 6817 2147.
-
-Guardá este post · @abm.estudiocontable
-```
-
-### Epígrafe completo (listo para pegar en Instagram)
-```text
-Declaración Jurada Simplificada de Ganancias: cómo funciona el nuevo sistema reglamentado por ARCA
-
-El Poder Ejecutivo Nacional oficializó el Decreto 93/2026, mediante el cual se reglamenta el Régimen de Declaración Jurada Simplificada del Impuesto a las Ganancias previsto en la Ley 27.799, mientras que la Agencia de Recaudación y Control Aduanero aprobó su instrumentación operativa a través de…
-
-¿A quién le sirve? Contribuyentes, responsables inscriptos, personas humanas y pymes.
-
-Si querés revisar cómo se aplica a tu actividad, escribinos por DM o por WhatsApp al +54 11 6817 2147. Atención directa de la Cra. Alejandra Mayta en CABA.
-Podés leer la nota completa desde el enlace de nuestra biografía o pedirnos el link por mensaje.
-
-Fuente consultada: Blog del Contador (16/11/2026). Nota informativa general; cada situación se evalúa en consulta.
-
-#ImpuestosArgentina #ARCA #AsesoramientoFiscal #EstudioContable #ABMEstudioContable #ParquePatricios
-```
-
-### Historia (Story) + Enlace con UTM
-```text
-📌 Declaración Jurada Simplificada de Ganancias
-Cómo funciona el nuevo sistema reglamentado por ARCA
-
-Leé la nota completa en nuestra web 👇
-
-Sticker de enlace ("Leer nota en ABM"):
-https://estudiocontableabm.com.ar/novedades/48f8797259079748e66d76b0?utm_source=instagram&utm_medium=story&utm_campaign=novedades_abm&utm_content=noticia_48f8797259
-```
-
-### Texto alternativo (Accesibilidad) y Respuesta rápida DM
-```text
-ALT: Carrusel de 5 placas de ABM Estudio Contable sobre "Declaración Jurada Simplificada de Ganancias: cómo funciona el nuevo sistema reglamentado por ARCA": alcance para contribuyentes, responsables inscriptos, personas humanas y pymes, resumen de la novedad, checklist de revisión y contacto directo.
-
-Respuesta rápida DM/WhatsApp:
-Hola, gracias por tu mensaje. Contanos cuál es tu condición frente a ARCA y qué presentación o comunicación necesitás revisar para evaluar tu caso.
 ```
 
 ---
