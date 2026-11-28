@@ -1,6 +1,10 @@
 # Guía de Automatización en la Nube · ABM Estudio Contable
 ## Cómo ejecutar los agentes y campañas de marketing sin tener la PC encendida
 
+> **Actualización 21/11/2026:** Las instrucciones de envío de correos que siguen son históricas y ya no corresponden al código actual. El script de Apps Script solo crea hasta 10 borradores de filas marcadas `APROBADO_BORRADOR`; el workflow de outreach solo admite vista previa manual. Para detener el script ya instalado en Google, eliminá sus activadores en [Mis activadores](https://script.google.com/home/triggers). Cambiar este repositorio no modifica automáticamente una copia instalada en Apps Script ni lo publicado en GitHub.
+
+**Uso actual del CSV:** importá sus nueve columnas sin modificar los títulos. El script agrega `Estado`, `Fecha` y `Draft_ID`. Revisá cada destinatario y texto y escribí `APROBADO_BORRADOR` únicamente en las filas que quieras convertir en borradores. `BORRADOR_CREADO` guarda el ID de Gmail; `ERROR_VALIDACION` señala datos incompletos y `REVISAR_BORRADOR` requiere comprobar Gmail antes de cualquier reintento. Ninguno de estos estados autoriza un envío.
+
 Esta guía explica cómo quedaron configurados y mejorados los agentes de captación, prospección por email y generación de contenidos de **ABM Estudio Contable** para operar de forma 100% autónoma en la nube, sin depender de que tu computadora personal esté encendida.
 
 ---

@@ -1,4 +1,4 @@
-/* exported onOpen, crearBorradoresDesdeSheet, enviarDirectoDesdeSheet, activarEnvioAutomaticoDiario, desactivarEnvioAutomatico, verEstadoCampana */
+/* exported onOpen, crearBorradoresDesdeSheet, enviarDirectoDesdeSheet, activarEnvioAutomaticoDiario, procesarCampanaABM, desactivarEnvioAutomatico, verEstadoCampana */
 /**
  * =====================================================================
  * ABM ESTUDIO CONTABLE · SCRIPT PARA GMAIL (GOOGLE APPS SCRIPT)
@@ -11,8 +11,8 @@
  * 2. Menú Archivo > Importar > Subir > seleccioná 'outreach/contactos_para_gmail_sheets.csv'.
  * 3. En el menú superior: Extensiones > Apps Script. Borrá lo que haya, pegá este código completo y guardá (Ctrl + S).
  * 
- * ¡Listo! Al recargar la hoja aparecerá el menú "📮 ABM Marketing" arriba.
- * Desde allí podés activar el envío automático diario en la nube con un clic.
+ * Al recargar la hoja aparecerá el menú "📮 ABM Marketing". Este archivo
+ * prepara borradores; no habilita envíos automáticos.
  */
 
 // =====================================================================
@@ -23,10 +23,7 @@ function onOpen() {
     const ui = SpreadsheetApp.getUi();
     ui.createMenu('📮 ABM Marketing')
       .addItem('👁️ Crear borradores en Gmail', 'crearBorradoresDesdeSheet')
-      .addItem('🚀 Enviar tanda manual (10 correos)', 'enviarDirectoDesdeSheet')
-      .addSeparator()
-      .addItem('⏰ Activar envío automático diario (Sin PC prendida)', 'activarEnvioAutomaticoDiario')
-      .addItem('⏹️ Pausar / Desactivar envío automático', 'desactivarEnvioAutomatico')
+      .addItem('⏹️ Desactivar activadores de envío', 'desactivarEnvioAutomatico')
       .addSeparator()
       .addItem('📊 Ver estado de la campaña', 'verEstadoCampana')
       .addToUi();
@@ -39,118 +36,85 @@ function onOpen() {
 // 1. CREAR BORRADORES EN GMAIL (Recomendado para revisar antes de enviar)
 // =====================================================================
 function crearBorradoresDesdeSheet() {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  const data = sheet.getDataRange().getValues();
-  
-  // Headers esperados: [0:ID, 1:Empresa, 2:Barrio, 3:Rubro, 4:Email, 5:Web, 6:Asunto, 7:Texto, 8:HTML, 9:Estado]
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(10000)) throw new Error('Ya hay otra ejecución preparando borradores.');
   let creados = 0;
-
-  for (let i = 1; i < data.length; i++) {
-    const row = data[i];
-    const email = row[4];
-    const asunto = row[6];
-    const cuerpoHtml = row[8];
-    const cuerpoTexto = row[7];
-    const estado = row[9];
-
-    // Solo procesar los que no fueron creados o enviados
-    if (email && estado !== 'BORRADOR_CREADO' && estado !== 'ENVIADO') {
-      GmailApp.createDraft(email, asunto, cuerpoTexto, {
-        htmlBody: cuerpoHtml
-      });
-      
-      sheet.getRange(i + 1, 10).setValue('BORRADOR_CREADO');
-      sheet.getRange(i + 1, 11).setValue(new Date().toISOString());
-      creados++;
-    }
-  }
-
-  Logger.log('✅ Se crearon ' + creados + ' borradores en tu Gmail.');
+  let invalidos = 0;
   try {
-    SpreadsheetApp.getUi().alert('Borradores creados', 'Se crearon ' + creados + ' borradores en tu bandeja de Gmail para revisar.', SpreadsheetApp.getUi().ButtonSet.OK);
-  } catch (uiErr) {
-    Logger.log('Aviso UI: ' + uiErr.message);
-  }
-}
-
-// =====================================================================
-// 2. ENVIAR CORREOS REALES DIRECTO DESDE GMAIL (Con control de cadencia)
-// =====================================================================
-function enviarDirectoDesdeSheet() {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  const data = sheet.getDataRange().getValues();
-  
-  // Límite diario para proteger la cuenta de Gmail (máximo 10 o 15 por tanda)
-  const LIMITE_POR_TANDA = 10;
-  const SEGUNDOS_ENTRE_MAILS = 12;
-
-  let enviados = 0;
-
-  for (let i = 1; i < data.length; i++) {
-    if (enviados >= LIMITE_POR_TANDA) {
-      Logger.log('⏹️ Se alcanzó el límite de ' + LIMITE_POR_TANDA + ' correos por tanda. Continúa en la próxima ejecución.');
-      break;
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    const expected = ['ID', 'Empresa', 'Barrio', 'Rubro', 'Email', 'Web', 'Asunto', 'Cuerpo_Texto_Plano', 'Cuerpo_HTML'];
+    const headers = sheet.getRange(1, 1, 1, Math.max(sheet.getLastColumn(), 9)).getValues()[0];
+    if (expected.some((name, i) => String(headers[i] || '').trim() !== name)) {
+      throw new Error('La hoja no tiene las primeras nueve columnas del CSV de ABM en el orden esperado.');
     }
+    const tracking = ['Estado', 'Fecha', 'Draft_ID'];
+    if (tracking.some((name, i) => headers[i + 9] && headers[i + 9] !== name)) {
+      throw new Error('Las columnas 10 a 12 deben llamarse Estado, Fecha y Draft_ID.');
+    }
+    sheet.getRange(1, 10, 1, 3).setValues([tracking]);
+    const data = sheet.getDataRange().getValues();
 
-    const row = data[i];
-    const empresa = row[1];
-    const email = row[4];
-    const asunto = row[6];
-    const cuerpoHtml = row[8];
-    const cuerpoTexto = row[7];
-    const estado = row[9];
-
-    if (email && estado !== 'ENVIADO') {
-      Logger.log('Enviando correo [' + (enviados + 1) + '] a ' + empresa + ' (' + email + ')...');
-      
+    for (let i = 1; i < data.length && creados < 10; i++) {
+      const row = data[i];
+      if (String(row[9] || '').trim() !== 'APROBADO_BORRADOR') continue;
+      const email = String(row[4] || '').trim();
+      const asunto = String(row[6] || '').trim();
+      const cuerpoTexto = String(row[7] || '').trim();
+      const cuerpoHtml = String(row[8] || '').trim();
+      const fila = i + 1;
+      if (row[11]) {
+        sheet.getRange(fila, 10).setValue('REVISAR_BORRADOR');
+        continue;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !asunto || !cuerpoTexto || !cuerpoHtml) {
+        sheet.getRange(fila, 10).setValue('ERROR_VALIDACION');
+        invalidos++;
+        continue;
+      }
+      // Se reserva la fila antes de llamar a Gmail: un error no vuelve a crearla solo.
+      sheet.getRange(fila, 10).setValue('CREANDO_BORRADOR');
+      SpreadsheetApp.flush();
       try {
-        GmailApp.sendEmail(email, asunto, cuerpoTexto, {
-          htmlBody: cuerpoHtml,
-          name: 'Alejandra Mayta · ABM Estudio Contable'
-        });
-
-        sheet.getRange(i + 1, 10).setValue('ENVIADO');
-        sheet.getRange(i + 1, 11).setValue(new Date().toISOString());
-        enviados++;
-
-        // Pausa anti-spam
-        Utilities.sleep(SEGUNDOS_ENTRE_MAILS * 1000);
+        const draft = GmailApp.createDraft(email, asunto, cuerpoTexto, { htmlBody: cuerpoHtml });
+        sheet.getRange(fila, 12).setValue(draft.getId());
+        sheet.getRange(fila, 11).setValue(new Date().toISOString());
+        sheet.getRange(fila, 10).setValue('BORRADOR_CREADO');
+        creados++;
       } catch (err) {
-        Logger.log('❌ Error enviando a ' + email + ': ' + err.message);
-        sheet.getRange(i + 1, 10).setValue('ERROR: ' + err.message);
+        sheet.getRange(fila, 10).setValue('REVISAR_BORRADOR');
+        Logger.log('Fila ' + fila + ': ' + err.message);
       }
     }
+    SpreadsheetApp.flush();
+  } finally {
+    lock.releaseLock();
   }
-
-  Logger.log('🎉 Tanda finalizada. Correos enviados: ' + enviados);
+  Logger.log('Borradores creados: ' + creados + '. Filas inválidas: ' + invalidos + '.');
   try {
-    SpreadsheetApp.getUi().alert('Tanda de envíos completada', 'Se enviaron ' + enviados + ' correos con éxito.', SpreadsheetApp.getUi().ButtonSet.OK);
+    SpreadsheetApp.getUi().alert('Borradores', 'Creados: ' + creados + '. Filas inválidas: ' + invalidos + '. Revisá las filas marcadas REVISAR_BORRADOR antes de reintentar.', SpreadsheetApp.getUi().ButtonSet.OK);
   } catch (uiErr) {
     Logger.log('Aviso UI: ' + uiErr.message);
   }
 }
 
 // =====================================================================
-// 3. ACTIVAR ENVÍO AUTOMÁTICO DIARIO (EN LA NUBE DE GOOGLE)
+// 2. ENVÍO DESHABILITADO
+// =====================================================================
+function enviarDirectoDesdeSheet() {
+  throw new Error('Envío deshabilitado. Revisá cada borrador y destinatario antes de cualquier autorización de envío.');
+}
+// =====================================================================
+// 3. ACTIVACIÓN AUTOMÁTICA DESHABILITADA
 // =====================================================================
 function activarEnvioAutomaticoDiario() {
-  desactivarEnvioAutomatico(); // Limpia activadores previos de esta función
-
-  ScriptApp.newTrigger('enviarDirectoDesdeSheet')
-    .timeBased()
-    .everyDays(1)
-    .atHour(10) // Entre 10:00 y 11:00 AM hora de Argentina
-    .create();
-
-  const msg = '✅ Envío automático diario activado con éxito en la nube de Google.\n\nTodos los días hábiles a las 10:00 AM se enviará una tanda segura de 10 correos.\n\nLa PC puede estar completamente APAGADA, ya que el proceso corre en los servidores de Google.';
-  Logger.log(msg);
-  try {
-    SpreadsheetApp.getUi().alert('Automatización Activada', msg, SpreadsheetApp.getUi().ButtonSet.OK);
-  } catch (uiErr) {
-    Logger.log('Aviso UI: ' + uiErr.message);
-  }
+  throw new Error('Activación automática deshabilitada para esta campaña.');
 }
 
+// Compatibilidad con el activador mencionado en los avisos de Google.
+function procesarCampanaABM() {
+  desactivarEnvioAutomatico();
+  Logger.log('Campaña detenida: activadores de envío eliminados.');
+}
 // =====================================================================
 // 4. DESACTIVAR ENVÍO AUTOMÁTICO
 // =====================================================================
@@ -158,7 +122,7 @@ function desactivarEnvioAutomatico() {
   const triggers = ScriptApp.getProjectTriggers();
   let eliminados = 0;
   for (let i = 0; i < triggers.length; i++) {
-    if (triggers[i].getHandlerFunction() === 'enviarDirectoDesdeSheet') {
+    if (['enviarDirectoDesdeSheet', 'procesarCampanaABM'].includes(triggers[i].getHandlerFunction())) {
       ScriptApp.deleteTrigger(triggers[i]);
       eliminados++;
     }
@@ -183,11 +147,15 @@ function verEstadoCampana() {
   let borradores = 0;
   let pendientes = 0;
   let errores = 0;
+  let aprobados = 0;
+  let revisar = 0;
 
   for (let i = 1; i < data.length; i++) {
     const estado = String(data[i][9] || '').trim();
     if (estado === 'ENVIADO') enviados++;
     else if (estado === 'BORRADOR_CREADO') borradores++;
+    else if (estado === 'APROBADO_BORRADOR') aprobados++;
+    else if (estado === 'REVISAR_BORRADOR' || estado === 'CREANDO_BORRADOR') revisar++;
     else if (estado.startsWith('ERROR')) errores++;
     else pendientes++;
   }
@@ -196,6 +164,8 @@ function verEstadoCampana() {
     'Total contactos en planilla: ' + total + '\n' +
     '✅ Enviados: ' + enviados + '\n' +
     '👁️ Borradores en Gmail: ' + borradores + '\n' +
+    'Aprobados para borrador: ' + aprobados + '\n' +
+    'Requieren revisión: ' + revisar + '\n' +
     '⏳ Pendientes: ' + pendientes + '\n' +
     '⚠️ Errores registrados: ' + errores;
 

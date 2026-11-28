@@ -1,6 +1,6 @@
 # Motor de Automatización de Emails y Prospección Local · ABM Estudio Contable
 
-Sistema integral para búsqueda, segmentación, generación y envío automatizado de correos electrónicos a empresas y pymes en **Parque Patricios**, **Boedo**, **Nueva Pompeya**, **Barracas** y zonas aledañas.
+Inventario y vistas previas de mensajes para empresas y pymes en **Parque Patricios**, **Boedo**, **Nueva Pompeya**, **Barracas** y zonas aledañas. Los envíos automáticos están deshabilitados.
 
 ---
 
@@ -18,9 +18,6 @@ npm run outreach:search -- list --barrio=boedo
 npm run outreach:preview -- --limit=5
 npm run outreach:preview -- --barrio=boedo --limit=3
 
-# 4. Enviar correos reales (controlado con cadencia anti-spam)
-npm run outreach:send -- --limit=5 --delay=15
-npm run outreach:send -- --barrio="parque patricios" --limit=3
 ```
 
 ---
@@ -61,24 +58,6 @@ Cada correo incluye:
 
 ---
 
-## 🚀 Configuración para Envíos Reales (SMTP)
+## Revisión antes de contactar
 
-Para enviar correos reales, configurar en `.env.local` (o variables de entorno):
-
-```env
-# Ejemplo con cuenta Gmail de ABM
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=465
-SMTP_USER=tu_correo@gmail.com
-# Contraseña de aplicación generada en myaccount.google.com > Seguridad > Contraseñas de aplicaciones
-SMTP_PASS=xxxx xxxx xxxx xxxx
-SMTP_FROM="Alejandra Mayta · ABM Estudio Contable <tu_correo@gmail.com>"
-REPLY_TO=contacto@estudiocontableabm.com.ar
-```
-
----
-
-## 🛡️ Buenas Prácticas Anti-Spam
-- **Límite sugerido:** No enviar más de 20 a 30 correos por día.
-- **Espera entre envíos (`--delay=15`):** Pausa de 15 a 30 segundos entre cada correo para no alertar a los filtros de Gmail o del destinatario.
-- **Registro y no duplicación:** Cada envío exitoso se marca como `enviado` en `prospects.json` y se audita en `campaign-log.json`, garantizando que ninguna empresa reciba correos duplicados.
+Los archivos en `outreach/previews/` son borradores locales. Revisá la vigencia del destinatario, el contenido y el historial de contactos antes de considerar cualquier comunicación. Generar una vista previa no cambia el estado del prospecto ni acredita un envío.
