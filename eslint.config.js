@@ -31,7 +31,7 @@ export default defineConfig([
     languageOptions: {
       sourceType: 'script',
       parserOptions: { sourceType: 'script' },
-      globals: { SpreadsheetApp: 'readonly', GmailApp: 'readonly', Logger: 'readonly', Utilities: 'readonly', ScriptApp: 'readonly' },
+      globals: { SpreadsheetApp: 'readonly', GmailApp: 'readonly', Logger: 'readonly', Utilities: 'readonly', ScriptApp: 'readonly', LockService: 'readonly' },
     },
   },
 ])
